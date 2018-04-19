@@ -1,0 +1,420 @@
+@media only screen and (max-width:1240px) {
+/*    index*/
+    .d-cnt h3 {font-size: 22px;}
+/*    index*/
+/*   superuser  */
+    .pmay-hdlogo img {width: 20%;}
+    .pmay-hdlogo {width: 55%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 13px;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .pmay-hdng h3 {font-size: 20px;}
+    .highcharts-container {width: 453px !important;}
+    .highcharts-root{width: 450px !important;}
+    .sd-tbl table{width: 150%;}
+/*   superuser  */
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 4%;}
+    .aprv-btn, .dny-btn, .mnpro-btn, .aprv-btnred {font-size: 13px;}
+/* superadmin   */
+/*admin*/
+    .sd-tbl {overflow-y: auto;}
+/*admin*/
+    
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+    body{overflow-x: hidden;}
+    /*    index*/
+    .d-cnt h3 {font-size: 20px;}
+    .d-cnt {width: 76%;}
+/*    index*/
+/*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 60%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .login-panel {width: 34% !important;}
+    .pmay-logo {width: 20%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn {width: 35%;}
+    .login-panel {width: 33%;}
+    .pie-chat {width: 60%;margin: 0 auto;margin-bottom: 20px;}
+/*   superuser  */
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 2%;font-size: 13px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {margin-left: 2%;font-weight: 500;}
+    .pm-suptb table th, .pm-suptb table td, .mnpro-btn{font-size: 11px;}
+    .sd-fbox select, .sd-fbox input {padding: 4px;}
+    .svd-btn {font-size: 13px;}
+    .rddlt_btn {width: 40%;}
+    .rddlt_btn a, .rdwnld_btn a {font-size: 12px;}
+    .surv-header h3 {font-size: 22px;}
+    .fm-tbl4b h4 {font-size: 17px;}
+    .sub-frbtn, .sv-frbtn {font-size: 14px;padding: 5px;}
+    .can-pmay a {font-size: 14px;}
+    .s_sidenav .nav-tabs > li.active > a, .s_sidenav .nav-tabs > li.active > a:focus, .s_sidenav .nav-tabs > li.active > a:hover {font-weight: 500;}
+/* superadmin   */
+/*admin*/
+    .mn-frmbtn {width: 40%;}
+    .aprv-btn, .dny-btn, .aprv-btnred {font-size: 11px;width: 60%;}
+    .sd-tbl table {width: 200%;}
+/*admin*/
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){ 
+body{overflow-x:hidden;}
+/*    index*/
+    .d-cnt h3 {font-size: 18px;}
+    .d-cnt {width: 91%;}
+    .mr-cubtn{display: none;}
+/*    index*/
+  /*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 80%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;width: 20%;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .login-panel {width: 43%;}
+    .pmay-logo {width: 24%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn {width:42%;}
+    .s_sidenav ul li a {font-size: 13px;margin-left: 2%;}
+    .sd-fbox {width: 24.5%;}
+    .pie-chat {height: 342px;}
+    .header .navbar-header h3 {font-size: 25px;}
+    .pmay-hdng h3 {font-size: 19px;margin-top: 7px;}
+    .rdwnld_btn a {font-size: 12px;}
+    .pie-chat {width: 75%;margin: 0 auto;margin-bottom: 20px;}
+    .highcharts-root{width: 430px !important;}
+/*   superuser  */ 
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 2%;font-size: 13px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {margin-left: 2%;font-weight: 500;}
+    .rdo-pmay .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {margin-top: 0;margin-left: 0px;}
+    .rdo-pmay .checkbox-inline, .radio-inline {width: 30%;}
+    .sd-tbl {overflow-y: auto;}
+    .surv-header h3 {font-size: 19px;}
+    .rdo-srv input[type="radio"] {margin-left: -54px;}
+    .add-bx h4 {width: 14%;font-size: 14px;}
+    .mn-surv-table {width: 98%;overflow-y: auto;}
+    .surv-table {width: 200%;}
+    .rdo-srv2 input[type="radio"] {margin-left: -53px;}
+    .mn-frmbtn {width: 54%;}
+    .aprv-btn, .dny-btn, .aprv-btnred{font-size: 12px;width: 70%;}
+    .mnpro-btn {font-size: 12px;width: 45%;}
+    .pm-suptb table th, .pm-suptb table td{font-size: 11px;}
+    .prdt{margin-left: 10px;}
+    .de-dwnld {width: 15%;}
+    .svd-btn {font-size: 12px;}
+    .sd-fbox select, .sd-fbox input {padding: 4px;}
+    .fm-tbl4b h4 {font-size: 16px;}
+    .sub-frbtn, .sv-frbtn{font-size: 14px;width: 80%;padding: 5px;}
+    .can-pmay a {font-size: 14px;padding: 7px 21px;}
+    .sd-tbl table {width: 200%;}
+    .rddlt_btn {width: 50%;font-size: 12px;}
+    .s_sidenav .nav-tabs > li.active > a, .s_sidenav .nav-tabs > li.active > a:focus, .s_sidenav .nav-tabs > li.active > a:hover {font-weight: 500;}
+/* superadmin   */
+/*surveyor-user*/
+    .hd-super{font-size: 15px;}
+/*surveyor-user*/
+}
+@media screen and (min-width: 360px) and (max-width: 667px) and (orientation: landscape){
+body{overflow-x:hidden;}
+/*    index*/
+    .d-cnt h3 {font-size: 18px;}
+    .d-cnt {width: 91%;margin-top: 10%;}
+    .pm-admnb .navbar-nav {margin: 0px 0px;}
+    .expand-btn {width: 30px;}
+/*    index*/
+    /*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 55%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;width: 20%;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .login-panel {width: 50%;}
+    .pmay-logo {width: 21%;}
+    .pmay-logo img{width: 90%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn {width:45%;margin-bottom: 10px;margin-left: 0%;}
+    .rddlt_btn {width: 50%;;}
+    .s_sidenav ul li a {font-size: 15px;margin-left: 2%;}
+    .sd-fbox {width: 24.5%;}
+    .pie-chat {height: 330px;margin-bottom: 10px;}
+    .header .navbar-header h3 {font-size: 25px;}
+    .pmay-hdng h3 {font-size: 19px;margin-top: 9px;}
+    .rdwnld_btn a {font-size: 12px;}
+    .rddlt_btn a {font-size: 12px;}
+    .s_sidenav {height: 44px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {text-align: center;}
+    .s_sidenav .nav-tabs > li > a {text-align: center;margin-left: 0%;}
+    .eu-logo h3{font-size: 22px;}
+    .log-head h3 {font-size: 21px;}
+    .s_panel-body {padding-top: 6%;}
+    .pie-chat {width: 70%;margin: 0 auto;margin-bottom: 20px;}
+    .highcharts-root{width: 400px !important;}
+/*   superuser  */  
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 0%;font-size: 14px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {margin-left: 0%;font-weight: 700;}
+    .rdo-pmay .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {margin-top: 0;margin-left: 0px;}
+    .rdo-pmay .checkbox-inline, .radio-inline {width: 30%;}
+    .sd-tbl {overflow-y: auto;}
+    .surv-header h3 {font-size: 20px;}
+    .rdo-srv input[type="radio"] {margin-left: -54px;}
+    .add-bx h4 {width: 14%;}
+    .mn-surv-table {width: 98%;overflow-y: auto;}
+    .surv-table {width: 200%;}
+    .rdo-srv2 input[type="radio"] {margin-left: -53px;}
+    .mn-frmbtn {width: 54%;}
+    .aprv-btn, .dny-btn, .aprv-btnred{font-size: 12px;width: 75px;}
+    .mnpro-btn {font-size: 12px;width: 50%;}
+    .pm-suptb table th, .pm-suptb table td{font-size: 11px;}
+    .svd-btn {font-size: 13px;}
+    .sub-frbtn, .sv-frbtn, .can-pmay a {font-size: 13px;}
+    .de-dwnld {width: 18%;}
+    .excel-tblbox h3{font-size: 22px;}
+    .sd-fbox select, .sd-fbox input {padding: 4px;}
+    .fm-tbl4b h4 {font-size: 16px;}
+    .sd-tbl table {width: 150%;}
+    .rddlt_btn {font-size: 12px;width: 50%;}
+/* superadmin   */
+}
+/*Smartphone Portrait-360px*/
+@media screen and (min-width: 360px) and (max-width: 640px)and (orientation: portrait){
+/*    index*/
+    .d-cnt h3 {font-size: 17px;}
+    .d-cnt {width: 100%;margin-top: 28%;}
+    .pm-admnb .navbar-nav {margin: 0px 0px;}
+/*    index*/
+/*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 65%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;width: 50%;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 35%;}
+    .pmay-logo img{width: 90%;}
+    .login-panel {width: 90%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn {width: 88%;margin-bottom: 10px;}
+    .rddlt_btn {width: 100%;margin-bottom: 10px;}
+    .s_sidenav ul li a {font-size: 13px;margin-left: 2%;}
+    .sd-fbox {width: 100%;margin-left: 9px;}
+    .sd-fbox input, .sd-fbox select{width: 95%;}
+    .pie-chat {height: 330px;margin-bottom: 10px;}
+    .header .navbar-header h3 {font-size: 25px;}
+    .pmay-hdng h3 {font-size: 19px;margin-top: 9px;}
+    .rdwnld_btn a, .rddlt_btn a {font-size: 12px;}
+    .s_sidenav {height: 44px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {text-align: center;}
+    .s_sidenav .nav-tabs > li > a {text-align: center;margin-left: 0px;font-size: 14px;}
+    .pmay-hdlogo {width: 100%;}
+    .s_sidenav {height: 40px;}
+    .expand-btn {width: 27px;height: 19px;font-size: 13px;}
+    .awas-lg img {width: 18%;}
+    .chs-lg img { width: 13%;}
+    .sd-filter h4{text-align: center;}
+    .chkbx-area h4{text-align: center;}
+    .sd-view h4{text-align: center;}
+    .eu-logo h3{font-size: 21px;}
+    .log-head h3 {font-size: 20px;}
+    .pie-chat {width: 100%;margin: 0 auto;margin-bottom: 20px;}
+    .highcharts-root{width: 295px !important;}
+    .highcharts-contextmenu{right: 144px !important;}
+/*   superuser  */
+/* superadmin   */    
+    .s_sidenav ul li a {margin-left: 0%;font-size: 13px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {margin-left: 0%;font-weight: 500;}
+    .rdo-pmay .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {margin-top: 0;margin-left: 0px;}
+    .rdo-pmay .checkbox-inline, .radio-inline {width: 48%;font-size: 13px;}
+    .sd-tbl {overflow-y: auto;}
+    .surv-header h3 {font-size: 17px;}
+    .fm-tbl4b h4 {font-size: 14px;}
+    .rdo-srv input[type="radio"] {margin-left: -54px;}
+    .add-bx h4 {width: 26%;font-size: 14px;}
+    .adsrv-rgt h5 {margin-left: 30px;font-size: 15px;}
+    .adsrv-left h5 {font-size: 15px;}
+    .slum-dtls2 h4, .slum-dtls3 h4 {font-size: 17px;}
+    .mn-surv-table {width: 98%;overflow-y: auto;}
+    .surv-table {width: 200%;}
+    .rdo-srv2 input[type="radio"] {margin-left: -53px;}
+    .mn-frmbtn {width: 95%;}
+    .aprv-btn, .dny-btn, .aprv-btnred{font-size: 11px;width: 100%;}
+    .mnpro-btn {font-size: 12px;width: 80%;}
+    .pm-suptb table th, .pm-suptb table td{font-size: 11px;}
+    .svd-btn {font-size: 13px;}
+    .sub-frbtn, .sv-frbtn, .can-pmay a {font-size: 13px;}
+    .adsurvy-bx p, .adsurvy-bx1 p{font-size: 13px;}
+    .surv-table table th, .surv-table table td {font-size: 11px;}
+    .pm-suptb {overflow-y: auto;}
+    .de-dwnld {width: 30%;}
+    .excel-tblbox h3{font-size: 19px;}
+    .sd-tbl table {width: 250%;}
+    .pagination > li > a, .pagination > li > span {padding: 6px 10px;}
+    .s_sidenav .nav-tabs > li.active > a, .s_sidenav .nav-tabs > li.active > a:focus, .s_sidenav .nav-tabs > li.active > a:hover {font-weight: 500;}
+/* superadmin   */
+}
+/*Smartphone Portrait-480px*/
+@media screen and (min-width: 321px) and (max-width:480px)and (orientation: landscape){
+body{overflow-x:hidden;}
+/*    index*/
+    .d-cnt h3 {font-size: 17px;}
+    .d-cnt {width: 100%;margin-top: 28%;}
+    .pm-admnb .navbar-nav {margin: 0px 0px;}
+/*    index*/
+/*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 65%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;width: 50%;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .login-panel {width: 70%;}
+    .pmay-logo {width: 24%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn {width: 65%;}
+    .rddlt_btn {width: 75%;}
+    .s_sidenav ul li a {font-size: 13px;margin-left: 2%;}
+    .sd-fbox {width: 100%;margin-left: 9px;}
+    .sd-fbox input, .sd-fbox select{width: 95%;}
+    .pie-chat {height: 330px;margin-bottom: 10px;}
+    .header .navbar-header h3 {font-size: 25px;}
+    .pmay-hdng h3 {font-size: 19px;margin-top: 9px;}
+    .rdwnld_btn a {font-size: 12px;}
+    .s_sidenav {height: 44px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {text-align: center;}
+    .s_sidenav .nav-tabs > li > a {text-align: center;font-size: 15px;}
+    .pmay-hdlogo {width: 80%;}
+    .s_sidenav {height: 40px;}
+    .expand-btn {width: 30px;height: 19px;font-size: 13px;}
+    .awas-lg img {width: 18%;}
+    .chs-lg img { width: 13%;}
+    .sd-filter h4{text-align: center;}
+    .chkbx-area h4{text-align: center;}
+    .sd-view h4{text-align: center;}
+    .pie-chat {width: 100%;margin: 0 auto;margin-bottom: 20px;}
+     .highcharts-contextmenu{right: 10px !important;}
+/*   superuser  */
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 2%;font-size: 13px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active >  a:hover {margin-left: 0%;font-weight: 700;}
+    .rdo-pmay .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {margin-top: 0;margin-left: 0px;}
+    .rdo-pmay .checkbox-inline, .radio-inline {width: 48%;font-size: 13px;}
+    .sd-tbl {overflow-y: auto;}
+    .surv-header h3 {font-size: 17px;}
+    .fm-tbl4b h4 {font-size: 14px;}
+    .rdo-srv input[type="radio"] {margin-left: -66px;}
+    .add-bx h4 {width: 26%;font-size: 14px;}
+    .adsrv-rgt h5 {margin-left: 25px;font-size: 15px;}
+    .adsrv-left h5 {font-size: 15px;}
+    .slum-dtls2 h4, .slum-dtls3 h4 {font-size: 17px;}
+    .mn-surv-table {width: 98%;overflow-y: auto;}
+    .surv-table {width: 200%;}
+    .rdo-srv2 input[type="radio"] {margin-left: -66px;}
+    .mn-frmbtn {width: 89%;}
+    .aprv-btn, .dny-btn, .mnpro-btn {font-size: 12px;}
+    .pm-suptb table th, .pm-suptb table td{font-size: 11px;}
+    .svd-btn {font-size: 13px;}
+    .sub-frbtn, .sv-frbtn, .can-pmay a {font-size: 13px;}
+    .adsurvy-bx p, .adsurvy-bx1 p{font-size: 13px;}
+    .surv-table table th, .surv-table table td {font-size: 11px;}
+    .mnpro-btn {width: 80%;}
+    .pm-suptb {overflow-y: auto;}
+    .de-dwnld {width: 30%;}
+    .excel-tblbox h3{font-size: 19px;}
+    .sd-tbl table {width: 170%;}
+/* superadmin   */
+}
+/*Smartphone Portrait-320px*/
+@media screen and (max-width: 320px){
+    body{overflow-x:hidden;}
+/*    index*/
+    .d-cnt h3 {font-size: 17px;}
+    .d-cnt {width: 100%;margin-top: 28%;}
+    .pm-admnb .navbar-nav {margin: 0px 0px;}
+/*    index*/
+/*   superuser  */
+    .pmay-hdlogo img {width: 21%;}
+    .pmay-hdlogo {width: 65%;}
+    .sd-fbox {width: 19.5%;}
+    .chbx {font-size: 11px;width: 50%;}
+    .sd-tbl table th {font-size: 11px;}
+    .sd-tbl table td {font-size: 11px;}
+    .pmay-logo {width: 14%;}
+    .login-panel {width: 100%;}
+    .pmay-logo {width: 35%;}
+    .pmay-logo img{width: 90%;}
+    .lft-lg img {width: 25%;}
+    .rgt-lg img {width: 16%;}
+    .rdwnld_btn, .rddlt_btn {width: 100%;margin-bottom: 10px;padding: 3px;}
+    .s_sidenav ul li a {font-size: 13px;margin-left: 2%;}
+    .sd-fbox {width: 100%;margin-left: 9px;}
+    .sd-fbox input, .sd-fbox select{width: 95%;}
+    .pie-chat {height:330px;margin-bottom: 10px;}
+    .header .navbar-header h3 {font-size: 25px;}
+    .pmay-hdng h3 {font-size: 17px;margin-top: 0px;padding-top: 5px;}
+    .rdwnld_btn a, .rddlt_btn a {font-size: 11px;}
+    .s_sidenav {height: 44px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {text-align: center;}
+    .s_sidenav .nav-tabs > li > a {text-align: center;margin-left: 0%;font-size: 14px;}
+    .pmay-hdlogo {width: 100%;}
+    .s_sidenav {height: 40px;}
+    .expand-btn {width: 26px;height: 19px;font-size: 13px;}
+    .awas-lg img {width: 18%;}
+    .chs-lg img { width: 13%;}
+    .sd-filter h4{text-align: center;}
+    .chkbx-area h4{text-align: center;}
+    .sd-view h4{text-align: center;}
+    .eu-logo h3{font-size: 20px;}
+    .log-head h3 {font-size: 21px;}
+    .pie-chat {width: 100%;margin: 0 auto;margin-bottom: 20px;}
+    .highcharts-root{width: 250px !important;}
+     .highcharts-contextmenu{right: 160px !important;}
+/*   superuser  */
+/* superadmin   */
+    .s_sidenav ul li a {margin-left: 0%;font-size: 13px;}
+    .s_sidenav .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {margin-left: 0%;font-weight: 700;}
+    .rdo-pmay .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline {margin-top: 0;margin-left: 0px;}
+    .rdo-pmay .checkbox-inline, .radio-inline {width: 49%;font-size: 13px;}
+    .sd-tbl {overflow-y: auto;}
+    .surv-header h3 {font-size: 17px;}
+    .fm-tbl4b h4 {font-size: 14px;}
+    .rdo-srv input[type="radio"] {margin-left: -48px;}
+    .add-bx h4 {width: 26%;font-size: 14px;}
+    .adsrv-rgt h5 {margin-left: 27px;font-size: 15px;}
+    .adsrv-left h5 {font-size: 15px;}
+    .slum-dtls2 h4, .slum-dtls3 h4 {font-size: 17px;}
+    .mn-surv-table {width: 98%;overflow-y: auto;}
+    .surv-table {width: 200%;}
+    .rdo-srv2 input[type="radio"] {margin-left: -48px;}
+    .mn-frmbtn {width: 98%;}
+    .aprv-btn, .dny-btn, .mnpro-btn, .aprv-btnred {font-size: 11px;width: 100%;}
+    .pm-suptb table th, .pm-suptb table td{font-size: 11px;}
+    .svd-btn {font-size: 13px;}
+    .sub-frbtn, .sv-frbtn, .can-pmay a {font-size: 13px;}
+    .adsurvy-bx p, .adsurvy-bx1 p{font-size: 13px;}
+    .surv-table table th, .surv-table table td {font-size: 11px;}
+    .mnpro-btn {width: 80%;}
+    .pm-suptb {overflow-y: auto;}
+    .de-dwnld {width: 32%;}
+    .excel-tblbox h3{font-size: 19px;}
+    .sd-tbl table {width: 250%;}
+    .pagination > li > a, .pagination > li > span {padding: 5px 10px;}
+/* superadmin   */
+}

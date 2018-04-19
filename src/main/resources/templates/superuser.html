@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+       <meta charset="utf-8" />
+        <title>PMAY | Survey Panel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="images/pmay-favicon.png" rel="icon" sizes="16x16" />
+        <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="datepicker/css/jquery-ui.css" />
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="js/customise.js" type="text/javascript"></script>
+        <script src="datepicker/js/jquery-ui.js"></script>
+        <script src="datepicker/js/datepicker.js"></script>
+        <script src="js/highcharts.js"></script>
+		<script src="js/exporting.js"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script src="js/lodash.min.js" type="text/javascript"></script>
+        <script src="js/Underscore.js" type="text/javascript"></script>
+        <script src="js/sweetalert2.all.min.js" type="text/javascript"></script>
+        <script src="pmayjs/main.js" type="text/javascript"></script>
+        <script src="pmayjs/superuser.js" type="text/javascript"></script>
+        <script src="pmayjs/FileSaver.js" type="text/javascript"></script>
+		<script src="js/FileSaver.min.js" type="text/javascript"></script>
+		
+    </head>
+<body ng-controller="SuperUserController as superUser">
+<!-- modal box -->
+ <div class="modal">
+ <span class="close">&times;</span>
+ <img class="modal-content"/>
+ </div>
+ <!-- modal box -->
+ <div class="pmay-loader">
+        <button class="btn btn-lg btn-warning"><span class="fa fa-refresh fa-refresh-animate"></span></button>
+</div>
+	<div class="container-fluid no-padding" ng-init="getDropDownData(); checkSession()"><!-- checkSession() -->
+		<div class="header">
+		  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+              <div class="navbar-header">
+               <h3>PMAY</h3>
+              </div>
+		  </div>
+		  <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+             <div class="pmay-hdng">
+                <div class="pmay-hdlogo">
+                    <img src="images/Pmay_Logo.jpg" />
+                    <h3>Pradhan Mantri Awas Yojana</h3>
+                </div>  
+             </div> 
+		  </div>
+		  <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+		      <div class="pm-admnb">
+		          <ul class="nav navbar-nav navbar-right">
+						<li><p>Hi {{loginUserName}}</p></li>
+					</ul>
+		      </div>
+		  </div>
+         <div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="s_cnt_ar">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 no-padding">
+				<div class="s_sidenav">
+					<ul class="nav nav-tabs">
+                      <li class="hd-super">Super User</li>
+                      <li><a data-toggle="tab" href=""></a></li>
+                      <li  class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                      <li><a data-toggle="tab" href="#surpt">Survey Report</a></li>
+                      <li id="viewSurTab" style="display:none;"><a data-toggle="tab" href="#viewSurvey">View Beneficiary</a></li>
+                      <li><a data-toggle="tab" href="#lgout" ng-click="logout()">Logout</a></li>
+                    </ul>
+				</div>
+				<div class="mr-cubtn hidden-lg hidden-md">
+             <button class="expand-btn"><span class="fa fa-bars"></span></button>
+            </div>
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="s_nav_cnt">
+					<div class="tab-content">
+                      <div id="home" class="tab-pane fade in active">
+                        <div class="mn-hmpmay">
+                           <!--  <div class="rdo-pmay">
+                                <label class="radio-inline"><input type="radio" value="slum" name="optradio" ng-model="reportParam" ng-init="reportParam = 'slum'" ng-click = "getFilterForUlbDetails(reportParam)"/>Slum</label>
+                                <label class="radio-inline"><input type="radio" value="nonSlum" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Non-slum</label>
+                                <label class="radio-inline"><input type="radio" value="todayReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Today's Survey</label>
+                                <label class="radio-inline"><input type="radio" value="totalReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Total Survey</label> 
+                            </div> -->
+                            <div class="pm-suptb">
+                            <div class="text-center" style="font-weight: bold">    
+                            ULB                     
+                            <select id="selectULB" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
+									<option selected="selected" ng-selected="true" value="ALL">ALL</option>
+									<optgroup label="PACKAGE 1">
+										<option value="4">Balugaon (N)</option>
+										<option value="5">Banpur (N)</option>
+										<option value="10">Bhubaneswar (MC)</option>
+										<option value="11">Binika (N)</option>
+										<option value="15">Chandabali (N)</option>
+										<option value="16">Daspalla (N)</option>
+										<option value="18">Dhamnagar (N)</option>
+										<option value="21">Jatni (M) </option>
+										<option value="27">Khandapada (N)</option>
+										<option value="28">Khurda (M)</option>
+										<option value="29">Konark (N)</option>
+										<option value="31">Nayagarh (N)</option>
+										<option value="32">Nimapara (N)</option>
+										<option value="36">Pipili (N)</option>
+										<option value="37">Puri (M)</option>
+										<option value="38">Ranpur (N)</option>
+										<option value="41">Sonepur (M) </option>
+										<option value="42">Tarva (N) </option>
+									</optgroup>
+									<optgroup label="PACKAGE 2">
+										<option value="1">Anandapur (M)</option>
+										<option value="2">Attabira (N) </option>
+										<option value="3">Baliguda (N) </option>
+										<option value="6">Barapalli (N)</option>
+										<option value="7">Barbil (M) </option>
+										<option value="8">Bargarh (M)</option>
+										<option value="9">Bhawanipatana (M)</option>
+										<option value="12">Bolangir (M) </option>
+										<option value="13">Boudhgarh (N)</option>
+										<option value="14">Champua (N)</option>
+										<option value="17">Deogarh (N)</option>
+										<option value="19">Dharmagarh (N) </option>
+										<option value="20">G.Udayagiri (N)</option>
+										<option value="22">Joda (M) </option>
+										<option value="23">Junagarh (N) </option>
+										<option value="24">Kantabanjhi (N)</option>
+										<option value="25">Keonjhargarh (M) </option>
+										<option value="26">Kesinga (N)</option>
+										<option value="30">Kuchinda (N) </option>
+										<option value="33">Padmapur (N) </option>
+										<option value="34">Patnagarh (N)</option>
+										<option value="35">Phulbani (M) </option>
+										<option value="39">Redhakhol (N)</option>
+										<option value="40">Sambalpur (MC) </option>
+										<option value="43">Titlagarh (N)</option>
+										<option value="44">Tusura (N) </option>
+									</optgroup>
+								</select>	
+                           
+                             </div>
+                                <!-- table class="table-responsive">
+                                    <tr>
+                                        <th>Sl No.</th>
+                                        <th>ULB Name</th>
+                                        <th>Ward Name</th>
+                                    </tr>
+                                    <tr ng-repeat="ulbReport in superUser.ulbWardsData " >
+                                        <td class="text-center">{{(superUser.ulbPager.currentPage-1) * superUser.ulbPager.pageSize+ $index+1}}</td>
+                                        <td class="text-center">{{ulbReport.ulbName}}</td>
+                                        <td>{{ulbReport.wardNames}}</td>
+                                    </tr>
+                                    <tr id="noUlbRecords" hidden ="hidden">
+                                        <td colspan="3"><h5><b> No Record Found </b></h5></td>
+                                    </tr>
+                                </table -->
+                                <!--
+                                <div class="clearfix"></div>
+                                  <div class="text-center">
+				                   <ul ng-if="superUser.ulbPager.pages.length" class="pagination">
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === 1}">
+				                            <a ng-click="superUser.setUlbDetailsPage(1)" href ="">First</a>
+				                        </li>
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === 1}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.currentPage - 1)" href ="">Previous</a>
+				                        </li>
+				                        <li ng-repeat="page in superUser.ulbPager.pages" ng-class="{active:superUser.ulbPager.currentPage === page}">
+				                            <a ng-click="superUser.setUlbDetailsPage(page)" href ="">{{page}}</a>
+				                        </li>               
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === superUser.ulbPager.totalPages}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.currentPage + 1)" href ="">Next</a>
+				                        </li>
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === superUser.ulbPager.totalPages}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.totalPages)" href ="">Last</a>
+				                        </li>
+				                    </ul>
+				                </div>
+				                    -->
+                            </div>
+                            
+                            
+                            <div class="pm-piechat" ng-init = "getTodaySurveyReport() ; getTotalSurveyReport()">
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                   <div class="pie-chat">
+                                       <h4>Today's Survey({{packageCity}})</h4>
+                                       <div class="clearfix"></div>
+                                            <div id="todaySurveyReport" style="min-width: 100%; height: 300px; margin: 0 auto"></div>
+                                   </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                  <div class="pie-chat">
+                                       <h4>Total Survey({{packageCity}})</h4>
+                                       <div class="clearfix"></div>
+                                            <div id="totalSurveyReport" style="min-width: 100%; height: 300px; margin: 0 auto"></div>
+                                   </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="surpt" class="tab-pane fade">
+							<div class="survdata">
+								<div class="sd-filter">
+									<h4>Search Survey Report</h4>
+										<div class="sd-fbox">
+											<input type="text" name="name" placeholder="Enter Name" ng-model="searchData.superUserReportName"/>
+										</div>
+										<div class="sd-fbox">
+                               		 		<input type="text" name="aadhar-no" placeholder="Aadhar No / ID No" ng-model="searchData.superUserReportAadharNo"/>
+	                                  	</div>
+	                                    <div class="sd-fbox">
+	                                		<input type="text" name="ulb name" placeholder="ULB Name" ng-model="searchData.superUserReportUlbName"/>
+	                                    </div>
+										 <div class="sd-fbox">
+	                                		<input type="text" name="father spouse name" placeholder="Father's/Spouse Name" ng-model="searchData.superUserReportFatherSpouseName"/>
+	                                    </div>
+                                        <div class="sd-fbox" style="display: none">
+	                                		<input type="text" name="bank-account" placeholder="Bank Account" ng-model="searchData.superUserReportBankAc"/>
+	                                    </div>
+										<div class="sd-fbox">
+											<select name="scope-name" ng-model="searchData.superUserReportScopeName">
+												<option value="">Select Search Criteria</option>
+												<option value="pus.ward_id"> Ward No </option>
+												<option value="pg.gender_name"> Gender </option>
+												<!--
+												<option value="pms.marital_status_name"> Marital Status </option>
+												<option value="prg.religion_name"> Religion </option> 
+												<option value="pc.caste_name"> Caste </option>
+												<option value="prc.city_name"> Present City</option>
+												<option value="pec.city_name"> Permanent City</option>
+												<option value="present_mobile_number"> Present Mobile Number</option>
+												<option value="perm_mobile_number"> Permanent Mobile Number</option>
+												
+												<option value="patta_number">Patta Number</option>
+												<option value="dag_number"> Dag Number </option>
+												<option value="if_yes_bpl_card_number"> Bpl Card Number</option>
+												<option value="if_yes_ration_card_number"> Ration Card Number</option>
+												 -->
+											</select>
+										</div>
+										<div class="sd-fbox">
+	                                		<input type="text" name="scope-value" placeholder="Enter a value" ng-model="searchData.superUserReportScopeValue"/>
+	                                    </div>
+										<div class="sd-fbox">
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+												<button type="submit" class="svd-btn" ng-click = "customizeSearchReport()">Search</button>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+												<button type="reset" class="svd-btn" ng-click="resetAll()">Reset</button>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									<div class="clearfix"></div>
+								</div>
+								<hr></hr>
+								<div class="clearfix"></div>
+								<!-- 
+								<div class="chkbx-area">
+									<h4>Select Fields</h4>
+									<div class="chbx-field">
+										<div class="chbx">
+											<input type="checkbox" name="mobile No"
+												ng-model="mobileNo" ng-init ="mobileNo = true"/><br /> Surveyor RMN(Registered Mobile No)
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Unique ID"
+												ng-model="uniqueId" ng-init ="uniqueId = true"/><br /> Unique ID
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="aadharno"
+												ng-model="aadharNo" ng-init ="aadharNo = true"/><br />Aadhar No
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="name"
+												ng-model="userName" ng-init ="userName = true"/><br /> Name
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="father's Name"
+												ng-model="userFatherName" ng-init ="userFatherName = true"/><br />Father/Husband's Name
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="gender" ng-model="gender"
+												ng-init ="gender = true" /><br />Sex
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Date of Birth" ng-model="dob" ng-init ="dob = true" /><br /> Date of Birth
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Slum/Non-Slum"
+												ng-model="slumNonSlum"
+												ng-init ="slumNonSlum = true"/><br />Slum/Non-Slum
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="ULB  Name"
+												ng-model="ulbName" ng-init ="ulbName = true" /><br/>ULB  Name
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Ward No"
+												ng-model="wardNo" ng-init ="wardNo = true" /><br /> Ward No
+										</div>
+										
+										<div class="chbx">
+											<input type="checkbox" name="Preferred Component of the Mission" ng-model="missionComponent"
+												ng-init ="missionComponent = true" /><br /> Preferred Component of the Mission
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Eligible - Not-Eligible"
+												ng-model="eligibleStatus" ng-init ="eligibleStatus = true" /><br /> Eligible/Not-Eligible
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="Long - Lat"
+												ng-model="longLat" ng-init ="longLat = true" /><br /> Long - Lat
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								<hr />
+								<div class="clearfix"></div>
+								 -->
+								<div class="sd-view">
+									<h4>View Survey Report</h4>
+									<div class="sd-tbl">
+										<table  class="table-responsive">
+											<tr>
+												<th><input type="checkbox" name="selectall" ng-model="selectedAll" ng-click ="selectAllSurveyReportData()" ng-init="selectedAll = true"/></th>
+												<th>Sl No.</th>
+												<th>Surveyor RMN</th>
+												<th>Unique ID</th>
+												<th>Aadhaar No</th>
+												<th>Name</th>
+												<th>Father's/Husband's Name</th>
+												<th>Sex</th>
+												<th>Date of Birth</th>
+												<th>Slum/Non-Slum</th>
+												<th>ULB Name</th>
+												<th>Ward No</th>
+												<th>Preferred Component of the Mission</th>
+												<th>Eligible/Not-Eligible</th>
+												<th>Remarks for Non Eligibility</th>
+												<th>Photo</th>
+												<th>Biometrics</th>
+												<th>Long - Lat</th>
+												<!-- <th>View</th> -->
+												
+											</tr>
+											<tr ng-repeat="surveyReport in superUser.surveyReportData">
+												<td><input type="checkbox" name="selectedSuperUserReportSurveyId" ng-model ="superUserReport.selectedId[surveyReport.userSurveyId]" ng-init="superUserReport.selectedId[surveyReport.userSurveyId] = true" /></td>
+												<td class="text-center">{{(superUser.reportPager.currentPage-1) * superUser.reportPager.pageSize+ $index+1}}</td>
+												<td>{{surveyReport.presentMobNo ? surveyReport.presentMobNo : surveyReport.userRMN}}</td>
+												<td>{{surveyReport.userSurveyId}}</td>
+												<td>{{surveyReport.adharNumber ? surveyReport.adharNumber : surveyReport.aadharCardNumber}}</td>
+												<td>{{surveyReport.userName ? surveyReport.userName : surveyReport.familyHead}}</td>
+												<td>{{surveyReport.userFatherName ? surveyReport.userFatherName : surveyReport.fatherOrHusbandName}}</td>
+												<td>{{surveyReport.userGender ? surveyReport.userGender: surveyReport.genderName}}</td>
+												<td>{{surveyReport.userAge}}</td>
+												<td>{{surveyReport.slumNonSlumStatus ? surveyReport.slumNonSlumStatus : (surveyReport.slumNonSlum === 'S' ? 'Slum' : 'Non-Slum')}}</td>
+												<td>{{surveyReport.ulbName}}</td><!-- ULB  Name -->
+												<td>{{surveyReport.wardName ? surveyReport.wardName : surveyReport.wardId}}</td>
+												<td>{{surveyReport.hfaCategoryName}}</td>
+												<td>{{surveyReport.eligibilityForScheme}}</td>
+												<td>{{surveyReport.reasonForNonEligibility}}</td><!-- Remarks for Non Eligibility -->
+												<td><a href="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" target="_blank"><img width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" /></a></td>
+												<td><a href="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" target="_blank"><img  width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" /></a></td>
+												<!-- <td>{{surveyReport.geoLongitude}} - {{surveyReport.geoLatitude}} </td> -->
+												<td> <a ng-if="surveyReport.geoLongitude.length" href="/showLocation?lat={{surveyReport.geoLatitude}}&amp;lng={{surveyReport.geoLongitude}}" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  </td>
+												<!-- <td class="text-center"><button class="c-edt" ng-click="editSurvryReport(surveyReport)"><span class="fa fa-edit"></span></button></td> -->
+												
+											</tr>
+										</table>
+									</div>
+									<div class="clearfix"></div>
+									<div class="r_l_sec">
+										<div class="r-dnld col-lg-6 col-md-6 col-sm-6 col-xs-6">
+											<div class="rdwnld_btn"><!-- /superUserReportExcel -->
+												<!-- <a href="" ng-click="getReportDetailsForDownload()" target="_blank">Download in Excel</a> -->
+												<a href="/downloadSurveyForSuperUser"  target="_blank">Download in Excel</a>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="clearfix"></div>
+										<div class="text-center">
+						                   <ul ng-if="superUser.reportPager.pages.length" class="pagination">
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === 1}">
+						                            <a ng-click="superUser.setReportPage(1)" href ="">First</a>
+						                        </li>
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === 1}">
+						                            <a ng-click="superUser.setReportPage(superUser.reportPager.currentPage - 1)" href ="">Previous</a>
+						                        </li>
+						                        <li ng-repeat="page in superUser.reportPager.pages" ng-class="{active:superUser.reportPager.currentPage === page}">
+						                            <a ng-click="superUser.setReportPage(page)" href ="">{{page}}</a>
+						                        </li>               
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === superUser.reportPager.totalPages}">
+						                            <a ng-click="superUser.setReportPage(superUser.reportPager.currentPage + 1)" href ="">Next</a>
+						                        </li>
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === superUser.reportPager.totalPages}">
+						                            <a ng-click="superUser.setReportPage(superUser.reportPager.totalPages)" href ="">Last</a>
+						                        </li>
+						                    </ul>
+						                </div>
+								</div>
+								<div class="clearfix"></div>
+                            <div class="back-btn">
+                                <a href="/superuser"><span class="fa  fa-angle-double-left"></span>   Go to back</a>
+                            </div>
+							</div>
+						</div>
+						<div id="viewSurvey" class="tab-pane fade">
+                         <div class="slm-cnt">
+                         <ul class="nav nav-tabs">
+                              <li class="active" id="slumedit"><a data-toggle="tab" href="#slum">Slum</a></li>
+                              <li id="nonslumedit"><a data-toggle="tab" href="#nonslum">Non Slum</a></li>
+                         </ul>
+                         </div>
+                         <div class="tab-content">
+                           <div id="slum" class="tab-pane fade in active">
+                              <!-- <form name="addSurveyForm"> -->
+                          <div class="mn-adsurvr">
+                           <div class="surv-header">
+                            <h3> Pradhan Mantri Awas Yojana - Housing For All(Urban) by 2022</h3>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="frmt-tbl">
+                            <div class="fm-tbl4b">
+                            <h4 class="text-center">FORMAT-4B : REQUIRED INFORMATION OF BENEFICIARY</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <form name="addSlumSurveyForm">
+                            <div class="slum-tbl">
+                            <div class="ward-bx">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                     <div class="adsurvy-bx">
+                                       <p><b>ULB Name</b><br /></p>
+                                       <select ng-model="slumNonUlbDetails" >
+                                          <option value="">select</option>
+                                          <option ng-repeat="ulb in ulbList" value="{{ulb.ulbNameId}}">{{ulb.ulbName}}</option>
+                                       </select>
+                                    </div>
+                                    </div>
+                                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                       <div class="adsurvy-bx">
+                                    <p><b>Ward Name </b><br /></p>
+                                    <input type="text" name="slumWardName" placeholder="" ng-model="slumNonWardDetails"  />
+                                      <!-- <select ng-model="addSlumSurvey.slumWardDetails" >
+                                          <option value="">select</option>
+                                          <option ng-repeat="ward in wardData" value="{{ward.wardId}}">{{ward.wardName}}</option>
+                                      </select> -->
+                                    </div>
+                                   </div>
+                                   <div class="clearfix"></div>
+                            </div>
+                             <div class="slum-dtls">
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                   <div class="adsrv-left">
+                                     <div class="adsurvy-bx">
+                                      <input type="text" name="surveyId" ng-model="addSlumSurvey.slumSurveyId" ng-init="addSlumSurvey.slumSurveyId=0" hidden="hidden" />
+                                      <p><b>Name of the Head of the Family(Beneficiary Name)</b></p>
+                                      <input type="text" name="slumFamilyHeadName" placeholder="" ng-model="addSlumSurvey.slumFamilyHeadName" ng-minlength="4" maxlength="100" ng-pattern="/^[a-zA-Z\s]*$/" />
+                                     </div>
+                                     <span ng-show="addSlumSurveyForm.slumFamilyHeadName.$error.pattern &amp;&amp; !addSlumSurveyForm.slumFamilyHeadName.$pristine"  style="color:red" >Your Name Should Contain Only Alphabates</span>
+                                     <div class="clearfix"></div>
+                                     <span style="color:red" ng-show="addSlumSurveyForm.slumFamilyHeadName.$error.minlength &amp;&amp; !addSlumSurveyForm.slumFamilyHeadName.$pristine">Your Name Should Contain Atleast 4 Characters</span>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Aadhaar Card No.</b></p>
+                                      <input type="hidden" ng-model="addSlumSurvey.hiddenSlumAdharNo" ng-init="addSlumSurvey.hiddenSlumAdharNo='0'"/>
+                                      <input type="text" name="slumAdharNo" placeholder="" ng-model="addSlumSurvey.slumAdharNo" minlength="12" maxlength="12" ng-pattern="/^[0-9][0-9]{11}$/" ng-disabled="val" ng-keyup="addSlumSurveyForm.slumAdharNo.$valid &amp;&amp; checkAdharForSlum(addSlumSurvey.slumAdharNo)" />
+                                    </div>
+                                    <span ng-show="addSlumSurveyForm.slumAdharNo.$error.pattern &amp;&amp; !addSlumSurveyForm.slumAdharNo.$pristine"  style="color:red" >Please enter in Required Format '000123456789'</span>
+                                    <span style="color:red" id="adharErrorForSlum"></span>
+                                    <div class="clearfix"></div>
+                                    <div class="adsurvy-bx">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no-padding">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                                     <input type="checkbox" ng-model="val" ng-true-value="true" ng-false-value="false" ng-change="slumAadhaarFieldBlank()"/>
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                     <div class="adhno">
+                                     <p><b>If Not Available</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="adsurvy-bx" ng-show="val">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 no-padding">
+                                     <div class="adhno">
+                                       <p><b>Reason:</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                      <div class="adhno">
+                                       <textarea name="slumAdharReason" id="" cols="1" rows="1" ng-model="addSlumSurvey.slumAdharReason"></textarea>
+                                      </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="adsurvy-bx">
+                                      <p><b>Sex</b></p>
+                                      <select ng-model="addSlumSurvey.slumGenderRadio" >
+                                        <option value="">Select</option>
+                                        <option ng-repeat="gender in genderData" value="{{gender.genderId}}">{{gender.genderName}}</option>
+                                      </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Marital status</b></p>
+                                      <!-- <div class="rdo-srv1">
+                                      <label class="radio-inline" ng-repeat="marital in maritalData"><input type="radio" value="{{marital.maritalStatusId}}" name="maritalRadio" ng-model="addSurvey.maritalRadio" />{{marital.maritalStatusName}}</label>
+                                      <label class="radio-inline"><input type="radio" name="optradio" />Married</label>
+                                      <label class="radio-inline"><input type="radio" name="optradio" />UnMarried</label>
+                                      </div> -->
+                                      <select name="maritalRadio" ng-model="addSlumSurvey.maritalStatus">
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="marital in maritalData" value="{{marital.maritalStatusId}}">{{marital.maritalStatusName}}</option>
+                                      </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Religion</b>
+                                      <br /></p>
+                                      <select name="slumReligion" ng-model="addSlumSurvey.slumReligion" ng-change="enableOtherReligionForSlum()">
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="religion in religionData" value="{{religion.religionId}}">{{religion.religionName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Enter Other Religion</b></p>
+                                      <input type="text" name="religion" placeholder="" ng-model="addSlumSurvey.religionIfOther" ng-disabled="disabledOtherSlumReligion"/>
+                                    </div>
+                                     <div class="clearfix"></div> 
+                                    </div>
+                                     <div class="clearfix"></div>
+                                   </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                 <div class="adsrv-rgt">
+                                    <div class="adsurvy-bx">
+                                      <p><b>Father's Name / Husband's Name</b></p>
+                                      <input type="text" name="slumFatherHusbandName" placeholder="" ng-model="addSlumSurvey.slumFatherHusbandName" ng-minlength="4" maxlength="100" ng-pattern="/^[a-zA-Z\s]*$/" />
+                                    </div>
+                                       <span ng-show="addSlumSurveyForm.slumFatherHusbandName.$error.pattern &amp;&amp; !addSlumSurveyForm.slumFatherHusbandName.$pristine"  style="color:red" >Your Name Should Contain Only Alphabates</span>
+                                     <div class="clearfix"></div>
+                                     <span style="color:red" ng-show="addSlumSurveyForm.slumFatherHusbandName.$error.minlength &amp;&amp; !addSlumSurveyForm.slumFatherHusbandName.$pristine">Your Name Should Contain Atleast 4 Characters</span>
+                                     <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Applicant Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="slumApplicantImageShow" ng-init="slumApplicantImageShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/applicant_photo/{{slumPhotoAttachmentName}}" width="40" height="40"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="applicantImage" placeholder="" accept="image/*" file-model="addSurvey.applicantImageFile" ng-init="addSurvey.applicantImageFile=''" required="required"/>
+                                        </div>
+                                        <span ng-show="applicantImageFileError" ng-init="applicantImageFileError=false" style="color:red" >Please Select Applicant photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                        <p><b>ID Proof</b><br /></p>
+                                        <select name="idProof" ng-model="addSlumSurvey.slumIdProof" ng-change="idProofValidation()" >
+                                            <option value="">---Select---</option>
+                                            <option ng-repeat="id in idData" value="{{id.idTypeId}}">{{id.idTypename}}</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>ID Proof No.</b></p>
+                                      <input type="hidden" ng-model="addSlumSurvey.hiddenSlumIdProofNo" ng-init="addSlumSurvey.hiddenSlumIdProofNo'0'"/>
+                                      <input type="text" id="idProofNoErr" name="slumIdProofNo" placeholder="" ng-model="addSlumSurvey.slumIdProofNo" maxlength="20" ng-keyup="idProofCheck()"  ng-blur="checkIdProofForSlum(addSlumSurvey.slumIdProofNo,addSlumSurvey.slumIdProof)" />
+                                      <p ng-show="IfMatch" style="color:red">*Please Enter Valid Id Format! </p>
+                                      <p style="color:red" id="idProofErrorForSlum"></p>
+                                    </div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>ID Proof/Aadhaar Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="idImageShow" ng-init="idImageShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/idproof_photo/{{idAttachmentName}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="slumIdImage" placeholder="" accept="image/*" file-model="addSlumSurvey.slumIdPhoto" ng-init="addSlumSurvey.slumIdPhoto=''" />
+                                        </div>
+                                        <span ng-show="slumIdImageError" ng-init="slumIdImageError=false" style="color:red" >Please Select A Id card photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Date of Birth</b></p>
+                                      <input type="text" class="DOB" name="dob" placeholder="" ng-model="addSlumSurvey.dob" />
+                                      <div class="dt-spn">
+                                      </div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Caste</b>
+                                      <br /></p>
+                                      <select name="slumCaste" ng-model="addSlumSurvey.slumCaste" >
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="caste in casteData" value="{{caste.casteId}}">{{caste.casteName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                 </div>
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls1">
+                             <div class="add-bx">
+                                 <h4>ADDRESS</h4>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-left">
+                                   <h5>Present Address :</h5>
+                                   <div class="clearfix"></div>
+                                   <div class="adsurvy-bx">
+                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                    <input type="checkbox" ng-model="addSlumSurvey.slumPresentTown" ng-true-value="true" ng-false-value="false" ng-init="addSlumSurvey.slumPresentTown= false"/>
+                                     </div>
+                                     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                     <div class="adhno">
+                                     <p><b>Staying at this address before 1st June 2015</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                   
+                                  
+                                <div class="adsurvy-bx">
+                                  <p><b>House/ Flat/ Door No.</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPresentHouseNo" placeholder="" ng-model="addSlumSurvey.slumPresentHouseNo" maxlength="200" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Name of Street</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPresentStreetName" placeholder="" ng-model="addSlumSurvey.slumPresentStreetName" maxlength="100" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>City</b></p>
+                                  <input type="text" name="slumPresentCity" ng-model="addSlumSurvey.slumPresentCity" maxlength="50" required="required"/>
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Mobile Number</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPresentMobileNo" placeholder="" ng-model="addSlumSurvey.slumPresentMobileNo" minlength="10" maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" />
+                                </div>
+                                <span ng-show="addSlumSurveyForm.slumPresentMobileNo.$error.pattern &amp;&amp; !addSlumSurveyForm.slumPresentMobileNo.$pristine"  style="color:red" >Valid phone number is required</span>
+                                    <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+                                </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                               <div class="adsrv-rgt">
+                                   <div class="adsurvy-bx">
+                                     <div class="prdt">
+                                          <h5><input type="checkbox" id="slumSameData" ng-model="addSlumSurvey.slumIsSameAsPresentAdd" ng-true-value="true" ng-false-value="false" ng-init="addSlumSurvey.slumIsSameAsPresentAdd=false" ng-change="copySlumPresentAddress()" /><span>Same As</span> &nbsp;   &nbsp; &nbsp; &nbsp;Permanent Address :</h5>
+                                      </div>
+                                      
+                                      <div class="clearfix"></div>
+                                      <div class="adsurvy-bx">
+                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                    	<input type="checkbox" ng-model="addSlumSurvey.slumPermanentTown" ng-true-value="true" ng-false-value="false" ng-init="addSlumSurvey.slumPermanentTown= false"/>
+                                     </div>
+                                     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                     <div class="adhno">
+                                     <p><b>Staying at this address before 1st June 2015</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>House/ Flat/ Door No.</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPermanentHouseNo" placeholder="" ng-model="addSlumSurvey.slumPermanentHouseNo" maxlength="200" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Name of Street</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPermanentStreetName" placeholder="" ng-model="addSlumSurvey.slumPermanentStreetName" maxlength="100" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>City</b></p>
+                                  <input type="text" name="slumPermanentCity" ng-model="addSlumSurvey.slumPermanentCity" maxlength="50" required="required"/>
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Mobile Number</b>
+                                  <br /></p>
+                                  <input type="text" name="slumPermanentMobileNo" placeholder="" ng-model="addSlumSurvey.slumPermanentMobileNo" minlength="10" maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" />
+                                </div>
+                                <span ng-show="addSlumSurveyForm.slumPermanentMobileNo.$error.pattern &amp;&amp; !addSlumSurveyForm.slumPermanentMobileNo.$pristine"  style="color:red" >Valid phone number is required</span>
+                                    <div class="clearfix"></div>
+                                     <div class="clearfix"></div>
+                                </div>
+                                   <div class="clearfix"></div>
+                                </div>
+                             </div>
+                             <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls2">
+                               <h4>&nbsp; Family Details :</h4>
+                            <div class="mn-surv-table">
+                            <div class="surv-table">
+                                <table class="slumMemberAdd" id="slumFamilyMemberTable">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Relationship to Head of the Family</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>Aadhaar/Voter ID Card/Any Other unique identification number or a certificate of house ownership from revenue Authority of beneficiary's native district</th>
+                                        <th>Add</th>
+                                    </tr>
+                                    <tr class="item">
+                                        <td><input type="text" class="slumName" placeholder="" ng-model="addSlumSurvey.slumFamilyMemberName" /></td>
+                                        <td><select class="slumMemberrelationship" ng-model="addSlumSurvey.slumFamilyRelationship">
+                                            <option value="">select</option>
+                                            <option ng-repeat="relation in memberRelationshipData" value="{{relation.relationshipId}}">{{relation.relationshipName}}</option>
+                                        </select></td>
+                                        <td><select class="slumMembergender" ng-model="addSlumSurvey.slumFamilyMemberGender">
+                                            <option value="">select</option>
+                                            <option ng-repeat="gender in genderData" value="{{gender.genderId}}">{{gender.genderName}}</option>
+                                        </select></td>
+                                        <td><input type="text" class="slumAge" placeholder="" ng-model="addSlumSurvey.slumFamilyMemberAge" /></td>
+                                        <td><input type="text" class="slumIdcardno" placeholder="" ng-model="addSlumSurvey.slumFamilyMemberIdCardNo" /></td>
+                                        <td> <div class="rsm-r">
+                                         <button class="b-row-add" type="button" ng-click="addSlumFamilyTextbox()"><span class="fa fa-plus"></span></button>    
+                                        </div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls3">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                <p><b>Whether the family owns any house/Residential Land anywhere in India:</b></p>
+                               <div class="rdo-srv2">
+                              <label class="radio-inline"><input type="radio" value="Y" name="slumOwnsRadio" ng-model="addSlumSurvey.slumOwnsRadio" ng-click="slumOwnsRadioFunction()"/>Yes</label>
+                                 <label class="radio-inline"><input type="radio" value="N" name="slumOwnsRadio" ng-model="addSlumSurvey.slumOwnsRadio" ng-click="slumOwnsRadioNoFunction()"/>No</label>
+                              </div>
+                              </div>
+                               <div class="adsurvy-bx">
+                                  <p><b>house/Residential Land Address</b></p>
+                                  <textarea rows="" cols="" ng-model="addSlumSurvey.slumLandAddress" ng-disabled="slumLandAdd" ng-init="slumLandAdd=true" minlength="1" maxlength="200"></textarea>
+                               </div>
+                               <span ng-show="slumLocationAddressError" ng-init="slumLocationAddressError=false" style="color:red" >Please Enter Land address</span>
+                                    <div class="adsurvy-bx">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no-padding">
+                                     <div class="col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                                     <input type="checkbox" ng-model="addSlumSurvey.slumEligibleStatus" ng-true-value="true" ng-false-value="false" ng-init="addSlumSurvey.slumEligibleStatus=false" />
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                     <div class="adhno">
+                                     <p><b>Eligibility</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="adsurvy-bx" ng-if="!addSlumSurvey.slumEligibleStatus">
+                                      <p><b>Reason for Non-Eligibility</b></p>
+                                      <input type="text" name="nonEligibleReason" placeholder="" ng-model="addSlumSurvey.slumNonEligibleReason" ng-init="addSlumSurvey.slumNonEligibleReason=''" maxlength="200" />
+                                     </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                             <div class="adsrv-rgt">
+                              <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Location Details (Locality/ City/ State)</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="slumLocationDetailsPicShow" ng-init="slumLocationDetailsPicShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/patta_photo/{{indiaLocationDetailsAttachment}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" id="locationDetailsPicId" name="slumLocationDetailsPic" placeholder="" file-model="addSlumSurvey.slumLocationDetailsPic" ng-init="addSlumSurvey.slumLocationDetailsPic=''" ng-disabled="slumLocationDetailsPicDis"/>
+                                        </div>
+                                        <span ng-show="slumLocationDetailsPicError" ng-init="slumLocationDetailsPicError=false" style="color:red" >Please Select A Location photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                <p><b>Extent of Land in Sq. M</b></p>
+                                <input type="text" name="slumLandinSqm" placeholder="" ng-model="addSlumSurvey.slumLandinSqm" ng-disabled="slumLandInSqrMtr" ng-init="slumLandInSqrMtr=true" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/"/>
+                              <span ng-show="addSlumSurveyForm.slumLandinSqm.$error.pattern &amp;&amp; !addSlumSurveyForm.slumLandinSqm.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                              <span ng-show="slumExtentLandError" ng-init="slumExtentLandError=false" style="color:red" >Please Enter Land Area</span>
+                              </div>
+                              <div class="adsurvy-bx">
+                                <p><b>Longitude</b></p>
+                                <input type="text" name="" placeholder="" ng-model="addSlumSurvey.geoLongitude" />
+                              </div>
+                              <div class="adsurvy-bx">
+                                <p><b>Latitude</b></p>
+                                <input type="text" name="" placeholder="" ng-model="addSlumSurvey.geoLatitude" />
+                              </div>
+                              <div class="clearfix"></div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Biometric Image</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="" ng-init="">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/signature/{{}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="" file-model="" ng-init="" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Signature of the applicant</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="slumApplicantSignatureShow" ng-init="slumApplicantSignatureShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/signature/{{signatureOfApplicant}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="" file-model="addSlumSurvey.slumApplicantSignature" ng-init="addSlumSurvey.slumApplicantSignature=''" />
+                                        </div>
+                                        <span ng-show="slumApplicantSignatureError" ng-init="slumApplicantSignatureError=false" style="color:red" >Please Select A Signature photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                            </div>
+                             </div>
+                             <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-btn">
+                               <div class="mn-frmbtn">
+                                   <div class="frm-btn">
+                                       <button  type="submit" class="sub-frbtn" ng-disabled="true">Submit</button>
+                                   </div>
+                                   <div class="frm-btn">
+                                        <button  type="submit" class="sv-frbtn" ng-disabled="true">Save</button>
+                                   </div>
+                                   <div class="frm-btn">
+                                       <div class="can-pmay">
+                                        <a href="" ng-click = "cancelViewSurTab()">Cancel</a>
+                                        </div>
+                                   </div>
+                                   <div class="clearfix"></div>
+                               </div>
+                           </div>
+                           <div class="clearfix"></div>
+                            </div>
+                            </form>
+                           <div class="clearfix"></div>
+						   </div>
+                            <div class="clearfix"></div>
+                           </div>
+                           <div class="clearfix"></div>
+                           <!-- </form> -->
+                           </div>
+                           <div id="nonslum" class="tab-pane fade">
+                              <!-- <form name="addSurveyForm"> -->
+                          <div class="mn-adsurvr">
+                           <div class="surv-header">
+                            <h3> Pradhan Mantri Awas Yojana - Housing For All(Urban) by 2022</h3>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="frmt-tbl">
+                            <div class="fm-tbl4b">
+                            <h4 class="text-center">FORMAT-4B : REQUIRED INFORMATION OF BENEFICIARY</h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsurvy-bx">
+                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  no-padding" ng-show="validationPendingStatus" ng-init="validationPendingStatus = false">
+                                       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                                     <input type="checkbox" ng-model="addSurvey.validationPendingStatus" ng-true-value="true" ng-false-value="false" ng-checked="true" />
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                     <div class="adhno">
+                                     <p><b>Validation Pending</b></p>
+                                     </div>
+                                     </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                     </div>
+                                     
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            </div>
+                            <div class="clearfix"></div>
+                            <form name="addSurveyForm">
+                           <div class="nonslum-tbl">
+                           <div class="ward-bx">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                     <div class="adsurvy-bx">
+                                       <p><b>ULB Name</b><br /></p>
+                                       <select ng-model="slumNonUlbDetails" >
+                                          <option value="">select</option>
+                                          <option ng-repeat="ulb in ulbList" value="{{ulb.ulbNameId}}">{{ulb.ulbName}}</option>
+                                       </select>
+                                    </div>
+                                    </div>
+                                   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                       <div class="adsurvy-bx">
+                                    <p><b>Ward Name </b><br /></p>
+                                    <input type="text" name="slumWardName" placeholder="" ng-model="slumNonWardDetails"  />
+                                      
+                                    </div>
+                                   </div>
+                                   <div class="clearfix"></div>
+                            </div>
+                           <div class="slum-dtls">
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                   <div class="adsrv-left">
+                                     <div class="adsurvy-bx">
+                                      <input type="text" name="surveyId" ng-model="addSurvey.surveyId" ng-init="surveyId=0" hidden="hidden" />
+                                      <p><b>Name of the Head of the Family(Beneficiary Name)</b></p>
+                                      <input type="text" name="familyHeadName" placeholder="" ng-model="addSurvey.familyHeadName" ng-minlength="4" maxlength="100" ng-pattern="/^[a-zA-Z\s]*$/" />
+                                     <span ng-show="addSurveyForm.familyHeadName.$error.pattern &amp;&amp; !addSurveyForm.familyHeadName.$pristine"  style="color:red" >Your Name Should Contain Only Alphabates</span>
+                                     <div class="clearfix"></div>
+                                     <span style="color:red" ng-show="addSurveyForm.familyHeadName.$error.minlength &amp;&amp; !addSurveyForm.familyHeadName.$pristine">Your Name Should Contain Atleast 4 Characters</span>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Aadhaar Card No.</b></p>
+                                      <input type="hidden" ng-model="addSurvey.hiddenNonSlumAdharNo" ng-init="addSurvey.hiddenNonSlumAdharNo='0'" />
+                                      <input type="text" name="adharNo" placeholder="" ng-model="addSurvey.adharNo" minlength="12" maxlength="12" ng-pattern="/^[0-9][0-9]{11}$/" ng-disabled="nonSlumVal" ng-keyup="addSurveyForm.adharNo.$valid &amp;&amp; checkAdharForNonSlum(addSurvey.adharNo)"/>
+                                    </div>
+                                    <span ng-show="addSurveyForm.adharNo.$error.pattern &amp;&amp; !addSurveyForm.adharNo.$pristine"  style="color:red" >Please enter in Required Format '000123456789'</span>
+                                     <span style="color:red" id="adharErrorForNonSlum"></span>
+                                    <div class="clearfix"></div>
+                                    <div class="adsurvy-bx">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no-padding">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                                     <input type="checkbox" ng-model="nonSlumVal" ng-true-value="true" ng-false-value="false" ng-change="aadhaarFieldBlank()"/>
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                     <div class="adhno">
+                                     <p><b>If Not Available</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="adsurvy-bx" ng-show="nonSlumVal">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 no-padding">
+                                     <div class="adhno">
+                                       <p><b>Reason:</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                      <div class="adhno">
+                                       <textarea name="adharReason" id="" cols="1" rows="1" ng-model="addSurvey.adharReason"></textarea>
+                                      </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="adsurvy-bx">
+                                      <p><b>Sex</b></p>
+                                       <select ng-model="addSurvey.genderRadio" >
+                                        <option value="">Select</option>
+                                        <option ng-repeat="gender in genderData" value="{{gender.genderId}}">{{gender.genderName}}</option>
+                                      </select>
+                                    </div>
+                                     <div class="clearfix"></div>
+                                     <div class="adsurvy-bx">
+                                      <p><b>Marital status</b></p>
+                                     
+                                      <select name="maritalRadio" ng-model="addSurvey.maritalRadio">
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="marital in maritalData" value="{{marital.maritalStatusId}}">{{marital.maritalStatusName}}</option>
+                                      </select>
+                                    </div>
+                                     <div class="adsurvy-bx">
+                                      <p><b>Religion</b>
+                                      <br /></p>
+                                      <select name="religion" ng-model="addSurvey.religion" ng-change="enableOtherReligion()">
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="religion in religionData" value="{{religion.religionId}}">{{religion.religionName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Enter Other Religion</b></p>
+                                      <input type="text" name="religion" placeholder="" ng-model="addSurvey.religionIfOther" ng-disabled="disabledOtherReligion"/>
+                                    </div>
+                                     <div class="clearfix"></div> 
+                                    </div>
+                                     <div class="clearfix"></div>
+                                   </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                 <div class="adsrv-rgt">
+                                 <div class="adsurvy-bx">
+                                      <p><b>Father's Name / Husband's Name</b></p>
+                                      <input type="text" name="fatherHusbandName" placeholder="" ng-model="addSurvey.fatherHusbandName" ng-minlength="4" maxlength="100" ng-pattern="/^[a-zA-Z\s]*$/" />
+                                      <span ng-show="addSurveyForm.fatherHusbandName.$error.pattern &amp;&amp; !addSurveyForm.fatherHusbandName.$pristine"  style="color:red" >Your Name Should Contain Only Alphabates</span>
+                                       <div class="clearfix"></div>
+                                     <span style="color:red" ng-show="addSurveyForm.fatherHusbandName.$error.minlength &amp;&amp; !addSurveyForm.fatherHusbandName.$pristine">Your Name Should Contain Atleast 4 Characters</span>
+                                    </div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Applicant Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="applicantImageShow" ng-init="applicantImageShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/applicant_photo/{{nonSlumPhotoAttachmentName}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="applicantImage" placeholder="" accept="image/*" file-model="addSurvey.applicantImageFile" ng-init="addSurvey.applicantImageFile=''" />
+                                        </div>
+                                        <span ng-show="applicantImageFileError" ng-init="applicantImageFileError=false" style="color:red" >Please Select Applicant photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                        <p><b>ID Proof</b><br /></p>
+                                        <select name="idProof" ng-model="addSurvey.idProof" ng-change="idNonSlumProofValidation()" >
+                                            <option value="">---Select---</option>
+                                            <option ng-repeat="id in idData" value="{{id.idTypeId}}">{{id.idTypename}}</option>
+                                            <!-- <option value="">PAN card</option>
+                                            <option value="">Voter ID</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>ID Proof No.</b></p>
+                                      <input type="hidden" ng-model="addSurvey.hiddenNonSlumIdProofNo" ng-init="addSurvey.hiddenNonSlumIdProofNo'0'"/>
+                                      <input type="text" id="idNProofNoErr" name="idProofNo" placeholder="" ng-model="addSurvey.idProofNo" maxlength="20" ng-keyup="idNonSlumProofCheck()"  ng-blur="checkIdProofForNonSlum(addSurvey.idProofNo,addSurvey.idProof)" />
+                                      <p ng-show="nIfMatch" style="color:red">*Please Enter Valid Id Format!</p>
+                                      <p style="color:red" id="idProofErrorForNonSlum"></p>
+                                    </div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>ID Proof Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="idImageShow" ng-init="idImageShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/idproof_photo/{{nonSlumIdAttachmentName}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="idImage" placeholder="" accept="image/*" file-model="addSurvey.idImage" ng-init="addSurvey.idImage=''" />
+                                        </div>
+                                        <span ng-show="idImageError" ng-init="idImageError=false" style="color:red" >Please Select A Id card photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Date of Birth</b></p>
+                                      <input type="text" class="DOB" name="dob" placeholder="" ng-model="addSurvey.dob" />
+                                      <div class="dt-spn">
+                                      </div>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Caste</b>
+                                      <br /></p>
+                                      <select name="caste" ng-model="addSurvey.caste" >
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="caste in casteData" value="{{caste.casteId}}">{{caste.casteName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                     <div class="clearfix"></div>
+                                 </div>
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls1">
+                             <div class="add-bx">
+                                 <h4>ADDRESS</h4>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-left">
+                                   <h5>Present Address :</h5>
+                                   
+                                   <div class="clearfix"></div>
+                                   <div class="adsurvy-bx">
+                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                    	<input type="checkbox" ng-model="addSurvey.presentYearsInCity" ng-true-value="true" ng-false-value="false" ng-init="addSurvey.presentYearsInCity= false"/>
+                                     </div>
+                                     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                     <div class="adhno">
+                                     <p><b>Staying at this address before 1st June 2015</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>House/ Flat/ Door No.</b>
+                                  <br /></p>
+                                  <input type="text" name="presentHouseNo" placeholder="" ng-model="addSurvey.presentHouseNo" maxlength="200" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Name of Street</b>
+                                  <br /></p>
+                                  <input type="text" name="presentStreetName" placeholder="" ng-model="addSurvey.presentStreetName" maxlength="100" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>City</b></p>
+                                  <input type="text" name="presentCity" placeholder="" ng-model="addSurvey.presentCity" maxlength="50" required="required"/>
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Mobile Number</b>
+                                  <br /></p>
+                                  <input type="text" name="presentMobileNo" placeholder="" ng-model="addSurvey.presentMobileNo" minlength="10" maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" />
+                                </div>
+                                <span ng-show="addSurveyForm.presentMobileNo.$error.pattern &amp;&amp; !addSurveyForm.presentMobileNo.$pristine"  style="color:red" >Valid phone number is required</span>
+                                    <div class="clearfix"></div>
+                                <div class="clearfix"></div>
+                                </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                               <div class="adsrv-rgt">
+                                   <div class="adsurvy-bx">
+                                     <div class="prdt">
+                                          <h5><input type="checkbox" id="sameData" ng-model="addSurvey.isSameAsPresentAdd" ng-true-value="true" ng-false-value="false" ng-init="addSurvey.isSameAsPresentAdd=false" ng-change="copyPresentAddress()" /><span>Same As</span> &nbsp;   &nbsp; &nbsp; &nbsp;Permanent Address :</h5>
+                                      </div>
+                                      
+                                      <div class="clearfix"></div>
+                                      <div class="adsurvy-bx">
+                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+                                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 no-padding">
+                                    	<input type="checkbox" ng-model="addSurvey.permanentYearsInCity" ng-true-value="true" ng-false-value="false" ng-init="addSurvey.permanentYearsInCity= false"/>
+                                     </div>
+                                     <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                                     <div class="adhno">
+                                     <p><b>Staying at this address before 1st June 2015</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                      
+                                <div class="adsurvy-bx">
+                                  <p><b>House/ Flat/ Door No.</b>
+                                  <br /></p>
+                                  <input type="text" name="permanentHouseNo" placeholder="" ng-model="addSurvey.permanentHouseNo" maxlength="200" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Name of Street</b>
+                                  <br /></p>
+                                  <input type="text" name="permanentStreetName" placeholder="" ng-model="addSurvey.permanentStreetName" maxlength="100" />
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>City</b></p>
+                                  <input type="text" name="permanentCity" placeholder="" ng-model="addSurvey.permanentCity" maxlength="50" required="required"/>
+                                </div>
+                                <div class="adsurvy-bx">
+                                  <p><b>Mobile Number</b>
+                                  <br /></p>
+                                  <input type="text" name="permanentMobileNo" placeholder="" ng-model="addSurvey.permanentMobileNo" minlength="10" maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" />
+                                </div>
+                                <span ng-show="addSurveyForm.permanentMobileNo.$error.pattern &amp;&amp; !addSurveyForm.permanentMobileNo.$pristine"  style="color:red" >Valid phone number is required</span>
+                                    <div class="clearfix"></div>
+                                     </div>
+                                   <div class="clearfix"></div>
+                                </div>
+                             </div>
+                             <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls12">
+                               <h4>&nbsp; Family Details :</h4>
+                            <div class="mn-surv-table">
+                            <div class="surv-table">
+                                <table class="memberAdd" id="familyMemberTable">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Relationship to Head of the Family</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>Aadhaar/Voter ID Card/Any Other unique identification number or a certificate of house ownership from revenue Authority of beneficiary's native district</th>
+                                        <th>Add</th>
+                                    </tr>
+                                   <tr class="familyMemberRow">
+                                        <td><input type="text" class="name" placeholder="" ng-model="addSurvey.familyMemberName" /></td>
+                                        <td><select class="memberrelationship" ng-model="addSurvey.familyRelationship">
+                                            <option value="">select</option>
+                                            <option ng-repeat="relation in memberRelationshipData" value="{{relation.relationshipId}}">{{relation.relationshipName}}</option>
+                                        </select></td>
+                                        <td><select class="membergender" ng-model="addSurvey.familyMemberGender">
+                                            <option value="">select</option>
+                                            <option ng-repeat="gender in genderData" value="{{gender.genderId}}">{{gender.genderName}}</option>
+                                        </select></td>
+                                        <td><input type="text" class="age" placeholder="" ng-model="addSurvey.familyMemberAge" /></td>
+                                        <td><input type="text" class="idcardno" placeholder="" ng-model="addSurvey.familyMemberIdCardNo" /></td>
+                                        <td> <div class="rsm-r">
+                                         <button class="b-row-add" type="button" ng-click="addFamilyTextbox()"><span class="fa fa-plus"></span></button>    
+                                        </div></td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                            <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls2">
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                               <div class="adsurvy-bx">
+                                <p><b>Whether the family owns any house/Residential Land anywhere in India:</b></p>
+                               <div class="rdo-srv2">
+                              <label class="radio-inline"><input type="radio" value="Y" name="ownsRadio" ng-model="addSurvey.ownsRadio" ng-click="ownsRadioFunction()"/>Yes</label>
+                                 <label class="radio-inline"><input type="radio" value="N" name="ownsRadio" ng-model="addSurvey.ownsRadio" ng-click="ownsRadioNoFunction()"/>No</label>
+                              </div>
+                              </div>
+                              <div class="adsurvy-bx">
+                                  <p><b>house/Residential Land Address</b></p>
+                                  <textarea rows="" cols="" ng-model="addSurvey.landAddress" ng-disabled="landAdd" ng-init="landAdd=true" minlength="1" maxlength="200"></textarea>
+                               </div>
+                                <span ng-show="locationAddressError" ng-init="locationAddressError=false" style="color:red" >Please Enter Land address</span>
+                               <div class="clearfix"></div>
+                              </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-rgt">
+                               <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Patta/ House Pic/ Land Record</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="landRecordPicShow" ng-init="landRecordPicShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/patta_photo/{{nonSlumIndiaLocationDetailsAttachment}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="landRecordPic" placeholder="" file-model="addSurvey.landRecordPic" ng-init="addSurvey.landRecordPic=''" ng-disabled="landRecordPicDis" />
+                                        </div>
+                                        <span ng-show="landRecordPicError" ng-init="landRecordPicError=false" style="color:red" >Please Select A Location Record photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                     <div class="adsurvy-bx">
+                                <p><b>Extent of Land in Sq. M</b></p>
+                                <input type="text" name="landinSqm" placeholder="" ng-model="addSurvey.landinSqm" ng-disabled="landInSqrMtr" ng-init="landInSqrMtr=true" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/"/>
+                              </div>
+                              <span ng-show="extentLandError" ng-init="extentLandError=false" style="color:red" >Please Enter Land area</span>
+                              <span ng-show="addSurveyForm.landinSqm.$error.pattern &amp;&amp; !addSurveyForm.landinSqm.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                              <div class="clearfix"></div>
+                              <div class="adsurvy-bx">
+                                <p><b>Longitude</b></p>
+                                <input type="text" name="" placeholder="" ng-model="addSurvey.geoLongitude" />
+                              </div>
+                              <div class="adsurvy-bx">
+                                <p><b>Latitude</b></p>
+                                <input type="text" name="" placeholder="" ng-model="addSurvey.geoLatitude" />
+                              </div>
+                              </div>
+                              </div>
+                              <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls2">
+                              <h4>Existing house Details :</h4>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Photo in front of Present House</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="presentInfrontHousePicShow" ng-init="presentInfrontHousePicShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/present_house_photo/{{nonSlumPhotoAttachmentInFrontOfHouse}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                         <input type="file" name="presentInfrontHousePic" placeholder="" file-model="addSurvey.presentInfrontHousePic" ng-init="addSurvey.presentInfrontHousePic=''" />
+                                        </div>
+                                        <span ng-show="presentInfrontHousePicError" ng-init="presentInfrontHousePicError=false" style="color:red" >Please Select A House photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                              <div class="adsurvy-bx">
+                              <p><b>Type of House based on Roof Type</b><br /></p>
+                              <select name="houseRoofType" ng-model="addSurvey.houseRoofType" >
+                                   <option value="">---Select---</option>
+                                   <option ng-repeat="roof in roofData" value="{{roof.houseTypeRoofId}}">{{roof.houseTypeRoofName}}</option>
+                                   
+                                </select>
+                            </div>
+                             <div class="adsurvy-bx">
+                                <p><b>No of Rooms of the Dwelling unit excluding kitchen </b></p>
+                                <input type="text" name="dwellinUnitRoom" placeholder="" ng-model="addSurvey.dwellinUnitRoom" maxlength="20"/>
+                              </div>
+                              <div class="adsurvy-bx" ng-click="enableRequirement(addSurvey)">
+                                        <p><b>Housing Requirement of the Family </b></p>
+                                          <select name="houseRequirementRadio" ng-model="addSurvey.houseRequirementRadio">
+                                            <option value="">---Select---</option>
+                                            <option ng-repeat="houseCategory in houseCategoryData" value="{{houseCategory.houseCategoryId}}">{{houseCategory.houseCategoryName}}</option>
+                                          </select>
+                                    </div>
+                              
+                                    <div class="clearfix"></div>
+                              </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-rgt">
+                                   <div class="adsurvy-bx">
+                                      <p><b>Ownership of the Existing House </b><br /></p>
+                                      <select name="ownershipHouse" ng-model="addSurvey.ownershipHouse" >
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="owner in ownershipData" value="{{owner.houseOwnershipId}}">{{owner.houseOwnershipName}}</option>
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Type of House Based on Wall Type </b><br /></p>
+                                      <select name="houseWallType" ng-model="addSurvey.houseWallType" >
+                                           <option value="">---Select---</option>
+                                           <option ng-repeat="wall in wallData" value="{{wall.houseTypeWallId}}">{{wall.houseTypeWallName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                        <p><b>Size of the existing dwelling unit(Carpet in Sq.m)</b></p>
+                                        <input type="text" name="sizeExistingDwelling" placeholder="" ng-model="addSurvey.sizeExistingDwelling" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/" />
+                                    </div>
+                                    <span ng-show="addSurveyForm.sizeExistingDwelling.$error.pattern &amp;&amp; !addSurveyForm.sizeExistingDwelling.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                                    <div class="clearfix"></div>
+                                    <div class="adsurvy-bx">
+                                      <p><b>Requirement </b><br /></p>
+                                        <input type="text" name="requirement" placeholder="" ng-model="addSurvey.requirement" ng-disabled="requirement" ng-init="requirement = true"/>
+                                    </div>
+                                    <span ng-show="requirementError" ng-init="requirementError=false" style="color:red" >Please Enter Requirement</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls3">
+                              <h4>Land Ownership Details :</h4>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                <div class="adsurvy-bx">
+                                <p><b>Name of the Pattadar </b></p>
+                                <input type="text" name="pattadarName" placeholder="" ng-model="addSurvey.pattadarName" ng-minlength="4" maxlength="100" ng-pattern="/^[a-zA-Z ,]+$/" />
+                                </div>
+                                <span ng-show="addSurveyForm.pattadarName.$error.pattern &amp;&amp; !addSurveyForm.pattadarName.$pristine"  style="color:red" >Your Name Should Contain Only Alphabates</span>
+                                <div class="clearfix"></div>
+                                <span style="color:red" ng-show="addSurveyForm.pattadarName.$error.minlength &amp;&amp; !addSurveyForm.pattadarName.$pristine">Your Name Should Contain Atleast 4 Characters</span>
+                                <div class="clearfix"></div>
+                                <div class="adsurvy-bx">
+                                <p><b>Dag No. </b></p>
+                                <input type="text" name="dagNo" placeholder="" ng-model="addSurvey.dagNo" maxlength="100" />
+                                </div>
+                                <div class="clearfix"></div>
+                              </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-rgt">
+                                    <div class="adsurvy-bx">
+                                        <p><b>Patta No</b></p>
+                                        <input type="text" name="pattaNo" placeholder="" ng-model="addSurvey.pattaNo" maxlength="100" />
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                        <p><b>Land Area as in Patta</b></p>
+                                        <input type="text" name="landAreaPatta" placeholder="" ng-model="addSurvey.landAreaPatta" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/" />
+                                    </div>
+                                    <span ng-show="addSurveyForm.landAreaPatta.$error.pattern &amp;&amp; !addSurveyForm.landAreaPatta.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                                    <div class="clearfix"></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls4">
+                              <p><b>&nbsp; Dimension of Land in meter :</b></p>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                <div class="adsurvy-bx">
+                                <p><b>Length</b></p>
+                                <input type="text" name="landLength" placeholder="" ng-model="addSurvey.landLength" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/" />
+                                    </div>
+                                    <span ng-show="addSurveyForm.landLength.$error.pattern &amp;&amp; !addSurveyForm.landLength.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                                    <div class="clearfix"></div>
+                                <div class="adsurvy-bx">
+                                <p><b>Breadth</b></p>
+                                <input type="text" name="landBreadth" placeholder="" ng-model="addSurvey.landBreadth" minlength="1" maxlength="10" ng-pattern="/^[0-9]+\.?[0-9]*$/" />
+                                    </div>
+                                    <span ng-show="addSurveyForm.landBreadth.$error.pattern &amp;&amp; !addSurveyForm.landBreadth.$pristine"  style="color:red" >Please Enter In Numbers</span>
+                                    <div class="clearfix"></div>
+                              </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-rgt">
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Land Photo 1</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="landPhoto1Show" ng-init="landPhoto1Show = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/land_photo1/{{nonSlumLandAttachment1}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="landPhoto1" file-model="addSurvey.landPhoto1" ng-init="addSurvey.landPhoto1=''" />
+                                        </div>
+                                        <span ng-show="landPhoto1Error" ng-init="landPhoto1Error=false" style="color:red" >Please Select A Land photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Land Photo 2</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="landPhoto2Show" ng-init="landPhoto2Show = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/land_photo2/{{nonSlumLandAttachment2}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="landPhoto2" placeholder="" file-model="addSurvey.landPhoto2" ng-init="addSurvey.landPhoto2=''" />
+                                        </div>
+                                        <span ng-show="landPhoto2Error" ng-init="landPhoto2Error=false" style="color:red" >Please Select A Land photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                              </div>
+                             </div>
+                             <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls5">
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                 <div class="adsrv-left">
+                                     <div class="adsurvy-bx">
+                                        <p><b>Employment Status</b><br /></p>
+                                        <select name="employmentStatus" ng-model="addSurvey.employmentStatus" >
+                                            <option value="">---Select---</option>
+                                            <option ng-repeat="employ in employmentData" value="{{employ.employementCategoryId}}">{{employ.employementCategoryName}}</option>
+                                           
+                                        </select>
+                                    </div>
+                                   </div>
+                               </div>
+                               
+                               </div>
+                               <div class="clearfix"></div>
+                          
+                           <div class="slum-dtls7">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                   <p><b>Average Monthly Income</b></p>
+                                   <input type="text" name="incomeProof" placeholder="" ng-model="addSurvey.incomeProof" maxlength="100" ng-pattern="/^[0-9]+\.[0]{2}$/" />
+                                     </div>
+                                    <span ng-show="addSurveyForm.incomeProof.$error.pattern &amp;&amp; !addSurveyForm.incomeProof.$pristine"  style="color:red" >Please Enter Like 1234.00 Format</span>
+                                     <div class="clearfix"></div>
+                                </div>
+                              </div>
+                             </div> 
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-rgt">
+                                <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Income Proof Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="incomeProofPhotoShow" ng-init="incomeProofPhotoShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/income_proof_photo/{{nonSlumIncomeProofAttachment}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="incomeProofPhoto" placeholder="" file-model="addSurvey.incomeProofPhoto" ng-init="addSurvey.incomeProofPhoto=''" />
+                                        </div>
+                                        <span ng-show="incomeProofPhotoError" ng-init="incomeProofPhotoError=false" style="color:red" >Please Select A Land photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                              </div>
+                             </div>   
+                           <div class="slum-dtls8">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                   <p><b>BPL Card</b></p>
+                                   <div class="rdo-srv2">
+                                      <label class="radio-inline"><input type="radio" value="Y" name="bplRadio" ng-model="addSurvey.bplRadio" ng-click="bplRadioFunction()"/>Yes</label>
+                                         <label class="radio-inline"><input type="radio" value="N" name="bplRadio" ng-model="addSurvey.bplRadio" ng-init="addSurvey.bplRadio='N'" ng-click="bplRadioNoFunction()"/>No</label>
+                                    </div>
+                                </div>
+                              </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                               </div>
+                               <div class="clearfix"></div>  
+                           </div>
+                           <div class="slum-dtls9">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                   <p><b>BPL No.</b></p>
+                                   <input type="text" name="bplNo" placeholder="" ng-model="addSurvey.bplNo" maxlength="100" ng-disabled="bplNoDis"/>
+                                </div>
+                                <span ng-show="bplError" ng-init="bplError=false" style="color:red" >Please Enter BPL NO</span>
+                              </div>
+                             </div> 
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-rgt">
+                                <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>BPL Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="bplPictureShow" ng-init="bplPictureShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/bplcard_photo/{{nonSlumBplCardAttachment}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="bplPicture" placeholder="" file-model="addSurvey.bplPicture" ng-init="addSurvey.bplPicture=''" ng-disabled="bplPictureDis"/>
+                                        </div>
+                                        <span ng-show="bplPicError" ng-init="bplPicError=false" style="color:red" >Please Enter BPL PIC </span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                              </div>
+                             </div>   
+                           </div>
+                           <div class="slum-dtls10">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                   <p><b>Ration Card</b></p>
+                                   <div class="rdo-srv2">
+                                      <label class="radio-inline"><input type="radio" value="Y" name="rationRadio" ng-model="addSurvey.rationRadio" ng-click="rationRadioFunction()"/>Yes</label>
+                                         <label class="radio-inline"><input type="radio" value="N" name="rationRadio" ng-model="addSurvey.rationRadio" ng-init="addSurvey.rationRadio='N'" ng-click="rationRadioNoFunction()"/>No</label>
+                                    </div>
+                                </div>
+                              </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                               </div>
+                               <div class="clearfix"></div>  
+                           </div>
+                           <div class="slum-dtls11">
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                 <div class="adsurvy-bx">
+                                   <p><b>Ration Card No .</b></p>
+                                   <input type="text" name="rationCardNo" placeholder="" ng-model="addSurvey.rationCardNo" maxlength="100" ng-disabled="rationCardNoDis"/>
+                                </div>
+                                 <span ng-show="rationError" ng-init="rationError=false" style="color:red" >Please Enter Ration NO</span>
+                              </div>
+                             </div> 
+                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-rgt">
+                                <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Ration Card Photo</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="rationCardPicShow" ng-init="rationCardPicShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/rationcard_photo/{{nonSlumRationCardAttachment}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="rationCardPic" placeholder="" file-model="addSurvey.rationCardPic" ng-init="addSurvey.rationCardPic=''" ng-disabled="rationCardPicDis"/>
+                                        </div>
+                                        <span ng-show="rationPicError" ng-init="rationPicError=false" style="color:red" >Please Enter Ration PIC </span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                              </div>
+                             </div>   
+                           </div>
+                           <div class="slum-dtls13">
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                 <div class="adsrv-left">
+                                     <div class="adsurvy-bx">
+                                        <p><b>Which beneficiary  needs assistance under HFA :</b><br /></p>
+                                        <select ng-model="addSurvey.preferredAssistanceHfa" >
+                                            <option value="">---Select---</option>
+                                            <option ng-repeat="hfa in hfaAsstData" value="{{hfa.preferredAssistanceHfaCategoryId}}">{{hfa.preferredAssistanceHfaCategoryName}}</option>
+                                            
+                                        </select>
+                                    </div>
+                                   </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                  <div class="adsrv-rgt">
+                                  </div>
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           
+                           <div class="slum-dtls16">
+                              <h4>&nbsp; Bank Details :</h4>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                              <div class="adsrv-left">
+                                <div class="adsurvy-bx">
+                                <p><b>Bank Name </b></p>
+								  <select name="bankName" ng-model="addSurvey.bankName" ng-change="enableOtherBank()">
+									<option value="">Select Bank Name</option>
+									<option ng-repeat="banks in banksList" value="{{banks.bankId}}">{{banks.bankName}}</option>
+								  </select>
+                                </div>
+                                <div class="adsurvy-bx">
+                                <p><b>Enter Other Bank</b></p>
+                                <input type="text" name="otherBankName" placeholder="" ng-model="addSurvey.otherBankName" ng-disabled="disabledOtherBank"/>
+                                </div>
+                                <span ng-show="bankError" ng-init="bankError=false" style="color:red" >Please Enter Bank Name</span>
+                               <div class="clearfix"></div>
+                               <div class="adsurvy-bx">
+                                 <p><b>Account Number </b></p>
+                                 <input type="text" name="bankAccNo" placeholder="" ng-model="addSurvey.bankAccNo" ng-minlength="11" maxlength="16" ng-pattern="/^[0-9]*$/" />
+                               </div>
+                               <span ng-show="addSurveyForm.bankAccNo.$error.pattern &amp;&amp; !addSurveyForm.bankAccNo.$pristine"  style="color:red" >Enter Only Numbers</span>
+                               <div class="clearfix"></div>
+                               <span style="color:red" ng-show="addSurveyForm.bankAccNo.$error.minlength &amp;&amp; !addSurveyForm.bankAccNo.$pristine">Acc. No. Should Contain Atleast 11 Number</span>
+                               <div class="clearfix"></div>
+                              </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <div class="adsrv-rgt">
+                                    <div class="adsurvy-bx">
+                                        <p><b>Branch Name</b></p>
+                                        <input type="text" name="" placeholder="" ng-model="addSurvey.bankBranchName" minlength="4" maxlength="50" />
+                                    </div>
+                                    <div class="adsurvy-bx">
+                                        <p><b>IFSC Code</b></p>
+                                        <input type="text" name="bankIfscCode" placeholder="" ng-model="addSurvey.bankIfscCode" minlength="11" maxlength="11" ng-pattern="/^[A-Za-z]{4}[a-zA-Z0-9]{7}$/" />
+                                    </div>
+                                    <span ng-show="addSurveyForm.bankIfscCode.$error.pattern &amp;&amp; !addSurveyForm.bankIfscCode.$pristine"  style="color:red" >IFSC code shoul be Like ASDN0001234</span>
+                                    <div class="clearfix"></div>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls17">
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                 <div class="adsrv-left">
+                                    <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Signature of the applicant</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="applicantSignatureShow" ng-init="applicantSignatureShow = false">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/signature/{{nonSlumSignatureOfApplicant}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="" file-model="addSurvey.applicantSignature" ng-init="addSurvey.applicantSignature=''" />
+                                        </div>
+                                        <span ng-show="applicantSignatureError" ng-init="applicantSignatureError=false" style="color:red" >Please Select A Signature photo</span>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                   </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                  <div class="adsrv-rgt">
+                                 <div class="adsurvy-bx1">
+                                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <p><b>Biometric Image</b></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="" ng-init="">
+                                         <div class="pic-box">
+                                            <img class="myImg" src="images/pmay_servey_images/signature/{{}}"/>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
+                                        <input type="file" name="" file-model="" ng-init="" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                               </div>
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-dtls18">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="adsrv-left">
+                           <div class="adsurvy-bx">
+                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 no-padding">
+                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding">
+                                     <input type="checkbox" ng-model="addSurvey.eligibleStatus" ng-true-value="true" ng-false-value="false" ng-init="addSurvey.eligibleStatus=false" />
+                                     </div>
+                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                     <div class="adhno">
+                                     <p><b>Eligibility</b></p>
+                                     </div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                                     <div class="clearfix"></div>
+                                     </div>
+                           <div class="adsurvy-bx" ng-if="!addSurvey.eligibleStatus">
+                               <p><b>Reason for Non-Eligibility</b></p>
+                               <input type="text" name="nonEligibleReason" placeholder="" ng-model="addSurvey.nonEligibleReason" ng-init="addSurvey.nonEligibleReason=''" maxlength="200" />
+                           </div>
+                           </div>
+                           <div class="clearfix"></div>
+                           </div>
+                           <div class="clearfix"></div>
+                           </div>
+                           <div class="slum-btn">
+                               <div class="mn-frmbtn">
+                                   <div class="frm-btn">
+                                       <button  type="submit" class="sub-frbtn" ng-disabled="true">Submit</button>
+                                   </div>
+                                   <div class="frm-btn">
+                                        <button  type="submit" class="sv-frbtn" ng-disabled="true">Save</button>
+                                   </div>
+                                   <div class="frm-btn">
+                                        <div class="can-pmay">
+                                        <a href="" ng-click = "cancelViewSurTab()">Cancel</a>
+                                        </div>
+                                   </div>
+                                   <div class="clearfix"></div>
+                               </div>
+                           </div>
+                           <div class="clearfix"></div>
+                           </div>
+                           </form>
+                           <div class="clearfix"></div>
+						   </div>
+                            <div class="clearfix"></div>
+                           </div>
+                           <div class="clearfix"></div>
+                           <!-- </form> -->
+                           </div>
+                          </div>
+                          <div class="clearfix"></div>
+                            <div class="back-btn">
+                                <a href="/superuser"><span class="fa  fa-angle-double-left"></span>   Go to back</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="mn-aws-chs">
+                                <div class="awas-lg">
+                                    <img src="images/Awaas Logo.jpg" />
+                                </div>
+                                <div class="chs-lg">
+                                    <img src="images/choice logo.png" />
+                                </div>
+                                <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<script>
+			$(document).ready(function() {
+				$(".expand-btn").click(function() {
+					$(".s_sidenav").toggleClass("expand");
+				});
+			});
+    </script>
+</body>
+</html>

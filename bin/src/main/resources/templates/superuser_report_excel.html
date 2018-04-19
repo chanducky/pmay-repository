@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+<meta charset="utf-8" />
+<title>PMAY | Survey Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="images/pmay-favicon.png" rel="icon" sizes="16x16" />
+<link href="css/normalize.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/angular.min.js" type="text/javascript"></script>
+<script src="pmayjs/main.js" type="text/javascript"></script>
+<script src="pmayjs/superuser.js" type="text/javascript"></script>
+
+</head>
+<body ng-controller="SuperUserController">
+	<div class="pmay-loader">
+		<button class="btn btn-lg btn-warning">
+			<span class="fa fa-refresh fa-refresh-animate"></span>
+		</button>
+	</div>
+	<div class="main-wrapper"
+		ng-init="getSuperUserDesiredReport() ; checkSession()">
+		<div class="header">
+			<div class="sub-wrapper">
+				<nav class="navbar navbar-inverse">
+					<div class="navbar-header">
+						<h3>PMAY</h3>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						<li><p>Hi! {{loginUserName}}</p></li>
+						<li><a href="" ng-click="logout()">Log Out <span
+								class="fa fa-sign-out"></span></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="dexcel-content">
+			<div class="sub-wrapper">
+				<div class="excel-tblbox">
+					<h3 class="text-center">PMAY Survey Report {{filteredSuperUserReportData}}</h3>
+					<div class="sd-view">
+						<div class="sd-tbl">
+							<table id="superUserReportData">
+								<tr>
+									<th>Sl No.</th>
+									<th ng-if="name === 'true'">Name</th>
+									<th ng-if="fatherName === 'true'">Father's Name</th>
+									<th ng-if="gender === 'true'">Gender</th>
+									<th ng-if="age === 'true'">Age</th>
+									<th ng-if="maritiaStatus === 'true'">Marital Status</th>
+									<th ng-if="religion === 'true'">Religion</th>
+									<th ng-if="caste === 'true'">Caste</th>
+									<th ng-if="aadharNumber === 'true'">Aadhar No</th>
+									<th ng-if="idType === 'true'">ID Type</th>
+									<th ng-if="idNumber === 'true'">ID No</th>
+								</tr>
+								<tr ng-repeat="surveyReport in filteredSuperUserReportData">
+									<td class="text-center">{{$index+1}}</td>
+									<td ng-if="name === 'true'">{{surveyReport.familyHead}}</td>
+									<td ng-if="fatherName === 'true'">{{surveyReport.fatherOrHusbandName}}</td>
+									<td ng-if="gender === 'true'">{{surveyReport.genderName}}</td>
+									<td ng-if="age === 'true'">{{surveyReport.age}}</td>
+									<td ng-if="maritiaStatus === 'true'">{{surveyReport.maritalStatusName}}</td>
+									<td ng-if="religion === 'true'">{{surveyReport.religionName}}</td>
+									<td ng-if="caste === 'true'">{{surveyReport.casteName}}</td>
+									<td ng-if="aadharNumber === 'true'">{{surveyReport.aadharCardNumber}}</td>
+									<td ng-if="idType === 'true'">{{surveyReport.idTypeName}}</td>
+									<td ng-if="idNumber === 'true'">{{surveyReport.idNumber}}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<div class="dexcl-btnbox">
+					<button type="button" class="de-dwnld"
+						ng-click="excelReport('#superUserReportData')">
+						Download <span class="fa fa-download"></span>
+					</button>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</body>
+</html>

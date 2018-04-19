@@ -1,0 +1,27 @@
+/**
+ * Created By: ZEESHAN
+ * Created On: Feb 24, 20187:44:14 PM
+ * File Name : PmayRequirementData.java
+ * Last Modified By :
+ * Last Modified On :
+ */
+package com.mcs.pmay.data;
+ 
+public class PmayRequirementData {
+	private String houseRequirementId;
+	private String houseRequirementName;
+	
+	public String getHouseRequirementId() {
+		return houseRequirementId;
+	}
+	public void setHouseRequirementId(String houseRequirementId) {
+		this.houseRequirementId = houseRequirementId;
+	}
+	public String getHouseRequirementName() {
+		return houseRequirementName;
+	}
+	public void setHouseRequirementName(String houseRequirementName) {
+		this.houseRequirementName = houseRequirementName;
+	} 
+
+}

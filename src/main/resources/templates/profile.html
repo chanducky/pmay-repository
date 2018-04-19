@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>PMAY | Survey Panel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="images/pmay-favicon.png" rel="icon" sizes="16x16" />
+        <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container-fluid no-padding">
+           <div class="header">
+                     <div class="sub-wrapper">
+                     <nav class="navbar navbar-inverse">
+                        <div class="navbar-header">
+                          <h3>PMAY</h3>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <div class="icon-box">
+                            <li><p><a href="#"><span class="fa fa-list icon1"></span><span class="badge b_frst">3</span></a></p></li>
+                            </div>
+                            <div class="icon-box">
+                            <li><p><a href="#"><span class="fa fa-envelope icon2"></span><span class="badge b_scnd">5</span></a></p></li>
+                            </div>
+                             <div class="icon-box">
+                            <li><p><a href="#"><span class="fa fa-bell icon2"></span><span class="badge b_last">4</span></a></p></li>
+                            </div>
+                            <li><p>Hi!  Admin</p></li>
+                          <li><a href="login.html">Log Out <span class="fa fa-sign-out"></span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="s_cnt_ar">
+                <div class="col-lg-2 no-padding">
+                    <div class="s_sidenav">
+                            <ul>
+                                <li><a class="active" href="index.html"><span class="fa fa-dashboard"></span> Dashboard</a></li>
+                               
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="s_nav_cnt">
+                        <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#cpwd">Change Password</a></li>
+                                <li><a data-toggle="tab" href="#saprf-det">Profile Details</a></li>
+                        </ul>
+                            <div class="tab-content">
+                        <div id="cpwd" class="tab-pane fade in active">
+                                <div class="sadm-cpwd">
+                                 <!-- DIV FOR PASSWORD ALERT MESSAGE  -->
+                                    <div ng-show="ErrorMessage" ng-init="ErrorMessage=false" class="erpwd-box" style="text-align:center;">
+                                      <p class="changePwd">{{ERROR}}</p>
+                                    </div>
+                                <div class="c_pwd">
+                                <div class="cpwd-box">
+                                 <input class="form-control" data-toggle="password" data-placement="after" type="password" name="opwd" placeholder="Old Password" ng-model="Pass.oldPass" />
+                                 </div>
+<!--                                    <input type="password" name="opwd" placeholder="Old Password" ng-model="Pass.oldPass" />-->
+                                    <div class="clearfix"></div>
+                                     <div class="cpwd-box">
+                                     <input class="form-control" data-toggle="password" data-placement="after" type="password" name="npwd" placeholder="New Password" ng-model="Pass.newPass" />
+                                     </div>
+<!--                                    <input type="password" name="npwd" placeholder="New Password" ng-model="Pass.newPass" />-->
+                                     <div class="clearfix"></div>
+                                      <div class="cpwd-box">
+                                      <input class="form-control" data-toggle="password" data-placement="after" type="password" name="cpwd" placeholder="Confirm Password" ng-model="Pass.cnfPass" />
+                                      <p ng-show="IfMatch" class="IfMatch">*password have to match!</p> 
+                                      </div>
+<!--                                    <input type="password" name="cpwd" placeholder="Confirm Password" ng-model="Pass.cnfPass" ng-keyup="PassMatch(Pass)" />-->
+                                     <!-- <div class="clearfix"></div>
+                                     <text ng-show="ErrorMessage" ng-init="ErrorMessage=false" style="margin-left:75px; color:red;">{{ERROR}}</text>
+                                      -->
+                                      <div class="clearfix"></div> 
+                                    <div class="cpwd-box">
+                                    <button class="cps-btn" type="submit" ng-click="ProPassCh(Pass)">Submit</button>
+                                    <div class="buttonLoad">
+     	                            <img class="buttonDivLoad" src="images/loading.gif"/>
+			                        </div>
+                                    </div>
+                                 </div>
+                                </div>
+                                </div>
+                            <div id="saprf-det" class="tab-pane fade">
+                                <div class="usrdet">
+                        <form name="SubmitUserForm">
+                           <div class="uipbox">
+                               <input type="text" name="Id" ng-model="userId" ng-init="userId=0" hidden="hidden"/>
+                               <input type="text" ng-model="userFname" name="fname" placeholder="First Name" minlength="3" maxlength="20" required="required" />
+                           </div>
+                           <div class="uipbox">
+                               <input type="text" ng-model="userLname" name="lname" placeholder="Last Name" minlength="3" maxlength="20" required="required" />
+                           </div>
+                           <div class="uipbox">
+                               <input type="email" ng-model="userEmail" name="email" placeholder="Email Id" maxlength="50" required="required" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"/>
+                           </div>
+                           <div class="uipbox">
+                               <input type="text" ng-model="userMobile" name="mobile" placeholder="Mobile No" maxlength="10" required="required" ng-pattern="/^[7-9][0-9]{9}$/"/>
+                           </div>
+                           <div class="uipbox">
+                               <textarea rows="1" ng-model="userAdd1" name="add1" placeholder="Address 1" minlength="5" maxlength="50" required="required"></textarea>
+                           </div>
+                           <div class="uipbox">
+                               <textarea rows="1" ng-model="userAdd2" name="add2" placeholder="Address 2" minlength="4" maxlength="50" required="required"></textarea>
+                           </div>
+                           <div class="uipbox">
+                               <select  name="state" ng-model="profileState" ng-change="getCityData()" ng-options="y.state_Name for (x,y) in stateList track by y.state_Id" required="required">
+                               </select>
+                           </div>
+                           <div class="uipbox">
+                               <select name="city" ng-model="profileCity" ng-change="getAreaData()" ng-options="y.city_Name for (x,y) in listCity track by y.city_Id" required="required">
+                                </select>
+                           </div>
+                           <div class="uipbox">
+                               <select name="area" ng-model="profileArea" ng-options="y.areaName for (x,y) in listArea track by y.areaId" required="required">
+                               </select>
+                           </div>
+                          <div class="uipbox">
+                               <input type="text" class="to" ng-model="userDob" name="dob" placeholder="Date of Birth"  />
+                               <span class="fa fa-calendar"></span>
+                           </div> 
+                           <div class="uipbox">
+                               <input type="text" ng-model="userZipcode" name="zipcode" placeholder="Zipcode" maxlength="10" required="required" />
+                           </div> 
+                           <div class="clearfix"></div>
+                           <button class="aduser-btn" type="submit" ng-click="profileSubmit()">Submit</button>
+                           <div class="buttonLoad">
+     	                      <img class="buttonDivLoad" src="images/loading.gif"/>
+			               </div>
+                           <div class="clearfix"></div>
+                           </form>
+                        </div>
+                        <div class="clearfix"></div>
+                       <hr />
+                            </div>
+                           </div> 
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <script>
+    $(function () {
+        $('#password').password().on('show.bs.password',function (e) {
+        $('#methods').click(function () {
+            $('#password').password('toggle');
+        });
+     });
+    });
+</script>
+    </body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+       <meta charset="utf-8" />
+        <title>PMAY | Survey Panel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="images/pmay-favicon.png" rel="icon" sizes="16x16" />
+        <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="datepicker/css/jquery-ui.css" />
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/responsive.css" rel="stylesheet" type="text/css" />
+        <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="datepicker/js/jquery-ui.js"></script>
+        <script src="datepicker/js/datepicker.js"></script>
+        <script src="js/highcharts.js"></script>
+		<script src="js/exporting.js"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script src="js/Underscore.js" type="text/javascript"></script>
+        <script src="js/sweetalert2.all.min.js" type="text/javascript"></script>
+        <script src="pmayjs/main.js" type="text/javascript"></script>
+        <script src="pmayjs/superuser.js" type="text/javascript"></script>
+        <script src="pmayjs/FileSaver.js" type="text/javascript"></script>
+		<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+		
+    </head>
+<body ng-controller="SuperUserController as superUser">
+ <div class="pmay-loader">
+        <button class="btn btn-lg btn-warning"><span class="fa fa-refresh fa-refresh-animate"></span></button>
+</div>
+	<div class="container-fluid no-padding" ng-init="getDropDownData(); checkSession()"><!-- checkSession() -->
+		<div class="header">
+		  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+              <div class="navbar-header">
+               <h3>PMAY</h3>
+              </div>
+		  </div>
+		  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+             <div class="pmay-hdng">
+                <div class="pmay-hdlogo">
+                    <img src="images/Pmay_Logo.jpg" />
+                    <h3>Pradhan Mantri Awas Yojana</h3>
+                </div>  
+             </div> 
+		  </div>
+		  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+		      <div class="pm-admnb">
+		          <ul class="nav navbar-nav navbar-right">
+						<li><p>Hi! {{loginUserName}}</p></li>
+					</ul>
+		      </div>
+		  </div>
+         <div class="clearfix"></div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="s_cnt_ar">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 no-padding">
+				<div class="s_sidenav">
+					<ul class="nav nav-tabs">
+                      <li class="hd-super">Super User</li>
+                      <li><a data-toggle="tab" href=""></a></li>
+                      <li  class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                      <li><a data-toggle="tab" href="#surpt">Survey Report</a></li>
+                      <li><a data-toggle="tab" href="#lgout" ng-click="logout()">Logout</a></li>
+                    </ul>
+				</div>
+				<div class="mr-cubtn hidden-lg hidden-md">
+             <button class="expand-btn"><span class="fa fa-bars"></span></button>
+            </div>
+			</div>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="s_nav_cnt">
+					<div class="tab-content">
+                      <div id="home" class="tab-pane fade in active">
+                        <div class="mn-hmpmay">
+                            <div class="rdo-pmay">
+                                <label class="radio-inline"><input type="radio" value="slum" name="optradio" ng-model="reportParam" ng-init="reportParam = 'slum'" ng-click = "getFilterForUlbDetails(reportParam)"/>Slum</label>
+                                <label class="radio-inline"><input type="radio" value="nonSlum" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Non-slum</label>
+                                <label class="radio-inline"><input type="radio" value="todayReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Today's Survey</label>
+                                <label class="radio-inline"><input type="radio" value="totalReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Total Survey</label> 
+                            </div>
+                            <div class="pm-suptb">
+                                <table class="table-responsive">
+                                    <tr>
+                                        <th>Sl No.</th>
+                                        <th>ULB Name</th>
+                                        <th>Ward Name</th>
+                                    </tr>
+                                    <tr ng-repeat="ulbReport in superUser.ulbWardsData ">
+                                        <td class="text-center">{{(superUser.ulbPager.currentPage-1) * superUser.ulbPager.pageSize+ $index+1}}</td>
+                                        <td>{{ulbReport.ulbName}}</td>
+                                        <td>{{ulbReport.wardNames}}</td>
+                                    </tr>
+                                </table>
+                                <div class="clearfix"></div>
+                                  <div class="text-center">
+				                   <ul ng-if="superUser.ulbPager.pages.length" class="pagination">
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === 1}">
+				                            <a ng-click="superUser.setUlbDetailsPage(1)" href ="">First</a>
+				                        </li>
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === 1}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.currentPage - 1)" href ="">Previous</a>
+				                        </li>
+				                        <li ng-repeat="page in superUser.ulbPager.pages" ng-class="{active:superUser.ulbPager.currentPage === page}">
+				                            <a ng-click="superUser.setUlbDetailsPage(page)" href ="">{{page}}</a>
+				                        </li>               
+				                        <li ng-class="{disabled:superUser.ulbPagerr.currentPage === superUser.ulbPager.totalPages}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.currentPage + 1)" href ="">Next</a>
+				                        </li>
+				                        <li ng-class="{disabled:superUser.ulbPager.currentPage === superUser.ulbPager.totalPages}">
+				                            <a ng-click="superUser.setUlbDetailsPage(superUser.ulbPager.totalPages)" href ="">Last</a>
+				                        </li>
+				                    </ul>
+				                </div>
+                            </div>
+                            
+                            <div class="pm-piechat" ng-init = "getTodaySurveyReport() ; getTotalSurveyReport()">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                   <div class="pie-chat">
+                                       <h4>Today's Survey</h4>
+                                       <div class="clearfix"></div>
+                                            <div id="todaySurveyReport" style="min-width: 500px; height: 300px; margin: 0 auto"></div>
+                                   </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                  <div class="pie-chat">
+                                       <h4>Total Survey</h4>
+                                       <div class="clearfix"></div>
+                                            <div id="totalSurveyReport" style="min-width: 500px; height: 300px; margin: 0 auto"></div>
+                                   </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                      </div>
+                      <div id="surpt" class="tab-pane fade">
+							<div class="survdata">
+								<div class="sd-filter">
+									<h4>Search Survey Report</h4>
+										<div class="sd-fbox">
+											<input type="text" name="name" placeholder="Enter Name" ng-model="searchData.superUserReportName"/>
+										</div>
+										<div class="sd-fbox">
+                               		 		<input type="text" name="aadhar-no" placeholder="Aadhar No / ID No" ng-model="searchData.superUserReportAadharNo"/>
+	                                  	</div>
+	                                    <div class="sd-fbox">
+	                                		<input type="text" name="ulb name" placeholder="ULB Name" ng-model="searchData.superUserReportUlbName"/>
+	                                    </div>
+										 <div class="sd-fbox">
+	                                		<input type="text" name="father spouse name" placeholder="Father's/Spouse Name" ng-model="searchData.superUserReportFatherSpouseName"/>
+	                                    </div>
+                                        <div class="sd-fbox">
+	                                		<input type="text" name="bank-account" placeholder="Bank Account" ng-model="searchData.superUserReportBankAc"/>
+	                                    </div>
+										<div class="sd-fbox">
+											<select name="scope-name" ng-model="searchData.superUserReportScopeName">
+												<option value="">Select Search Criteria</option>
+												<option value="pus.ward_id"> Ward Name </option>
+												<option value="pg.gender_name"> Gender </option>
+												<option value="pms.marital_status_name"> Marital Status </option>
+												<option value="prg.religion_name"> Religion </option>
+												
+												<option value="pc.caste_name"> Caste </option>
+												<option value="prc.city_name"> Present City</option>
+												<option value="pec.city_name"> Permanent City</option>
+												<option value="present_mobile_number"> Present Mobile Number</option>
+												<option value="perm_mobile_number"> Permanent Mobile Number</option>
+												
+												<option value="patta_number">Patta Number</option>
+												<option value="dag_number"> Dag Number </option>
+												<option value="if_yes_bpl_card_number"> Bpl Card Number</option>
+												<option value="if_yes_ration_card_number"> Ration Card Number</option>
+											</select>
+										</div>
+										<div class="sd-fbox">
+	                                		<input type="text" name="scope-value" placeholder="Scope value" ng-model="searchData.superUserReportScopeValue"/>
+	                                    </div>
+										<div class="sd-fbox">
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+												<button type="submit" class="svd-btn" ng-click = "customizeSearchReport()">Search</button>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
+												<button type="reset" class="svd-btn" ng-click="resetAll()">Reset</button>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									<div class="clearfix"></div>
+								</div>
+								<hr></hr>
+								<div class="clearfix"></div>
+								<div class="chkbx-area">
+									<h4>Select Fields</h4>
+									<div class="chbx-field">
+										<div class="chbx">
+											<input type="checkbox" name="name"
+												ng-model="userName" ng-init ="userName = true"/><br /> Name
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="father's Name"
+												ng-model="userFatherName" ng-init ="userFatherName = true"/><br />Father/Husband's Name
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="gender" ng-model="gender"
+												ng-init ="gender = true" /><br />Gender
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="age" ng-model="age" ng-init ="age = true" /><br /> Age
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="m-status"
+												ng-model="maritalStatus"
+												ng-init ="maritalStatus = true"/><br />Marital Status
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="religion"
+												ng-model="religion" ng-init ="religion = true" /><br/>Religion
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="caste"
+												ng-model="caste" ng-init ="caste = true" /><br /> Caste
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="aadharno"
+												ng-model="aadharNo" ng-init ="aadharNo = true"/><br />Aadhar No
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="id-type" ng-model="idType"
+												ng-init ="idType = true" /><br /> ID Type
+										</div>
+										<div class="chbx">
+											<input type="checkbox" name="id-no"
+												ng-model="idNumber" ng-init ="idNumber = true" /><br /> ID No
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								<hr />
+								<div class="clearfix"></div>
+								<div class="sd-view">
+									<h4>View Survey Report</h4>
+									<div class="sd-tbl">
+										<table  class="table-responsive">
+											<tr>
+												<th><input type="checkbox" name="selectall" ng-model="selectedAll" ng-click ="selectAllSurveyReportData()" ng-init="selectedAll = true"/></th>
+												<th>Sl No.</th>
+												<th>Name</th>
+												<th>Father/Husband's Name</th>
+												<th>Gender</th>
+												<th>Age</th>
+												<th>Marital Status</th>
+												<th>Religion</th>
+												<th>Caste</th>
+												<th>Aadhar No</th>
+												<th>ID Type</th>
+												<th>ID No</th>
+												<th>View</th>
+												<th>Download</th>
+											</tr>
+											<tr ng-repeat="surveyReport in superUser.surveyReportData">
+												<td><input type="checkbox" name="selectedSuperUserReportSurveyId" ng-model ="superUserReport.selectedId[surveyReport.userSurveyId]" ng-init="superUserReport.selectedId[surveyReport.userSurveyId] = true" /></td>
+												<td class="text-center">{{(superUser.reportPager.currentPage-1) * superUser.reportPager.pageSize+ $index+1}}</td>
+												<td>{{surveyReport.familyHead}}</td>
+												<td>{{surveyReport.fatherOrHusbandName}}</td>
+												<td>{{surveyReport.genderName}}</td>
+												<td>{{surveyReport.age}}</td>
+												<td>{{surveyReport.maritalStatusName}}</td>
+												<td>{{surveyReport.religionName}}</td>
+												<td>{{surveyReport.casteName}}</td>
+												<td>{{surveyReport.aadharCardNumber}}</td>
+												<td>{{surveyReport.idTypeName}}</td>
+												<td>{{surveyReport.idNumber}}</td>
+												<td class="text-center"><button class="c-edt" ng-click="editSurvryReport(surveyReport)"><span class="fa fa-edit"></span></button></td>
+												<td class="text-center"><button class="c-edt" ng-click="downloadSurveyPhotos(surveyReport)" ><span class="fa fa-download"></span></button></td>
+											</tr>
+										</table>
+									</div>
+									<div class="clearfix"></div>
+									<div class="r_l_sec">
+										<div class="r-dnld col-lg-6">
+											<div class="rdwnld_btn"><!-- /superUserReportExcel -->
+												<a href="" ng-click="getReportDetailsForDownload()" target="_blank">Download in Excel</a>
+											</div>
+										</div>
+										<!-- <div class="r-pgn col-lg-6">
+											<ul class="pager" ng-show="superUserReportData.length">
+					                         	<li class="previous" ng-hide="curPage==0" ng-click="curPage=curPage-1"><a href="#">Previous</a></li>
+					                            	<span>Page {{curPage + 1}} of {{ numberOfSuperUserReportPages() }}</span>
+					                         	<li class="next" ng-hide="curPage >= superUserReportData.length/pageSize - 1" ng-click="curPage = curPage+1"><a href="#">Next</a></li>
+                           					</ul>
+										</div> -->
+										
+										<div class="clearfix"></div>
+									</div>
+									<div class="clearfix"></div>
+										<div class="text-center">
+						                   <ul ng-if="superUser.reportPager.pages.length" class="pagination">
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === 1}">
+						                            <a ng-click="superUser.setReportPage(1)" href ="">First</a>
+						                        </li>
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === 1}">
+						                            <a ng-click="superUser.setReportPage(superUser.ulbPager.currentPage - 1)" href ="">Previous</a>
+						                        </li>
+						                        <li ng-repeat="page in superUser.reportPager.pages" ng-class="{active:superUser.reportPager.currentPage === page}">
+						                            <a ng-click="superUser.setReportPage(page)" href ="">{{page}}</a>
+						                        </li>               
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === superUser.reportPager.totalPages}">
+						                            <a ng-click="superUser.setReportPage(superUser.ulbPager.currentPage + 1)" href ="">Next</a>
+						                        </li>
+						                        <li ng-class="{disabled:superUser.reportPager.currentPage === superUser.reportPager.totalPages}">
+						                            <a ng-click="superUser.setReportPage(superUser.reportPager.totalPages)" href ="">Last</a>
+						                        </li>
+						                    </ul>
+						                </div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="mn-aws-chs">
+                                <div class="awas-lg">
+                                    <img src="images/Awaas Logo.jpg" />
+                                </div>
+                                <div class="chs-lg">
+                                    <img src="images/choice logo.png" />
+                                </div>
+                                <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<script>
+			$(document).ready(function() {
+				$(".expand-btn").click(function() {
+					$(".s_sidenav").toggleClass("expand");
+				});
+			});
+</script>
+</body>
+</html>
