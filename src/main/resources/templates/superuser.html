@@ -229,9 +229,10 @@
 										<div class="sd-fbox">
 											<select name="scope-name" ng-model="searchData.superUserReportScopeName">
 												<option value="">Select Search Criteria</option>
-												<option value="pus.ward_id"> Ward No </option>
+												
 												<option value="pg.gender_name"> Gender </option>
 												<!--
+												<option value="pus.ward_id"> Ward No </option>
 												<option value="pms.marital_status_name"> Marital Status </option>
 												<option value="prg.religion_name"> Religion </option> 
 												<option value="pc.caste_name"> Caste </option>
@@ -342,7 +343,7 @@
 												<th>Date of Birth</th>
 												<th>Slum/Non-Slum</th>
 												<th>ULB Name</th>
-												<th>Ward No</th>
+												<!-- <th>Ward No</th> -->
 												<th>Preferred Component of the Mission</th>
 												<th>Eligible/Not-Eligible</th>
 												<th>Remarks for Non Eligibility</th>
@@ -364,14 +365,15 @@
 												<td>{{surveyReport.userAge}}</td>
 												<td>{{surveyReport.slumNonSlumStatus ? surveyReport.slumNonSlumStatus : (surveyReport.slumNonSlum === 'S' ? 'Slum' : 'Non-Slum')}}</td>
 												<td>{{surveyReport.ulbName}}</td><!-- ULB  Name -->
+												<!--
 												<td>{{surveyReport.wardName ? surveyReport.wardName : surveyReport.wardId}}</td>
+												-->
 												<td>{{surveyReport.hfaCategoryName}}</td>
 												<td>{{surveyReport.eligibilityForScheme}}</td>
 												<td>{{surveyReport.reasonForNonEligibility}}</td><!-- Remarks for Non Eligibility -->
-												<td><a href="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" target="_blank"><img width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" /></a></td>
-												<td><a href="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" target="_blank"><img  width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" /></a></td>
-												<!-- <td>{{surveyReport.geoLongitude}} - {{surveyReport.geoLatitude}} </td> -->
-												<td> <a ng-if="surveyReport.geoLongitude.length" href="/showLocation?lat={{surveyReport.geoLatitude}}&amp;lng={{surveyReport.geoLongitude}}" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  </td>
+												<td><img class="myImg" width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" /></td>
+												<td><img class="myImg" width="40px"  src="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" /></td>
+												<td>{{surveyReport.geoLongitude}} - {{surveyReport.geoLatitude}}</td>
 												<!-- <td class="text-center"><button class="c-edt" ng-click="editSurvryReport(surveyReport)"><span class="fa fa-edit"></span></button></td> -->
 												
 											</tr>
