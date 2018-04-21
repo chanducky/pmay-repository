@@ -139,7 +139,7 @@ public class PmayUtil {
 	
 	public static String convertBlankToNull(String input)
 	{
-		if(input.equals(""))
+		if("".equals(input))
 		{
 			input =null;
 		}

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mcs.pmay.data.PmayReportDataForAdmins;
-import com.mcs.pmay.data.PmaySurveyReportData;
 import com.mcs.pmay.service.PmaySurveyService;
 
 @Controller
