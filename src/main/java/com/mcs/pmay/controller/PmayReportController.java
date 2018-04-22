@@ -1,5 +1,6 @@
 package com.mcs.pmay.controller;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mcs.pmay.data.PmayReportDataForAdmins;
+import com.mcs.pmay.data.PmayUserData;
+import com.mcs.pmay.exceptions.UnauthorizedAccessException;
 import com.mcs.pmay.service.PmaySurveyService;
 
 @Controller
@@ -26,13 +29,18 @@ public class PmayReportController {
 
 	/**
 	 * Handle request to download an Excel document
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/downloadSurveyForSuperUser", method = RequestMethod.GET)
-	public void downloadExcel(HttpServletRequest request, HttpServletResponse response) {
+	public void downloadExcel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		OutputStream out = null;
 		try
 		{
+			PmayUserData userData= 	(PmayUserData) request.getSession().getAttribute("userDtls");
+			if(userData==null) {
+				throw new UnauthorizedAccessException("User not logged in or Unauthorized.");
+			}
 			
 			List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getSurveyReportForSuperUser();
 			
@@ -48,6 +56,7 @@ public class PmayReportController {
 
 		}catch(Exception ex) {
 			ex.printStackTrace();
+			throw ex;
 		}
 
 	}
@@ -102,6 +111,39 @@ public class PmayReportController {
 		}
 		
 		return workbook;
+	}
+
+	/**
+	 * Handle request to download an Excel document
+	 * @throws Exception 
+	 */
+	@RequestMapping(value = "/downloadSurveyForAdminUser", method = RequestMethod.GET)
+	public void downloadSurveyForAdminUser(HttpServletRequest request, HttpServletResponse response) {
+
+		OutputStream out = null;
+		try
+		{
+			PmayUserData userData= 	(PmayUserData) request.getSession().getAttribute("userDtls");
+			if(userData==null) {
+				throw new UnauthorizedAccessException("User not logged in or Unauthorized.");
+			}
+			
+			List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getAdminsSurveyReports();
+			
+			response.setContentType("application/vnd.ms-excel");
+			response.setHeader("Content-Disposition",  "attachment; filename=SurveyReport.xls");
+
+			HSSFWorkbook workbook =  setRecord(surveyReports);
+			out = response.getOutputStream();
+
+			workbook.write(out);
+			out.flush();
+			out.close();
+
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+
 	}
 
 }
