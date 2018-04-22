@@ -311,7 +311,7 @@
 												<td>{{surveyReport.hfaCategoryName}}</td>
 												<td>{{surveyReport.eligibleStatus}}</td>
 												<td>{{surveyReport.reasonForNonEligibility}}</td><!-- Remarks for Non Eligibility -->
-												<td>{{surveyReport.geoLongitude}} - {{surveyReport.geoLatitude}}</td>
+												<td> <a ng-if="surveyReport.geoLongitude.length" href="/showLocation?lat={{surveyReport.geoLatitude}}&amp;lng={{surveyReport.geoLongitude}}" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  </td>
 												<td>{{surveyReport.validationPendingStatus}}</td>
 												<td class="text-center"><button class="c-edt" ng-click="editSurvryReport(surveyReport)"><span class="fa fa-edit"></span></button></td>
 												<td class="text-center"><button class="c-edt" ng-click="downloadSurveyPhotos(surveyReport)" ><span class="fa fa-download"></span></button></td>
