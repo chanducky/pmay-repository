@@ -351,4 +351,33 @@ public class PmayUserDaoImpl implements PmayUserDao {
 		}); 
 	}
 
+	@Override
+	public boolean saveLoggedinHistory(PmayUserData pmayUserData) {
+			int status = jdbcTemplate.update(PmayMysqlQueries.INSERT_LOGGEDIN_HISTORY,pmayUserData.getUserId(),pmayUserData.getUsrIp());
+			return status == 1;
+	}
+	
+	@Override
+	public List<PmayUserData> getUsersLoggedinHistory() {
+		return jdbcTemplate.query(PmayMysqlQueries.GET_USERS_LOGGEDIN_HISTORY,new RowMapper<PmayUserData>() {
+
+			@Override
+			public PmayUserData mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PmayUserData pmayUserData = new PmayUserData();
+				pmayUserData.setUserId(rs.getString(1));
+				pmayUserData.setUsrIp(rs.getString(2));
+				pmayUserData.setRoleId(rs.getInt(3));
+				pmayUserData.setUlbName(rs.getString(4));
+				pmayUserData.setFirstName(rs.getString(5));
+				pmayUserData.setMiddleName(rs.getString(6));
+				pmayUserData.setLastName(rs.getString(7));
+				pmayUserData.setEmailId(rs.getString(8));
+				pmayUserData.setMobileNo(rs.getString(9));
+				pmayUserData.setRoleName(rs.getString(10));
+				pmayUserData.setCreatedOn(rs.getString(11));
+				return pmayUserData;
+			}
+		}); 
+	}
+
 }

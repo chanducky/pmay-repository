@@ -116,28 +116,37 @@ public class PmayUserController {
 			PmayUserData pmayUserData = pmayUserService.checkApprove(loginData);
 			if (pmayUserData != null) {
 				if(pmayUserData.getStatus().equals("A")){
-				if (pmayUserData.isPasswordStatus()) {
-					HttpSession session = req.getSession(true);
-					String ipAddress = req.getHeader("X-FORWARDED-FOR");
-					if (ipAddress == null) {
-						ipAddress = req.getRemoteAddr();
+					if (pmayUserData.isPasswordStatus()) {
+						HttpSession session = req.getSession(true);
+						String ipAddress =null;
+						
+						ipAddress=PmayUtil.getClientIpAddr(req);
+						pmayUserData.setUsrIp(ipAddress);
+						if (session != null) {
+							session.setAttribute("userDtls", pmayUserData);
+							session.setAttribute("userId", pmayUserData.getUserId());
+						}
+						hmap.put("success", "true");
+						hmap.put("userdtl", pmayUserData);
+						
+						try {
+							// generate loggedin history 
+							pmayUserService.saveLoggedinHistory(pmayUserData);
+						}catch(Exception ex) {
+							ex.printStackTrace();
+						}
+						
+						return gson.toJson(hmap);
+					} else {
+						hmap.put("success", "pError");
+						return gson.toJson(hmap);
 					}
-					pmayUserData.setUsrIp(ipAddress);
-					if (session != null) {
-						session.setAttribute("userDtls", pmayUserData);
-						session.setAttribute("userId", pmayUserData.getUserId());
-					}
-					hmap.put("success", "true");
-					hmap.put("userdtl", pmayUserData);
-					return gson.toJson(hmap);
-				} else {
-					hmap.put("success", "pError");
+				}else{
+					hmap.put("success", "aiError");
 					return gson.toJson(hmap);
 				}
-			}else{
-				hmap.put("success", "aiError");
-				return gson.toJson(hmap);
-			}
+				
+				
 			} else {
 				hmap.put("success", "appError");
 				return gson.toJson(hmap);
@@ -231,7 +240,7 @@ public class PmayUserController {
 		boolean status = pmayUserService.denyUser(userData);
 		return gson.toJson(status);
 	}
-	
+
 	@RequestMapping(value = "/updateUserStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateUserStatus(@RequestBody PmayUserData userData,HttpSession session ) throws IOException {
@@ -239,19 +248,29 @@ public class PmayUserController {
 		boolean status = pmayUserService.updateUserStatus(userData,adminId);
 		return gson.toJson(status);
 	}
-	
+
 	@RequestMapping(value = "/getUserDetails", method = RequestMethod.GET)
 	@ResponseBody
 	public String getUserDetails() {
 		List<PmayUserData> pmayUserData = pmayUserService.getPmayUserData();
 		return gson.toJson(pmayUserData);
 	}
-	
+
 	@RequestMapping(value = "/getDetailsForSuperAdminMnagerProfile", method = RequestMethod.GET)
 	@ResponseBody
 	public String getDetailsForSuperAdminMnagerProfile() {
 		List<PmayUserData> pmayUserData = pmayUserService.getPmayUserDataForSuperAdmin();
 		return gson.toJson(pmayUserData);
 	}
-	
+
+	@RequestMapping(value = "/getLoggedInDetails", method = RequestMethod.GET)
+	@ResponseBody
+	public String getLoggedInDetails() {
+		
+		List<PmayUserData> pmayUserData = pmayUserService.getUsersLoggedinHistory();
+		
+		System.out.println("getLoggedInDetails called ..");
+		return gson.toJson(pmayUserData);
+	}
+
 }

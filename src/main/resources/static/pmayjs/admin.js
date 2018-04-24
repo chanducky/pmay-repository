@@ -1920,4 +1920,18 @@ mainApp
 							})
 					}
 					
+					$scope.getLoggedInDetails = function getLoggedInDetails(){
+						$(".pmay-loader").css({
+							"display" : "block"
+						});
+						$http.get(baseUrl + 'getLoggedInDetails/').success(function(data) {
+							admin.userLoggedinDetails = data;
+							admin.setUserReportPage(1);
+					        $(".pmay-loader").css({
+						    "display" : "none"
+						    });
+						});
+					}
+					
+					$scope.getLoggedInDetails();
 				});

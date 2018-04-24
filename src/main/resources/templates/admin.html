@@ -72,6 +72,7 @@
                       <li><a data-toggle="tab" href="#mngrbe" style="display:none">Manage Beneficiary</a></li>
                       <li><a data-toggle="tab" href="#mngrsu">Manage Surveyor</a></li>
                       <li><a data-toggle="tab" href="#mngrpr">Manage Profile</a></li>
+                      <li><a data-toggle="tab" href="#loggedin-history">Logged in History </a></li>
                       <li><a data-toggle="tab" href="#lgout" ng-click="logout()">Logout</a></li>
                     </ul>
 				</div>
@@ -1852,6 +1853,57 @@
                                 <a href="/admin"><span class="fa  fa-angle-double-left"></span>   Go to back</a>
                             </div>
                         </div>
+                        <!-- loggedin history start here -->
+                         <div id="loggedin-history" class="tab-pane fade">
+                            <div class="pm-suptb">
+                                <table class="table-responsive">
+                                    <tr>
+                                        <th>Sl No.</th>
+                                        <th>User Name</th>
+                                        <th>Role</th>
+                                        <th>Mobile no</th>
+                                        <th>Email</th>
+                                        <th>User Ip</th>
+                                        <th>Logged-In at</th>
+                                    </tr>
+                                    <tr ng-repeat="userDetails in admin.userLoggedinDetails">
+                                        <td class="text-center">{{(admin.userPager.currentPage-1) * admin.userPager.pageSize+ $index+1}}</td>
+                                        <td class="text-center">{{userDetails.firstName}}</td>
+                                        <td class="text-center">{{userDetails.roleName}}</td>
+                                        <td class="text-center">{{userDetails.mobileNo}}</td>
+                                        <td class="text-center">{{userDetails.emailId}}</td>
+                                        <td class="text-center">{{userDetails.usrIp}}</td>
+                                        <td class="text-center">{{userDetails.createdOn}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="clearfix"></div>
+				              <div class="text-center">
+						                   <ul ng-if="admin.userPager.pages.length" class="pagination">
+						                        <li ng-class="{disabled:admin.userPager.currentPage === 1}">
+						                            <a ng-click="admin.setUserReportPage(1)" href ="">First</a>
+						                        </li>
+						                        <li ng-class="{disabled:admin.userPager.currentPage === 1}">
+						                            <a ng-click="admin.setUserReportPage(admin.userPager.currentPage - 1)" href ="">Previous</a>
+						                        </li>
+						                        <li ng-repeat="page in admin.userPager.pages" ng-class="{active:admin.userPager.currentPage === page}">
+						                            <a ng-click="admin.setUserReportPage(page)" href ="">{{page}}</a>
+						                        </li>               
+						                        <li ng-class="{disabled:admin.userPager.currentPage === admin.userPager.totalPages}">
+						                            <a ng-click="admin.setUserReportPage(admin.userPager.currentPage + 1)" href ="">Next</a>
+						                        </li>
+						                        <li ng-class="{disabled:admin.userPager.currentPage === admin.userPager.totalPages}">
+						                            <a ng-click="admin.setUserReportPage(admin.userPager.totalPages)" href ="">Last</a>
+						                        </li>
+						                    </ul>
+						                </div>
+                       <div class="clearfix"></div>
+                       <div class="back-btn">
+                                <a href="/admin"><span class="fa  fa-angle-double-left"></span>   Go to back</a>
+                            </div>
+                        </div>
+                        <!-- loggedin history end here -->
+                        
 					</div>
 					<div class="clearfix"></div>
 					<div class="mn-aws-chs">

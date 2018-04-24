@@ -117,6 +117,13 @@ public class PmayUserServiceImpl implements PmayUserService {
 		return pmayUserDao.getPmayUserDataForSuperAdmin();
 	}
 
+	@Override
+	public boolean saveLoggedinHistory(PmayUserData pmayUserData) {
+		return pmayUserDao.saveLoggedinHistory(pmayUserData);
+	}
 	
-	
+	@Override
+	public List<PmayUserData> getUsersLoggedinHistory(){
+		return pmayUserDao.getUsersLoggedinHistory();
+	}
 }

@@ -52,7 +52,8 @@ public interface PmayUserService {
 
 	List<PmayUserData> getPmayUserDataForSuperAdmin();
 
-	
+	boolean saveLoggedinHistory(PmayUserData pmayUserData);
 
+	List<PmayUserData> getUsersLoggedinHistory();
 	
 }

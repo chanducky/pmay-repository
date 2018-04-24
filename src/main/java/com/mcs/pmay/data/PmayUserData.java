@@ -27,6 +27,7 @@ public class PmayUserData implements Serializable {
 	private boolean passwordStatus;
 	private boolean approvalStatus;
 	private String denyButtonDisable;
+	private String createdOn;
 
 	public String getApproveButtonDisable() {
 		return approveButtonDisable;
@@ -218,4 +219,13 @@ public class PmayUserData implements Serializable {
 		this.denyButtonDisable = denyButtonDisable;
 	}
 
+	public String getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	
 }

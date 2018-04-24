@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +96,7 @@ public class PmayUtil {
 			return "";
 		}
 	}
-	
+
 	public static Object chkObjectForSlum(Object strToCheck) {
 		if ((null != strToCheck) && !strToCheck.equals("")) {
 			return strToCheck;
@@ -101,7 +104,7 @@ public class PmayUtil {
 			return "S";
 		}
 	}
-	
+
 	public static Object chkObjectForNonSlum(Object strToCheck) {
 		if ((null != strToCheck) && !strToCheck.equals("")) {
 			return strToCheck;
@@ -136,7 +139,7 @@ public class PmayUtil {
 		}
 		return validPassword;
 	}
-	
+
 	public static String convertBlankToNull(String input)
 	{
 		if("".equals(input))
@@ -145,7 +148,7 @@ public class PmayUtil {
 		}
 		return input;
 	}
-	
+
 	public static Object chkCheckedRadioObjectNull(Object strToCheck) {
 		if ((null != strToCheck) && !strToCheck.equals("")) {
 			return strToCheck;
@@ -153,6 +156,43 @@ public class PmayUtil {
 			return "N";
 		}
 	}
-	
-	
+
+	public static String getClientIpAddr(HttpServletRequest request) {  
+		String ip = request.getHeader("X-Forwarded-For");  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("Proxy-Client-IP");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("WL-Proxy-Client-IP");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_X_FORWARDED");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_X_CLUSTER_CLIENT_IP");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_CLIENT_IP");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_FORWARDED_FOR");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_FORWARDED");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("HTTP_VIA");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getHeader("REMOTE_ADDR");  
+		}  
+		if (ip == null || ip.length() == 0 || ip.equalsIgnoreCase("unknown")) {  
+			ip = request.getRemoteAddr();  
+		}  
+		return ip;  
+	}
+
 }
