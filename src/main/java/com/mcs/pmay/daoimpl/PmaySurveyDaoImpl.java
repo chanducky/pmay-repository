@@ -2549,7 +2549,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 					queryString.append(",ward_id=?");
 				}
 				
-				queryString.append(",family_have_bpl_card=?,family_have_ration_card");
+				queryString.append(",family_have_bpl_card=?,family_have_ration_card=?");
 				
 				if(PmayUtil.convertBlankToNull(pmayAddSurveyData.getIsSubmittedFlag())!=null) {
 					queryString.append(",submitted_data=?");
