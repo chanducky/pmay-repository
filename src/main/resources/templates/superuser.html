@@ -90,12 +90,19 @@
                                 <label class="radio-inline"><input type="radio" value="todayReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Today's Survey</label>
                                 <label class="radio-inline"><input type="radio" value="totalReport" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Total Survey</label> 
                             </div> -->
-                            <div class="pm-suptb">
-                            <div class="text-center" style="font-weight: bold">    
-                            ULB                     
-                            <select id="selectULB" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
-									<option selected="selected" ng-selected="true" value="ALL">ALL</option>
-									<optgroup label="PACKAGE 1">
+                            
+                            <div class="row" >
+	                            	<div class="col-md-6">
+	                            		<span style="margin-left: 20px;">
+	                            		Survey Date :
+	                            		<input type="text" id="surveyDate"  class="surveyDate" ng-model="surveyDate" ng-change="getTodaySurveyReport();"  readonly="readonly" required="required"/>
+	                            		</span>
+	                            	</div>
+	                            	<div class="col-md-6">
+		                            ULB :                      
+	                            <select id="selectULB" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
+										<option selected="selected" ng-selected="true" value="ALL">ALL</option>
+										<optgroup label="PACKAGE 1">
 										<option value="4">Balugaon (N)</option>
 										<option value="5">Banpur (N)</option>
 										<option value="10">Bhubaneswar (MC)</option>
@@ -145,7 +152,10 @@
 									</optgroup>
 								</select>	
                            
-                             </div>
+	                            	</div>
+                            	</div>
+                            <div class="pm-suptb">
+
                                 <!-- table class="table-responsive">
                                     <tr>
                                         <th>Sl No.</th>
@@ -1811,6 +1821,13 @@
 	</div>
 	<script>
 			$(document).ready(function() {
+
+				 var currentDate = new Date();
+				    $('#surveyDate').datepicker({
+				        dateFormat: 'dd/mm/yy'
+				    });
+				    $("#surveyDate").datepicker("setDate", currentDate);
+				    
 				$(".expand-btn").click(function() {
 					$(".s_sidenav").toggleClass("expand");
 				});

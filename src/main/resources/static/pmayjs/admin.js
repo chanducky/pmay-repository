@@ -25,13 +25,7 @@ mainApp
 					   $scope.getTodaySurveyReport = function getTodaySurveyReport() {
 						   var getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/'
 						   if(!$scope.packageULB) $scope.packageULB = 'ALL';
-						  /*
-						   if ($scope.packageULB === 'ALL') {
-							   getTodayUrl = 'getTodaySurveyReportForSlumNonSlum/';
-						   } else {
-							   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
-						   }
-						   */
+						  
 						   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
 						   
 						   $scope.packageCity = $("#selectULB option:selected").html();
