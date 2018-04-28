@@ -58,7 +58,7 @@ public class PmayMysqlQueries {
 	public static final String GET_GENDER_DATA = "select gender_id,gender_name from p_gender";
 	public static final String GET_HFA_ASST_DATA = "select preferred_assistance_hfa_category_id,preferred_assistance_hfa_category_name from preferred_assistance_hfa_category";
 	public static final String GET_BANK_DATA = "SELECT bank_id,bank_name FROM p_bank_details";
-	public static final String GET_ULB_DATA = "SELECT ulb_name_id,ulb_name FROM p_ulb_name GROUP BY ulb_name";
+	public static final String GET_ULB_DATA = "SELECT ulb_name_id,ulb_name FROM p_ulb_name";
 	
 	/*
 	 * Query declaration for saving survey
@@ -108,5 +108,5 @@ public class PmayMysqlQueries {
 	public static final String INSERT_LOGGEDIN_HISTORY = "insert into user_loggedin_history(user_id,ip_address,created_on) values(?,?,now())";
 	
 	public static final String GET_USERS_LOGGEDIN_HISTORY = "select usr.user_id,uh.ip_address,rol.role_id,usr.ulb_name,usr.first_name,usr.middle_name,usr.last_name,usr.email_id,usr.mobile_number,rol.role_name,DATE_FORMAT(uh.created_on, '%Y-%m-%d %h:%m:%s') as loggedat from user_loggedin_history uh  inner join p_user usr on uh.user_id=usr.user_id inner join p_user_role_map rolmap  on usr.user_id=rolmap.user_id inner join  p_roles rol on rolmap.role_id=rol.role_id;";
-	
+
 }

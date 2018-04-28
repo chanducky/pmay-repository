@@ -2934,26 +2934,48 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			}
 		},ulbNo,ulbNo,ulbNo);
 	}
-
-	//End 12th April2018
-	//Start 12th April2018
+	
 	@Override
-	public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo) {
-		String rsQuery ="SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id = ? AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id = ? AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum in('S','N') AND ulb_name_id= ? AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) total";
-		StringBuffer sb= new StringBuffer(rsQuery);
-		return jdbcTemplate.queryForObject(sb.toString(), 
-				new RowMapper<SlumNonSlumReportData>() {
+	public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo,String surveyDate) {
+		String rsQuery =null;
+		if("ALL".equalsIgnoreCase(ulbNo) || ulbNo==null || ulbNo.isEmpty()) {
 
-			@Override
-			public SlumNonSlumReportData mapRow(ResultSet rs, int rowNum) throws SQLException {
-				SlumNonSlumReportData data = null;
-				data = new SlumNonSlumReportData();
-				data.setNoOfSlumSurvey(rs.getInt(1));
-				data.setNoOfNonSlumSurvey(rs.getInt(2));
-				data.setTotalSurvay(rs.getInt(3));
-				return data;
-			}
-		},ulbNo,ulbNo,ulbNo);
+			rsQuery ="SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND created_on =? ) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND created_on=?) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE created_on=?) total";
+			StringBuffer sb= new StringBuffer(rsQuery);
+			return jdbcTemplate.queryForObject(sb.toString(), 
+					new RowMapper<SlumNonSlumReportData>() {
+
+				@Override
+				public SlumNonSlumReportData mapRow(ResultSet rs, int rowNum) throws SQLException {
+					SlumNonSlumReportData data = null;
+					data = new SlumNonSlumReportData();
+					data.setNoOfSlumSurvey(rs.getInt(1));
+					data.setNoOfNonSlumSurvey(rs.getInt(2));
+					data.setTotalSurvay(rs.getInt(3));
+					return data;
+				}
+			},surveyDate,surveyDate,surveyDate);
+		}else {
+			rsQuery ="SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id = ? AND created_on =? ) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id = ? AND created_on=?) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE ulb_name_id= ? AND created_on=?) total";
+			
+			StringBuffer sb= new StringBuffer(rsQuery);
+			return jdbcTemplate.queryForObject(sb.toString(), 
+					new RowMapper<SlumNonSlumReportData>() {
+
+				@Override
+				public SlumNonSlumReportData mapRow(ResultSet rs, int rowNum) throws SQLException {
+					SlumNonSlumReportData data = null;
+					data = new SlumNonSlumReportData();
+					data.setNoOfSlumSurvey(rs.getInt(1));
+					data.setNoOfNonSlumSurvey(rs.getInt(2));
+					data.setTotalSurvay(rs.getInt(3));
+					return data;
+				}
+			},ulbNo,surveyDate,ulbNo,surveyDate,ulbNo,surveyDate);
+			
+		}
+		
+
 	}
 
 	//End 12th April2018

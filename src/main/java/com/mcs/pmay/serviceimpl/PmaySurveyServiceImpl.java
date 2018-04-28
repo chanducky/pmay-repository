@@ -1,5 +1,7 @@
 package com.mcs.pmay.serviceimpl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,7 @@ import com.mcs.pmay.data.PmayWardData;
 import com.mcs.pmay.data.SlumNonSlumReportData;
 import com.mcs.pmay.data.UlbWardDetailsData;
 import com.mcs.pmay.service.PmaySurveyService;
+import com.mcs.pmay.util.PmayDateUtil;
 
 @Service("pmaySurveyService")
 public class PmaySurveyServiceImpl implements PmaySurveyService {
@@ -323,8 +326,15 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 		return pmaySurveyDao.getUlbSurveyReportForSlumNonSlum(ulbNo);
 	}
 	@Override
-	public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo) {
-		return pmaySurveyDao.getTodayUlbSurveyReportForSlumNonSlum(ulbNo);
+	public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo,String surveyDate) {
+		
+		if(surveyDate!=null && !surveyDate.isEmpty()) {
+			surveyDate = PmayDateUtil.convertFormat(surveyDate);
+		}else {
+			surveyDate = PmayDateUtil.convertFormat(new Date());
+		}
+		
+		return pmaySurveyDao.getTodayUlbSurveyReportForSlumNonSlum(ulbNo,surveyDate);
 	}
 	//End 12th April2018
 

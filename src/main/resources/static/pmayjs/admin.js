@@ -16,6 +16,7 @@ mainApp
 					$scope.slumLocationDetailsPicDis = true;
 					$scope.disabledOtherSlumReligion = true;
 					
+					
 					/*************************************************Code For High Chart for Survey Report ********************************************/
 					   Highcharts.setOptions({
 						    colors: ['#FF4210', '#004586']
@@ -24,15 +25,21 @@ mainApp
 					   $scope.getTodaySurveyReport = function getTodaySurveyReport() {
 						   var getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/'
 						   if(!$scope.packageULB) $scope.packageULB = 'ALL';
+						  /*
 						   if ($scope.packageULB === 'ALL') {
 							   getTodayUrl = 'getTodaySurveyReportForSlumNonSlum/';
 						   } else {
 							   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
 						   }
-						   $scope.packageCity = $("#selectULB option:selected").html();
-						   //$http.get(baseUrl+'getTodaySurveyReportForSlumNonSlum/').success(function (data) {
-						   $http.get(baseUrl+getTodayUrl, {params: {ulbNo: $scope.packageULB}}).success(function (data) {
+						   */
+						   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
 						   
+						   $scope.packageCity = $("#selectULB option:selected").html();
+						   $scope.surveyDate = $("#surveyDate").val();
+						   
+						   //$http.get(baseUrl+'getTodaySurveyReportForSlumNonSlum/').success(function (data) {
+						   $http.get(baseUrl+getTodayUrl, {params: {ulbNo: $scope.packageULB,surveyDate:$scope.surveyDate}}).success(function (data) {
+							   $scope.surveyDate = $("#surveyDate").val();
 							   $scope.todaySurveyReport = data;
 							   Highcharts.chart('todaySurveyReport', {
 								    chart: {
@@ -42,7 +49,7 @@ mainApp
 								        type: 'pie'
 								    },
 								    title: {
-								        text: "Survey Report for Dt. " + new Date().toLocaleDateString('en-GB')
+								        text: "Survey Report for Dt. " + $scope.surveyDate
 								    },
 								    tooltip: {
 								        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -2049,6 +2056,4 @@ mainApp
 						    });
 						});
 					}
-					
-					$scope.getLoggedInDetails();
 				});

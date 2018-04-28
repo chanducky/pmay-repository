@@ -144,7 +144,7 @@ public interface PmaySurveyDao {
 	//End 12th April2018
 	
 	//Start 12th April2018
-		public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo);
+		public SlumNonSlumReportData getTodayUlbSurveyReportForSlumNonSlum(String ulbNo,String surveyDate);
 		//End 12th April2018
 	
 	//Start 12th April2018
