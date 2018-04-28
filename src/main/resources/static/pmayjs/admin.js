@@ -16,6 +16,124 @@ mainApp
 					$scope.slumLocationDetailsPicDis = true;
 					$scope.disabledOtherSlumReligion = true;
 					
+					/*************************************************Code For High Chart for Survey Report ********************************************/
+					   Highcharts.setOptions({
+						    colors: ['#FF4210', '#004586']
+					   });
+					   
+					   $scope.getTodaySurveyReport = function getTodaySurveyReport() {
+						   var getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/'
+						   if(!$scope.packageULB) $scope.packageULB = 'ALL';
+						   if ($scope.packageULB === 'ALL') {
+							   getTodayUrl = 'getTodaySurveyReportForSlumNonSlum/';
+						   } else {
+							   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
+						   }
+						   $scope.packageCity = $("#selectULB option:selected").html();
+						   //$http.get(baseUrl+'getTodaySurveyReportForSlumNonSlum/').success(function (data) {
+						   $http.get(baseUrl+getTodayUrl, {params: {ulbNo: $scope.packageULB}}).success(function (data) {
+						   
+							   $scope.todaySurveyReport = data;
+							   Highcharts.chart('todaySurveyReport', {
+								    chart: {
+								        plotBackgroundColor: null,
+								        plotBorderWidth: null,
+								        plotShadow: false,
+								        type: 'pie'
+								    },
+								    title: {
+								        text: "Survey Report for Dt. " + new Date().toLocaleDateString('en-GB')
+								    },
+								    tooltip: {
+								        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+								    },
+								    plotOptions: {
+								        pie: {
+								            allowPointSelect: true,
+								            cursor: 'pointer',
+								            dataLabels: {
+								                enabled: true,
+								                format: '<b>{point.name}</b>: {point.y} ',
+								                style: {
+								                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								                }
+								            }
+								        }
+								    },
+								    series: [{
+								        name: 'Beneficiary',
+								        colorByPoint: true,
+								        data: [{
+								            name: 'Non-Slum',
+								            y: $scope.todaySurveyReport.noOfNonSlumSurvey,
+								        }, {
+								            name: 'Slum',
+								            y: $scope.todaySurveyReport.noOfSlumSurvey
+								        }]
+								    }]
+								});
+							   
+						   })
+					   }
+					   
+					   
+					   $scope.getTotalSurveyReport = function getTotalSurveyReport() {
+						   var getTotalUrl = 'getUlbSurveyReportForSlumNonSlum/';
+						   if(!$scope.packageULB) $scope.packageULB = 'ALL';
+						   if ($scope.packageULB === 'ALL') {
+							   getTotalUrl = 'getTotalSurveyReportForSlumNonSlum/';
+						   } else {
+							   getTotalUrl = 'getUlbSurveyReportForSlumNonSlum/';
+						   }
+						   //$http.get(baseUrl+'getTotalSurveyReportForSlumNonSlum/').success(function (data) {
+						   $http.get(baseUrl+getTotalUrl, {params: {ulbNo: $scope.packageULB}}).success(function (data) {
+						   
+							   $scope.totalSurveyReport = data;
+							   Highcharts.chart('totalSurveyReport', {
+								    chart: {
+								        plotBackgroundColor: null,
+								        plotBorderWidth: null,
+								        plotShadow: false,
+								        type: 'pie'
+								    },
+								    title: {
+								        text: "Total Survey Report "
+								    },
+								    tooltip: {
+								        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+								    },
+								    plotOptions: {
+								        pie: {
+								            allowPointSelect: true,
+								            cursor: 'pointer',
+								            dataLabels: {
+								                enabled: true,
+								                format: '<b>{point.name}</b>: {point.y} ',
+								                style: {
+								                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+								                }
+								            }
+								        }
+								    },
+								    series: [{
+								        name: 'Beneficiary',
+								        colorByPoint: true,
+								        data: [{
+								            name: 'Non-Slum',
+								            y: data.noOfNonSlumSurvey,
+								        }, {
+								            name: 'Slum',
+								            y: data.noOfSlumSurvey
+								        }]
+								    }]
+								});
+							   
+						   })
+					   }
+					   
+					   
+
+					
 					$scope.slumAadhaarFieldBlank = function(){
 						if($scope.val==true){
 							$scope.addSlumSurvey.slumAdharNo = "";
@@ -347,7 +465,6 @@ mainApp
 											$(".pmay-loader").css({
 												"display" : "none"
 											});
-											
 											$scope.filteredAdminReportData = downloadData.listAdminsData;
 											$scope.mobileNo = downloadData.columnData.mobileNo;
 											$scope.uniqueId = downloadData.columnData.uniqueId;
