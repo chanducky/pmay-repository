@@ -347,5 +347,9 @@ display : none;
 /*    animations-loader*/
 /*debismita-css*/
 .surveyDate{
-	width: 225px;
+	margin-left: -20%;
+}
+.m-50{
+	margin-top: 50px;
+    margin-bottom: 50px;
 }

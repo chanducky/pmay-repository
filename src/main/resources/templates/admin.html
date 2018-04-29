@@ -98,17 +98,16 @@
                                 <label class="radio-inline"><input type="radio" value="pendingReport" name="optradio" ng-model="adminReportParam" ng-click="getAdminFilterForUlbDetails(adminReportParam)"/>Pending for validation</label>   
                             </div> -->
                             
-                            <div class="row" >
-                            	<div class="col-md-6">
-                            		<span style="margin-left: 20px;">
-                            		Survey Date :
-                            		<input type="text" id="surveyDate"  class="surveyDate" ng-model="surveyDate" ng-change="getTodaySurveyReport();"  readonly="readonly" required="required"/>
-                            		</span>
-                            	</div>
-                            	<div class="col-md-6">
-                            	ULB : 
-                                           
-                           <select id="selectULB" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
+                            <div class="row m-50">
+                            		<div class="form-group">
+							      <label class="control-label col-sm-2" for="surveyDate">Survey Date:</label>
+							      <div class="col-sm-4">
+							        <input type="text" id="surveyDate"  class="form-control surveyDate" ng-model="surveyDate" ng-change="getTodaySurveyReport();"  readonly="readonly" required="required"/>
+							      </div>
+							    
+							      <label class="control-label col-sm-1" for="selectULB">ULB:</label>
+							      <div class="col-sm-4">          
+                       				 <select id="selectULB" class="form-control" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
 									<option selected="selected" ng-selected="true" value="ALL">ALL</option>
 									<optgroup label="PACKAGE 1">
 										<option value="4">Balugaon (N)</option>
@@ -158,11 +157,12 @@
 										<option value="43">Titlagarh (N)</option>
 										<option value="44">Tusura (N) </option>
 									</optgroup>
-								</select>	
-                            	</div>
+								</select>							        
+							      </div>
+							    </div>
                             </div>
+  
                             <div class="pm-suptb">  
-                            
 
                             <div class="text-center" style="font-weight: bold">    
  
