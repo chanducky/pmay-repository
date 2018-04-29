@@ -168,4 +168,8 @@ public interface PmaySurveyService {
 
 	List<PmayReportDataForAdmins> getSurveyReportForSuperUser();
 
+	List<PmayReportDataForAdmins> getAdminsSurveyReports(Integer pageNo);
+
+	Integer getTotalAdminsSurveyReports();
+
 }

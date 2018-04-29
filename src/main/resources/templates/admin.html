@@ -72,11 +72,11 @@
                       <li class="hd-super">Admin</li>
                       <li><a data-toggle="tab" href=""></a></li>
                       <li  class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                      <li><a data-toggle="tab" href="#surpt">Survey Report</a></li>
+                      <li><a data-toggle="tab" href="#surpt" ng-click="getSurveyReports();">Survey Report</a></li>
                       <li><a data-toggle="tab" href="#mngrbe" style="display:none">Manage Beneficiary</a></li>
-                      <li><a data-toggle="tab" href="#mngrsu">Manage Surveyor</a></li>
-                      <li><a data-toggle="tab" href="#mngrpr">Manage Profile</a></li>
-                      <li><a data-toggle="tab" href="#loggedin-history" ng-click="getLoggedInDetails()">Logged in History </a></li>
+                      <li><a data-toggle="tab" href="#mngrsu" ng-click="getAllPendingUsers();">Manage Surveyor</a></li>
+                      <li><a data-toggle="tab" href="#mngrpr" ng-click="getUserDetails();">Manage Profile</a></li>
+                      <li><a data-toggle="tab" href="#loggedin-history" ng-click="getLoggedInDetails();" >Logged in History </a></li>
                       <li><a data-toggle="tab" href="#lgout" ng-click="logout()">Logout</a></li>
                     </ul>
 				</div>
@@ -1972,7 +1972,7 @@
                                         <th>User Ip</th>
                                         <th>Logged-In Time</th>
                                     </tr>
-                                    <tr ng-repeat="userDetails in admin.userLoggedinDetails">
+                                    <tr ng-repeat="userDetails in admin.userLoggedinDetailsData">
                                         <td class="text-center">{{(admin.userPager.currentPage-1) * admin.userPager.pageSize+ $index+1}}</td>
                                         <td class="text-center">{{userDetails.firstName}}</td>
                                         <td class="text-center">{{userDetails.roleName}}</td>
@@ -1985,21 +1985,21 @@
                             </div>
                             <div class="clearfix"></div>
 				              <div class="text-center">
-						                   <ul ng-if="admin.userPager.pages.length" class="pagination">
-						                        <li ng-class="{disabled:admin.userPager.currentPage === 1}">
-						                            <a ng-click="admin.setUserReportPage(1)" href ="">First</a>
+						                   <ul ng-if="admin.loggedinHistoryPager.pages.length" class="pagination">
+						                        <li ng-class="{disabled:admin.loggedinHistoryPager.currentPage === 1}">
+						                            <a ng-click="admin.setLoggedinHistoryPage(1)" href ="">First</a>
 						                        </li>
-						                        <li ng-class="{disabled:admin.userPager.currentPage === 1}">
-						                            <a ng-click="admin.setUserReportPage(admin.userPager.currentPage - 1)" href ="">Previous</a>
+						                        <li ng-class="{disabled:admin.loggedinHistoryPager.currentPage === 1}">
+						                            <a ng-click="admin.setLoggedinHistoryPage(admin.loggedinHistoryPager.currentPage - 1)" href ="">Previous</a>
 						                        </li>
-						                        <li ng-repeat="page in admin.userPager.pages" ng-class="{active:admin.userPager.currentPage === page}">
-						                            <a ng-click="admin.setUserReportPage(page)" href ="">{{page}}</a>
+						                        <li ng-repeat="page in admin.loggedinHistoryPager.pages" ng-class="{active:admin.loggedinHistoryPager.currentPage === page}">
+						                            <a ng-click="admin.setLoggedinHistoryPage(page)" href ="">{{page}}</a>
 						                        </li>               
-						                        <li ng-class="{disabled:admin.userPager.currentPage === admin.userPager.totalPages}">
-						                            <a ng-click="admin.setUserReportPage(admin.userPager.currentPage + 1)" href ="">Next</a>
+						                        <li ng-class="{disabled:admin.loggedinHistoryPager.currentPage === admin.loggedinHistoryPager.totalPages}">
+						                            <a ng-click="admin.setLoggedinHistoryPage(admin.loggedinHistoryPager.currentPage + 1)" href ="">Next</a>
 						                        </li>
-						                        <li ng-class="{disabled:admin.userPager.currentPage === admin.userPager.totalPages}">
-						                            <a ng-click="admin.setUserReportPage(admin.userPager.totalPages)" href ="">Last</a>
+						                        <li ng-class="{disabled:admin.loggedinHistoryPager.currentPage === admin.loggedinHistoryPager.totalPages}">
+						                            <a ng-click="admin.setLoggedinHistoryPage(admin.loggedinHistoryPager.totalPages)" href ="">Last</a>
 						                        </li>
 						                    </ul>
 						                </div>

@@ -204,7 +204,15 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 	public List<PmayReportDataForAdmins> getAdminsSurveyReports() {
 		return pmaySurveyDao.getAdminsSurveyReports();
 	}
-
+	
+	@Override
+	public List<PmayReportDataForAdmins> getAdminsSurveyReports(Integer pageNo) {
+		if(pageNo!=null && pageNo==1) {
+			pageNo=0;
+		}
+		return pmaySurveyDao.getAdminsSurveyReports(pageNo);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -367,6 +375,11 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 	@Override
 	public List<PmayReportDataForAdmins> getSurveyReportForSuperUser() {
 		return pmaySurveyDao.getSurveyReportForSuperUser();
+	}
+
+	@Override
+	public Integer getTotalAdminsSurveyReports() {
+		return pmaySurveyDao.getTotalAdminsSurveyReports();
 	}
 
 }

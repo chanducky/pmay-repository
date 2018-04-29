@@ -1,6 +1,7 @@
 package com.mcs.pmay.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -214,6 +215,25 @@ public class PmaySurveyController {
 		httpSession.setAttribute("surveyReportList", surveyReports);
 		return gson.toJson(surveyReports);
 	}
+	
+	/**
+	 * @return surveyReports
+	 */
+	@RequestMapping(value = "/getAdminsSurveyReportsPage", method = RequestMethod.GET)
+	@ResponseBody
+	public String getAdminsSurveyReportsPage(@RequestParam Integer pageNo) {
+		HashMap<String,Object> dataMap = new HashMap<>();
+		
+		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getAdminsSurveyReports(pageNo);
+		Integer totalRecords = pmaySurveyService.getTotalAdminsSurveyReports();
+		
+		dataMap.put("surveyReports", surveyReports);
+		dataMap.put("totalRecords",totalRecords);
+		
+		httpSession.setAttribute("surveyReportList", surveyReports);
+		return gson.toJson(dataMap);
+	}
+	
 
 	/**
 	 * @param rowColumnData
@@ -474,8 +494,7 @@ public class PmaySurveyController {
 	@RequestMapping(value = "/getFilteredReportBySearch", method = RequestMethod.POST)
 	@ResponseBody
 	public String getFilteredReportBySearch(@RequestBody PmaySeachData seachDetails) {
-		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService
-				.getFilteredReportBySearchForAdmins(seachDetails);
+		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdmins(seachDetails);
 		System.out.println(">>>>>>>>" + surveyReports);
 		return gson.toJson(surveyReports);
 	}

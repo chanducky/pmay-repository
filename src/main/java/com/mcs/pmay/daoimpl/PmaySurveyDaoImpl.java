@@ -574,14 +574,26 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		return deleteStatus != 0;
 	}
 
+	public List<PmayReportDataForAdmins> getAdminsSurveyReports() {
+		return getAdminsSurveyReports(null);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.mcs.pmay.dao.PmaySurveyDao#getAdminsSurveyReports()
 	 */
 	@Override
-	public List<PmayReportDataForAdmins> getAdminsSurveyReports() {
-		return jdbcTemplate.query(PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT,
+	public List<PmayReportDataForAdmins> getAdminsSurveyReports(Integer pageNo) {
+		
+		String surveyQuery = PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT;
+		Integer offset=20;
+		
+		if(pageNo!=null ) {
+			surveyQuery=surveyQuery+" limit "+offset+" offset "+pageNo * offset;
+		}
+		
+		return jdbcTemplate.query(surveyQuery,
 				new RowMapper<PmayReportDataForAdmins>() {
 			@Override
 			public PmayReportDataForAdmins mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -3276,6 +3288,11 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		});
 	}
 
+	@Override
+	public Integer getTotalAdminsSurveyReports() {
+		Integer count = jdbcTemplate.queryForObject(PmayMysqlQueries.QUERY_FOR_TOTAL_ADMINS_SURVEY_REPORT, Integer.class);
+		return count;
+	}
 
 	/*public static void main(String[] args) {
 

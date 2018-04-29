@@ -21,7 +21,7 @@ mainApp
 				    superUser.setReportPage = setReportPage;
 
 				    getUlbWardDetails(searchData);
-				    getSuperUserSurveyReport();
+				    // getSuperUserSurveyReport();
 				    
 
 				    /*****************Pagination For Ulb Details ********/
@@ -132,7 +132,7 @@ mainApp
 
 					}
 
-					function getSuperUserSurveyReport() {
+					$scope.getSuperUserSurveyReport=function getSuperUserSurveyReport() {
 						$(".pmay-loader").css({
 							"display" : "block"
 						});

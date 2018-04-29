@@ -1891,7 +1891,7 @@ mainApp
 				    //used for survey report
 					admin.reportPager = {};
 					admin.setReportPage = setReportPage;
-					$scope.getSurveyReports();
+					// $scope.getSurveyReports();
 					function setReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -1913,7 +1913,7 @@ mainApp
 				    //used for survey report
 					admin.pendingUserPager = {};
 					admin.setPendingUserReportPage = setPendingUserReportPage;
-					$scope.getAllPendingUsers();
+					// $scope.getAllPendingUsers();
 					function setPendingUserReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -1935,7 +1935,7 @@ mainApp
 				    //used for survey report
 					admin.userPager = {};
 					admin.setUserReportPage = setUserReportPage;
-					$scope.getUserDetails();
+					// $scope.getUserDetails();
 					function setUserReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -2044,10 +2044,33 @@ mainApp
 						});
 						$http.get(baseUrl + 'getLoggedInDetails/').success(function(data) {
 							admin.userLoggedinDetails = data;
-							admin.setUserReportPage(1);
+							admin.setLoggedinHistoryPage(1);
 					        $(".pmay-loader").css({
 						    "display" : "none"
 						    });
 						});
 					}
+					
+					 //used for logged in history
+					admin.loggedinHistoryPager = {};
+					admin.setLoggedinHistoryPage = setLoggedinHistoryPage;
+					// $scope.getLoggedInDetails();
+					function setLoggedinHistoryPage(page) {
+						$(".pmay-loader").css({
+							"display" : "block"
+						});
+				        if (page < 1 || page > admin.loggedinHistoryPager.totalPages) {
+				        	$(".pmay-loader").css({
+								"display" : "none"
+							});
+				            return;
+				        }
+				        admin.loggedinHistoryPager = PagerService.GetPager(admin.userLoggedinDetails.length, page );
+				        admin.userLoggedinDetailsData = admin.userLoggedinDetails.slice(admin.loggedinHistoryPager.startIndex, admin.loggedinHistoryPager.endIndex + 1);
+				        $(".pmay-loader").css({
+							"display" : "none"
+						});
+				    }
+					
+					
 				});
