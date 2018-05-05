@@ -2,6 +2,7 @@ package com.mcs.pmay.serviceimpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -221,13 +222,19 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 	@Override
 	public List<PmayUserData> getAllPendingUsers() {
 		List<PmayUserData> listOfPendingRequestData = pmaySurveyDao.getAllPendingUsers();
+		
+		List<PmayUserData> pendingList = new LinkedList<PmayUserData>();
+		List<PmayUserData> approvedList = new LinkedList<PmayUserData>();
+		
 		for (int i = 0; i < listOfPendingRequestData.size(); i++) {
 			if (listOfPendingRequestData.get(i).getLoginApproval().equals("0")) {
+				pendingList.add(listOfPendingRequestData.get(i));
 				listOfPendingRequestData.get(i).setApproveButtonText("Pending");
 				listOfPendingRequestData.get(i).setApproveButtonColor("aprv-btnred");
 				listOfPendingRequestData.get(i).setApproveButtonDisable("false");
 				listOfPendingRequestData.get(i).setDenyButtonDisable("false");
 			}else{
+				approvedList.add(listOfPendingRequestData.get(i));
 				listOfPendingRequestData.get(i).setApproveButtonText("Approved");
 				listOfPendingRequestData.get(i).setApproveButtonColor("aprv-btn");
 				listOfPendingRequestData.get(i).setApproveButtonDisable("true");
@@ -242,7 +249,9 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 				listOfPendingRequestData.get(i).setStatusButtonColor("aprv-btn");
 			}
 		}
-		return listOfPendingRequestData;
+		
+		pendingList.addAll(approvedList);
+		return pendingList;
 	}
 
 	@Override

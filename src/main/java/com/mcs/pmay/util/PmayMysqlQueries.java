@@ -34,7 +34,7 @@ public class PmayMysqlQueries {
 	public static final String DELETE_FEOM_HOUSING_ENHANCEMENT = "delete from p_housing_enhancement where user_survey_id = ?";
 	public static final String DELETE_FEOM_FAMILY_DETAILS = "delete from p_survey_family_details where user_survey_id = ?";
 	
-	public static final String PENDING_USER_QUERY = "SELECT user_id , ulb_name, ulb_no, first_name ,middle_name ,last_name ,email_id ,mobile_number,login_approval,user_status FROM p_user";
+	public static final String PENDING_USER_QUERY = "SELECT user_id , ulb_name, ulb_no, first_name ,middle_name ,last_name ,email_id ,mobile_number,login_approval,user_status FROM p_user order by first_name";
 	public static final String APPROVE_USER_QUERY = "update p_user set login_approval='1' where user_id=?";
 	public static final String INSERT_USER_ROLE_QUERY = "insert into p_user_role_map(user_id,role_id,created_by,created_on) values (?,4,?,NOW())";
 	public static final String IS_USER_APPROVE_QUERY = "select login_approval from p_user where mobile_number=?";
