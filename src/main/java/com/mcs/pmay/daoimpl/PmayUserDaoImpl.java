@@ -22,7 +22,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.mcs.pmay.dao.PmayUserDao;
+import com.mcs.pmay.data.PmaySurveyReportData;
 import com.mcs.pmay.data.PmayUserData;
+import com.mcs.pmay.scheduler.geotag.GeoTagImage;
 import com.mcs.pmay.util.PmayMysqlQueries;
 import com.mcs.pmay.util.PmayUtil;
 
@@ -379,5 +381,39 @@ public class PmayUserDaoImpl implements PmayUserDao {
 			}
 		}); 
 	}
+	
+	@Override
+	public List<PmaySurveyReportData> getSurveyDataForGeoTag(long startSurveyId) {
+		return jdbcTemplate.query(PmayMysqlQueries.GET_SURVEY_DATA_FOR_GEOTAG,new RowMapper<PmaySurveyReportData>() {
 
+			@Override
+			public PmaySurveyReportData mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PmaySurveyReportData surveyData = new PmaySurveyReportData();
+				int col=0;
+				
+				surveyData.setUserSurveyId(rs.getString(++col));
+				surveyData.setPhotoAttachmentName(rs.getString(++col));
+				surveyData.setSignatureOfApplicant(rs.getString(++col));
+				surveyData.setPhotoAttachmentInFrontOfHouse(rs.getString(++col));
+				surveyData.setSlumNonSlum(rs.getString(++col));
+				return surveyData;
+			}
+		},startSurveyId,startSurveyId); 
+	}
+	
+	@Override
+	public boolean saveGeoTagData(GeoTagImage gaoImage) {
+		int saved = jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement(PmayMysqlQueries.INSERT_GEOTAG_QUERY);
+			ps.setLong(1, gaoImage.getUserSurveyId());
+			ps.setDouble(2, gaoImage.getLatitude());
+			ps.setDouble(3, gaoImage.getLongitude());
+
+			return ps;
+		});
+		
+		return saved==1;
+	}
+	
+	
 }

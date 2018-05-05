@@ -27,8 +27,11 @@ public class PmaySurveyReportData implements Serializable {
 	private String geoLatitude;
 	private String geoLongitude;
 	private String idAttachmentName;
-	private String signatureOfApplicant;
 	private String ulbName;
+	
+	private String photoAttachmentName;
+	private String signatureOfApplicant;
+	private String photoAttachmentInFrontOfHouse;
 	
 	//Ended Here
 
@@ -269,6 +272,22 @@ public class PmaySurveyReportData implements Serializable {
 
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
+	}
+	
+	public String getPhotoAttachmentName() {
+		return photoAttachmentName;
+	}
+
+	public void setPhotoAttachmentName(String photoAttachmentName) {
+		this.photoAttachmentName = photoAttachmentName;
+	}
+
+	public String getPhotoAttachmentInFrontOfHouse() {
+		return photoAttachmentInFrontOfHouse;
+	}
+
+	public void setPhotoAttachmentInFrontOfHouse(String photoAttachmentInFrontOfHouse) {
+		this.photoAttachmentInFrontOfHouse = photoAttachmentInFrontOfHouse;
 	}
 
 	@Override

@@ -10,7 +10,9 @@ package com.mcs.pmay.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.mcs.pmay.data.PmaySurveyReportData;
 import com.mcs.pmay.data.PmayUserData;
+import com.mcs.pmay.scheduler.geotag.GeoTagImage;
 
 public interface PmayUserDao {
 
@@ -54,5 +56,10 @@ public interface PmayUserDao {
 	boolean saveLoggedinHistory(PmayUserData pmayUserData);
 
 	List<PmayUserData> getUsersLoggedinHistory();
+
+	List<PmaySurveyReportData> getSurveyDataForGeoTag(long startSurveyId);
+
+	boolean saveGeoTagData(GeoTagImage gaoImage);
+
 
 }
