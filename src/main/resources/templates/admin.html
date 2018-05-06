@@ -106,84 +106,85 @@
 							      </div>
 							    
 							      <label class="control-label col-sm-1" for="selectULB">ULB:</label>
-							      <div class="col-sm-4">          
-                       				 <select id="selectULB" class="form-control" ng-model="packageULB" ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
-									<option selected="selected" ng-selected="true" value="ALL">ALL</option>
-									
-									<optgroup label="Balangir">
-										<option value="12">Bolangir (M) </option>
-										<option value="43">Titlagarh (N)</option>
-										<option value="24">Kantabanji (N)</option>
-										<option value="34">Patnagarh (N)</option>
-										<option value="44">Tusura (N) </option>
-									</optgroup>
-									<optgroup label="Boudh">
-										<option value="13">Boudhgarh (N)</option>
-									</optgroup>
-									<optgroup label="Bargarh">
-										<option value="8">Bargarh (M)</option>
-										<option value="33">Padamapur (N) </option>
-										<option value="6">Barapalli (N)</option>
-										<option value="2">Attabira (N) </option>
-									</optgroup>
-									<optgroup label="Bhadrak">
-										<option value="18">Dhamnagar (N)</option>
-										<option value="15">Chandabali (N)</option>
-									</optgroup>
-									<optgroup label="Deogarh">
-										<option value="17">Deogarh (N)</option>
-									</optgroup>
-									<optgroup label="Kalahandi">
-										<option value="9">Bhawanipatana (M)</option>
-										<option value="19">Dharmagarh (N) </option>
-										<option value="26">Kesinga (N)</option>
-										<option value="23">Junagarh (N) </option>
-									</optgroup>
-									<optgroup label="Khandamal">
-										<option value="35">Phulbani (M) </option>
-										<option value="3">Baliguda (N) </option>
-										<option value="20">G.Udayagiri (N)</option>
-									</optgroup>
-									<optgroup label="Kendujhar">
-										<option value="1">Anandapur (M)</option>
-										<option value="7">Barbil (M) </option>
-										<option value="14">Champua (N)</option>
-										<option value="22">Joda (M) </option>
-										<option value="25">Keonjhargarh (M) </option>
-									</optgroup>
+							      <div class="col-sm-4">
+											<select id="selectULB" class="form-control"
+												ng-model="packageULB"
+												ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
+												<option selected="selected" ng-selected="true" value="ALL">ALL</option>
 
-									<optgroup label="Khordha">
-										<option value="10">Bhubaneswar (MC)</option>
-										<option value="21">Jatni (M) </option>
-										<option value="28">Khordha (M)</option>
-										<option value="4">Balugaon (N)</option>
-										<option value="5">Banpur (N)</option>
-									</optgroup>
-									<optgroup label="Nayagarh">
-										<option value="31">Nayagarh (N)</option>
-										<option value="16">Daspalla (N)</option>
-										<option value="27">Khandapara (N)</option>
-										<option value="38">Ranpur (N)</option>
-									</optgroup>
-									<optgroup label="Puri">
-										<option value="37">Puri (M)</option>
-										<option value="29">Konark (N)</option>
-										<option value="32">Nimapara (N)</option>
-										<option value="36">Pipili (N)</option>
-									</optgroup>
-							
-									<optgroup label="Sambalpur">
-										<option value="40">Sambalpur (MC) </option>
-										<option value="30">Kuchinda (N) </option>
-										<option value="39">Redhakhol (N)</option>
-									</optgroup>
-									<optgroup label="Sonepur">
-										<option value="41">Sonepur (M) </option>
-										<option value="11">Binika (N)</option>
-										<option value="42">Tarva (N) </option>
-									</optgroup>
-								</select>							        
-							      </div>
+												<option value="12,43,24,34,44">Balangir</option>
+												<option value="12">&nbsp;&nbsp;&nbsp;Bolangir (M) </option>
+												<option value="43">&nbsp;&nbsp;&nbsp;Titlagarh (N)</option>
+												<option value="24">&nbsp;&nbsp;&nbsp;Kantabanji (N)</option>
+												<option value="34">&nbsp;&nbsp;&nbsp;Patnagarh (N)</option>
+												<option value="44">&nbsp;&nbsp;&nbsp;Tusura (N) </option>
+
+												<option value="13">Boudh</option>
+												<option value="13">&nbsp;&nbsp;&nbsp;Boudhgarh (N)</option>
+
+												<option value="8,33,6,2">Bargarh</option>
+												<option value="8">&nbsp;&nbsp;&nbsp;Bargarh (M)</option>
+												<option value="33">&nbsp;&nbsp;&nbsp;Padamapur (N) </option>
+												<option value="6">&nbsp;&nbsp;&nbsp;Barapalli (N)</option>
+												<option value="2">&nbsp;&nbsp;&nbsp;Attabira (N) </option>
+
+												<option value="18,15">Bhadrak</option>
+												<option value="18">&nbsp;&nbsp;&nbsp;Dhamnagar (N)</option>
+												<option value="15">&nbsp;&nbsp;&nbsp;Chandabali (N)</option>
+
+												<option value="17">Deogarh</option>
+												<option value="17">&nbsp;&nbsp;&nbsp;Deogarh (N)</option>
+
+												<option value="9,19,26,23">Kalahandi</option>
+												<option value="9">&nbsp;&nbsp;&nbsp;Bhawanipatana (M)</option>
+												<option value="19">&nbsp;&nbsp;&nbsp;Dharmagarh (N) </option>
+												<option value="26">&nbsp;&nbsp;&nbsp;Kesinga (N)</option>
+												<option value="23">&nbsp;&nbsp;&nbsp;Junagarh (N) </option>
+
+												<option value="35,3,20">Khandamal</option>
+												<option value="35">&nbsp;&nbsp;&nbsp;Phulbani (M) </option>
+												<option value="3">&nbsp;&nbsp;&nbsp;Baliguda (N) </option>
+												<option value="20">&nbsp;&nbsp;&nbsp;G.Udayagiri (N)</option>
+
+												<option value="1,7,14,22,25">Kendujhar</option>
+												<option value="1">&nbsp;&nbsp;&nbsp;Anandapur (M)</option>
+												<option value="7">&nbsp;&nbsp;&nbsp;Barbil (M) </option>
+												<option value="14">&nbsp;&nbsp;&nbsp;Champua (N)</option>
+												<option value="22">&nbsp;&nbsp;&nbsp;Joda (M) </option>
+												<option value="25">&nbsp;&nbsp;&nbsp;Keonjhargarh (M) </option>
+
+												<option value="10,21,28,4,5">Khordha</option>
+												<option value="10">&nbsp;&nbsp;&nbsp;Bhubaneswar (MC)</option>
+												<option value="21">&nbsp;&nbsp;&nbsp;Jatni (M) </option>
+												<option value="28">&nbsp;&nbsp;&nbsp;Khordha (M)</option>
+												<option value="4">&nbsp;&nbsp;&nbsp;Balugaon (N)</option>
+												<option value="5">&nbsp;&nbsp;&nbsp;Banpur (N)</option>
+
+												<option value="31,16,27,38">Nayagarh</option>
+												<option value="31">&nbsp;&nbsp;&nbsp;Nayagarh (N)</option>
+												<option value="16">&nbsp;&nbsp;&nbsp;Daspalla (N)</option>
+												<option value="27">&nbsp;&nbsp;&nbsp;Khandapara (N)</option>
+												<option value="38">&nbsp;&nbsp;&nbsp;Ranpur (N)</option>
+
+												<option value="37,29,32,36">Puri</option>
+												<option value="37">&nbsp;&nbsp;&nbsp;Puri (M)</option>
+												<option value="29">&nbsp;&nbsp;&nbsp;Konark (N)</option>
+												<option value="32">&nbsp;&nbsp;&nbsp;Nimapara (N)</option>
+												<option value="36">&nbsp;&nbsp;&nbsp;Pipili (N)</option>
+
+
+												<option value="40,30,39">Sambalpur</option>
+												<option value="40">&nbsp;&nbsp;&nbsp;Sambalpur (MC) </option>
+												<option value="30">&nbsp;&nbsp;&nbsp;Kuchinda (N) </option>
+												<option value="39">&nbsp;&nbsp;&nbsp;Redhakhol (N)</option>
+
+												<option value="41,11,42">Sonepur</option>
+												<option value="41">&nbsp;&nbsp;&nbsp;Sonepur (M) </option>
+												<option value="11">&nbsp;&nbsp;&nbsp;Binika (N)</option>
+												<option value="42">&nbsp;&nbsp;&nbsp;Tarva (N) </option>
+
+											</select>
+										</div>
 							    </div>
                             </div>
   
@@ -196,7 +197,7 @@
 								
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                    <div class="pie-chat">
-                                       <h4>Survey({{packageCity}})</h4>
+                                       <h4>Survey&nbsp;({{packageCity}})</h4>
                                        
                                        <div class="clearfix"></div>
                                             <div id="todaySurveyReport" style="min-width: 100%; height: 300px; margin: 0 auto"></div>
@@ -204,7 +205,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                   <div class="pie-chat">
-                                       <h4>Total Survey({{packageCity}})</h4>
+                                       <h4>Total Survey&nbsp;({{packageCity}})</h4>
                                        <div class="clearfix"></div>
                                             <div id="totalSurveyReport" style="min-width: 100%; height: 300px; margin: 0 auto"></div>
                                    </div>

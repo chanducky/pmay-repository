@@ -698,8 +698,6 @@ public class PmaySurveyController {
 	@RequestMapping(value= "/getTodayUlbSurveyReportForSlumNonSlum", method = RequestMethod.GET)
 	@ResponseBody
 	public String getTodaySurveyReportForUlbSlumNonSlum(String ulbNo,String surveyDate) {
-		
-		System.out.println("survey date = " + surveyDate);
 		SlumNonSlumReportData slumNonSlumReportData = pmaySurveyService.getTodayUlbSurveyReportForSlumNonSlum(ulbNo,surveyDate);
 		System.out.println(gson.toJson(slumNonSlumReportData));
 		return gson.toJson(slumNonSlumReportData);

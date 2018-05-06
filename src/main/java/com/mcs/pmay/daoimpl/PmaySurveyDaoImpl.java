@@ -2968,7 +2968,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				}
 			},surveyDate,surveyDate,surveyDate);
 		}else {
-			rsQuery ="SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id = ? AND created_on =? ) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id = ? AND created_on=?) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE ulb_name_id= ? AND created_on=?) total";
+			rsQuery ="SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id in (?) AND created_on =? ) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id in (?) AND created_on=?) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE ulb_name_id in (?) AND created_on=?) total";
 			
 			StringBuffer sb= new StringBuffer(rsQuery);
 			return jdbcTemplate.queryForObject(sb.toString(), 

@@ -28,7 +28,7 @@ mainApp
 						  
 						   getTodayUrl = 'getTodayUlbSurveyReportForSlumNonSlum/';
 						   
-						   $scope.packageCity = $("#selectULB option:selected").html();
+						   $scope.packageCity = $("#selectULB option:selected").text();
 						   $scope.surveyDate = $("#surveyDate").val();
 						   
 						   //$http.get(baseUrl+'getTodaySurveyReportForSlumNonSlum/').success(function (data) {
