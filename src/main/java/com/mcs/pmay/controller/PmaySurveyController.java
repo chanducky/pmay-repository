@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -212,28 +213,21 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getAdminsSurveyReports() {
 		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getAdminsSurveyReports();
+		
 		httpSession.setAttribute("surveyReportList", surveyReports);
 		return gson.toJson(surveyReports);
+		
+/*		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(null,20,1);
+
+		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(null);
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReports);
+		data.put("total_count", total_count);
+		
+		return gson.toJson(data);
+		*/
 	}
-	
-	/**
-	 * @return surveyReports
-	 */
-	@RequestMapping(value = "/getAdminsSurveyReportsPage", method = RequestMethod.GET)
-	@ResponseBody
-	public String getAdminsSurveyReportsPage(@RequestParam Integer pageNo) {
-		HashMap<String,Object> dataMap = new HashMap<>();
-		
-		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getAdminsSurveyReports(pageNo);
-		Integer totalRecords = pmaySurveyService.getTotalAdminsSurveyReports();
-		
-		dataMap.put("surveyReports", surveyReports);
-		dataMap.put("totalRecords",totalRecords);
-		
-		httpSession.setAttribute("surveyReportList", surveyReports);
-		return gson.toJson(dataMap);
-	}
-	
 
 	/**
 	 * @param rowColumnData
@@ -498,6 +492,22 @@ public class PmaySurveyController {
 		System.out.println(">>>>>>>>" + surveyReports);
 		return gson.toJson(surveyReports);
 	}
+	
+	@RequestMapping(value = "/getFilteredReportBySearch/{itemsPerPage}/{pageno}", method = RequestMethod.POST)
+	@ResponseBody
+	public String getFilteredReportBySearchWithPaging(@RequestBody PmaySeachData seachDetails,@PathVariable("itemsPerPage")Integer itemsPerPage,@PathVariable("pageno")Integer pageno) {
+		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(seachDetails,itemsPerPage,pageno);
+
+		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(seachDetails);
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReports);
+		data.put("total_count", total_count);
+		
+		System.out.println(">>>>>>>>" + surveyReports);
+		return gson.toJson(data);
+	}
+
 
 	/**
 	 * @param seachDetails
@@ -506,7 +516,6 @@ public class PmaySurveyController {
 	@RequestMapping(value = "/getFilteredReportForSuperUser", method = RequestMethod.POST)
 	@ResponseBody
 	public String getFilteredReportForSuperUser(@RequestBody PmaySeachData seachDetails) {
-		System.out.println("super user search working" + seachDetails);
 		List<PmaySurveyReportData> surveyReports = pmaySurveyService.getFilteredReportForSuperUser(seachDetails);
 		System.out.println(">>>>>>>>" + surveyReports);
 		return gson.toJson(surveyReports);
@@ -736,6 +745,17 @@ public class PmaySurveyController {
 	public String deleteMultipleRecord(@RequestBody Map<String, String[]> userSurveyIds) {
 		boolean status = pmaySurveyService.deleteMultipleRecord(userSurveyIds);
 		return gson.toJson(status);
+	}
+	
+	/**
+	 * @param seachDetails
+	 * @return
+	 */
+	@RequestMapping(value = "/getSuperUserSurveyReportFilterd", method = RequestMethod.POST)
+	@ResponseBody
+	public String getSuperUserSurveyReportFilterd(@RequestBody PmaySeachData seachDetails) {
+		List<PmaySurveyReportData> surveyReports = pmaySurveyService.getSuperUserSurveyReportFilterd(seachDetails);
+		return gson.toJson(surveyReports);
 	}
 	
 }

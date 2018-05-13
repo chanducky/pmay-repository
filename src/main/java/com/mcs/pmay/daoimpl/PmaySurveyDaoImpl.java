@@ -183,6 +183,12 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		});
 	}
 
+	@Override
+	public List<PmaySurveyReportData> getSuperUserSurveyReportFilterd(PmaySeachData seachDetails) {
+	
+		return fecthSuperUserSurveyReport(seachDetails);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -190,14 +196,51 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	 */
 	@Override
 	public List<PmaySurveyReportData> getSuperUserSurveyReport() {
-		return jdbcTemplate.query(PmayMysqlQueries.QUERY_FOR_GET_SUPER_USER_REPORT,
+		return fecthSuperUserSurveyReport(null);
+	}
+
+	private List<PmaySurveyReportData> fecthSuperUserSurveyReport(PmaySeachData seachDetails) {
+		StringBuffer queryBuilder = new StringBuffer(PmayMysqlQueries.QUERY_FOR_GET_SUPER_USER_REPORT);
+		
+		if(seachDetails!=null) {
+			if (seachDetails.getSearchName() != null && isNotSpace(seachDetails.getSearchName())) {
+				queryBuilder
+				.append(" and pus.family_head_name like '" + seachDetails.getSearchName() + "%'");
+			}
+
+			if (seachDetails.getAadharOrIdNumber() != null && isNotSpace(seachDetails.getAadharOrIdNumber())) {
+				queryBuilder
+				.append(" and '" + seachDetails.getAadharOrIdNumber() + "' in (pus.aadhar_card_no, pus.id_number)");
+			}
+			if (seachDetails.getUlbName() != null && isNotSpace(seachDetails.getUlbName())) {
+				queryBuilder.append(" and pun.ulb_name like '" + seachDetails.getUlbName() + "%'");
+			}
+			if (seachDetails.getFatherSpouseName() != null && isNotSpace(seachDetails.getFatherSpouseName())) {
+				queryBuilder
+				.append(" and pus.father_husband_name like '" + seachDetails.getFatherSpouseName() + "%'");
+			}
+			if (seachDetails.getBankAccountNo() != null && isNotSpace(seachDetails.getBankAccountNo())) {
+				queryBuilder
+				.append(" and pus.bank_account_number = '" + seachDetails.getBankAccountNo() + "'");
+			}
+
+			if (seachDetails.getSearchScopeName() != null && seachDetails.getSearchScopeValue() != null
+					&& isNotSpace(seachDetails.getSearchScopeValue())) {
+				queryBuilder.append(
+						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
+			}
+		}
+		
+		queryBuilder.append(" order by pus.user_survey_id ");
+
+		return jdbcTemplate.query(queryBuilder.toString(),
 				new RowMapper<PmaySurveyReportData>() {
 			@Override
 			public PmaySurveyReportData mapRow(ResultSet rs, int rowNum) throws SQLException {
 				PmaySurveyReportData superUserReportData = new PmaySurveyReportData();
 				superUserReportData.setUserSurveyId(rs.getString(1));
-				System.out.println("SUPER USER:-"+rs.getString(1));
-				if (rs.getString(3)!="" && rs.getString(3)!=null){
+				
+				if (rs.getString(2)!="" && rs.getString(2)!=null){
 					superUserReportData.setUserId(rs.getString(2));
 				}else{
 					superUserReportData.setUserId("");
@@ -310,7 +353,9 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			}
 			//ulbName
 		});
+	
 	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -574,24 +619,17 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		return deleteStatus != 0;
 	}
 
-	public List<PmayReportDataForAdmins> getAdminsSurveyReports() {
-		return getAdminsSurveyReports(null);
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.mcs.pmay.dao.PmaySurveyDao#getAdminsSurveyReports()
 	 */
 	@Override
-	public List<PmayReportDataForAdmins> getAdminsSurveyReports(Integer pageNo) {
+	public List<PmayReportDataForAdmins> getAdminsSurveyReports() {
 		
 		String surveyQuery = PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT;
-		Integer offset=20;
 		
-		if(pageNo!=null ) {
-			surveyQuery=surveyQuery+" limit "+offset+" offset "+pageNo * offset;
-		}
+		surveyQuery =surveyQuery+"  GROUP BY pus.user_survey_id ";
 		
 		return jdbcTemplate.query(surveyQuery,
 				new RowMapper<PmayReportDataForAdmins>() {
@@ -699,22 +737,21 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				surveyReportData.setCreatedOn(rs.getDate(99));
 
 				//System.out.println("DATE-PHUKU:-"+rs.getDate(99));
-				if (PmayUtil.chkNull(surveyReportData.getSlumNonSlum()).equalsIgnoreCase("S")) {
+				if ("S".equalsIgnoreCase(surveyReportData.getSlumNonSlum())) {
 					surveyReportData.setSlumNonSlumStatus("Slum");
-				} else if (PmayUtil.chkNull(surveyReportData.getSlumNonSlum()).equalsIgnoreCase("N")) {
+				} else if ("N".equalsIgnoreCase(surveyReportData.getSlumNonSlum())) {
 					surveyReportData.setSlumNonSlumStatus("Non-Slum");
 				}
 
-				if (PmayUtil.chkNull(surveyReportData.getEligibilityForScheme()).equalsIgnoreCase("Y")) {
+				if ("Y".equalsIgnoreCase(surveyReportData.getEligibilityForScheme())) {
 					surveyReportData.setEligibleStatus("Eligible");
-				} else if (PmayUtil.chkNull(surveyReportData.getEligibilityForScheme()).equalsIgnoreCase("N")) {
+				} else if ("N".equalsIgnoreCase(surveyReportData.getEligibilityForScheme())) {
 					surveyReportData.setEligibleStatus("Not-Eligible");
 				}
 
-				if (PmayUtil.chkNull(surveyReportData.getValidationPendingNonSlum()).equalsIgnoreCase("Y")) {
+				if ("Y".equalsIgnoreCase(surveyReportData.getValidationPendingNonSlum())) {
 					surveyReportData.setValidationPendingStatus("Yes");
-				} else if (PmayUtil.chkNull(surveyReportData.getValidationPendingNonSlum())
-						.equalsIgnoreCase("N")) {
+				} else if ("N".equalsIgnoreCase(surveyReportData.getValidationPendingNonSlum())) {
 					surveyReportData.setValidationPendingStatus("No");
 				}
 
@@ -1871,40 +1908,57 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	private static boolean isNotSpace(String input) {
 		return !input.equals("");
 	}
-
+	
+	@Override
+	public List<PmayReportDataForAdmins> getFilteredReportBySearchForAdminsWithPaging(PmaySeachData seachDetails,Integer itemsPerPage,Integer pageno) {
+		return getFilteredReportBySearchForAdminsProcesser(seachDetails,itemsPerPage,pageno);
+	}
+	
 	@Override
 	public List<PmayReportDataForAdmins> getFilteredReportBySearchForAdmins(PmaySeachData seachDetails) {
-		StringBuilder queryToGetAdminReportBySearchData = new StringBuilder(
-				PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT.replace(" GROUP BY pus.user_survey_id", ""));
+		return getFilteredReportBySearchForAdminsProcesser(seachDetails,null,null);
+	}
+	
+	private List<PmayReportDataForAdmins> getFilteredReportBySearchForAdminsProcesser(PmaySeachData seachDetails,Integer itemsPerPage,Integer pageno) {
 
-		if (seachDetails.getSearchName() != null && isNotSpace(seachDetails.getSearchName())) {
-			queryToGetAdminReportBySearchData
-			.append(" and pus.family_head_name like '" + seachDetails.getSearchName() + "%'");
+		StringBuilder queryToGetAdminReportBySearchData = new StringBuilder(PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT);
+
+		if(seachDetails!=null) {
+			if (seachDetails.getSearchName() != null && isNotSpace(seachDetails.getSearchName())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.family_head_name like '" + seachDetails.getSearchName() + "%'");
+			}
+
+			if (seachDetails.getAadharOrIdNumber() != null && isNotSpace(seachDetails.getAadharOrIdNumber())) {
+				queryToGetAdminReportBySearchData
+				.append(" and '" + seachDetails.getAadharOrIdNumber() + "' in (pus.aadhar_card_no, pus.id_number)");
+			}
+			if (seachDetails.getUlbName() != null && isNotSpace(seachDetails.getUlbName())) {
+				queryToGetAdminReportBySearchData.append(" and pun.ulb_name like '" + seachDetails.getUlbName() + "%'");
+			}
+			if (seachDetails.getFatherSpouseName() != null && isNotSpace(seachDetails.getFatherSpouseName())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.father_husband_name like '" + seachDetails.getFatherSpouseName() + "%'");
+			}
+			if (seachDetails.getBankAccountNo() != null && isNotSpace(seachDetails.getBankAccountNo())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.bank_account_number = '" + seachDetails.getBankAccountNo() + "'");
+			}
+
+			if (seachDetails.getSearchScopeName() != null && seachDetails.getSearchScopeValue() != null
+					&& isNotSpace(seachDetails.getSearchScopeValue())) {
+				queryToGetAdminReportBySearchData.append(
+						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
+			}
+		}
+		
+		queryToGetAdminReportBySearchData.append(" GROUP BY pus.user_survey_id ");
+		
+		if(itemsPerPage!=null && pageno!=null ) {
+			queryToGetAdminReportBySearchData.append(" LIMIT "+((pageno-1) * itemsPerPage ) + ", "+ itemsPerPage);
 		}
 
-		if (seachDetails.getAadharOrIdNumber() != null && isNotSpace(seachDetails.getAadharOrIdNumber())) {
-			queryToGetAdminReportBySearchData
-			.append(" and '" + seachDetails.getAadharOrIdNumber() + "' in (pus.aadhar_card_no, pus.id_number)");
-		}
-		if (seachDetails.getUlbName() != null && isNotSpace(seachDetails.getUlbName())) {
-			queryToGetAdminReportBySearchData.append(" and pun.ulb_name like '" + seachDetails.getUlbName() + "%'");
-		}
-		if (seachDetails.getFatherSpouseName() != null && isNotSpace(seachDetails.getFatherSpouseName())) {
-			queryToGetAdminReportBySearchData
-			.append(" and pus.father_husband_name like '" + seachDetails.getFatherSpouseName() + "%'");
-		}
-		if (seachDetails.getBankAccountNo() != null && isNotSpace(seachDetails.getBankAccountNo())) {
-			queryToGetAdminReportBySearchData
-			.append(" and pus.bank_account_number = '" + seachDetails.getBankAccountNo() + "'");
-		}
-
-		if (seachDetails.getSearchScopeName() != null && seachDetails.getSearchScopeValue() != null
-				&& isNotSpace(seachDetails.getSearchScopeValue())) {
-			queryToGetAdminReportBySearchData.append(
-					" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
-		}
-
-		queryToGetAdminReportBySearchData.append(" GROUP BY pus.user_survey_id");
+		
 
 		return jdbcTemplate.query(queryToGetAdminReportBySearchData.toString(),
 				new RowMapper<PmayReportDataForAdmins>() {
@@ -2032,7 +2086,9 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			}
 		});
 
+	
 	}
+
 
 	@Override
 	public List<PmaySurveyReportData> getFilteredReportForSuperUser(PmaySeachData seachDetails) {
@@ -2994,7 +3050,6 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	@Override
 	public List<UlbWardDetailsData> getUlbWardDetails(String searchData) {
 		StringBuilder getUlbWardDetailsQuery = new StringBuilder("SELECT IFNULL(pun.ulb_name, 'Others'),group_concat(distinct pus.ward_id SEPARATOR ', ') as ward_name FROM p_user_survey pus LEFT OUTER JOIN p_ulb_name pun ON pus.ulb_name_id = pun.ulb_name_id ");
-		System.out.println("Search Data" + searchData);
 
 		if (searchData.equalsIgnoreCase("slum")) {
 			getUlbWardDetailsQuery.append("WHERE slum_nonslum = 'S' GROUP BY ulb_name ORDER BY ulb_name asc");
@@ -3030,7 +3085,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	@Override
 	public List<UlbWardDetailsData> getAdminUlbWardDetails(String searchData) {
 		StringBuilder getUlbWardDetailsQuery = new StringBuilder("select count(*) as total_survey_count,IFNULL(pun.ulb_name, 'Others'),group_concat(distinct pus.ward_id SEPARATOR ', ') as ward_name, pus.ulb_name_id from p_user_survey pus left outer join p_ulb_name pun on pus.ulb_name_id = pun.ulb_name_id ");
-		System.out.println("Search Data" + searchData);
+		
 		if (searchData.equalsIgnoreCase("savedSurvey")) {
 			getUlbWardDetailsQuery
 			.append("WHERE pus.submitted_data = 'N' GROUP BY pus.ulb_name_id ORDER BY ulb_name asc");
@@ -3078,7 +3133,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	@Override
 	public List<UlbWardDetailsData> getSurveyerUserUlbWardDetails(String searchData, String userId) {
 		StringBuilder getUlbWardDetailsQuery = new StringBuilder("select count(*) as total_survey_count, IFNULL(pun.ulb_name, 'Others'),group_concat(distinct pus.ward_id SEPARATOR ', ') as ward_name, pus.ulb_name_id from p_user_survey pus left outer join p_ulb_name pun on pus.ulb_name_id = pun.ulb_name_id ");
-		System.out.println("Search Data" + searchData);
+		
 		if (searchData.equalsIgnoreCase("savedSurvey")) {
 			getUlbWardDetailsQuery.append("WHERE pus.submitted_data = 'N' and pus.user_id = " + userId
 					+ " GROUP BY pus.ulb_name_id ORDER BY ulb_name asc");
@@ -3291,6 +3346,44 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	@Override
 	public Integer getTotalAdminsSurveyReports() {
 		Integer count = jdbcTemplate.queryForObject(PmayMysqlQueries.QUERY_FOR_TOTAL_ADMINS_SURVEY_REPORT, Integer.class);
+		return count;
+	}
+
+	@Override
+	public Integer getTotalCountFilteredReportBySearchForAdmins(PmaySeachData seachDetails ) {
+
+		StringBuilder queryToGetAdminReportBySearchData = new StringBuilder(PmayMysqlQueries.QUERY_FOR_TOTAL_ADMINS_SURVEY_REPORT);
+
+		if(seachDetails!=null) {
+			if (seachDetails.getSearchName() != null && isNotSpace(seachDetails.getSearchName())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.family_head_name like '" + seachDetails.getSearchName() + "%'");
+			}
+
+			if (seachDetails.getAadharOrIdNumber() != null && isNotSpace(seachDetails.getAadharOrIdNumber())) {
+				queryToGetAdminReportBySearchData
+				.append(" and '" + seachDetails.getAadharOrIdNumber() + "' in (pus.aadhar_card_no, pus.id_number)");
+			}
+			if (seachDetails.getUlbName() != null && isNotSpace(seachDetails.getUlbName())) {
+				queryToGetAdminReportBySearchData.append(" and pun.ulb_name like '" + seachDetails.getUlbName() + "%'");
+			}
+			if (seachDetails.getFatherSpouseName() != null && isNotSpace(seachDetails.getFatherSpouseName())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.father_husband_name like '" + seachDetails.getFatherSpouseName() + "%'");
+			}
+			if (seachDetails.getBankAccountNo() != null && isNotSpace(seachDetails.getBankAccountNo())) {
+				queryToGetAdminReportBySearchData
+				.append(" and pus.bank_account_number = '" + seachDetails.getBankAccountNo() + "'");
+			}
+
+			if (seachDetails.getSearchScopeName() != null && seachDetails.getSearchScopeValue() != null
+					&& isNotSpace(seachDetails.getSearchScopeValue())) {
+				queryToGetAdminReportBySearchData.append(
+						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
+			}
+		}
+		
+		Integer count = jdbcTemplate.queryForObject(queryToGetAdminReportBySearchData.toString(), Integer.class);
 		return count;
 	}
 

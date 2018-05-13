@@ -168,8 +168,11 @@ public interface PmaySurveyService {
 
 	List<PmayReportDataForAdmins> getSurveyReportForSuperUser();
 
-	List<PmayReportDataForAdmins> getAdminsSurveyReports(Integer pageNo);
+	List<PmayReportDataForAdmins> getFilteredReportBySearchForAdminsWithPaging(PmaySeachData seachDetails,Integer itemsPerPage, Integer pageno);
 
-	Integer getTotalAdminsSurveyReports();
+	Integer getTotalCountFilteredReportBySearchForAdmins(PmaySeachData seachDetails);
+
+	List<PmaySurveyReportData> getSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
+	
 
 }

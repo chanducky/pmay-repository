@@ -312,7 +312,7 @@ mainApp
 						$http
 								.post(
 										baseUrl
-												+ '/getFilteredReportBySearch',
+												+ '/getSuperUserSurveyReportFilterd',
 										searchData)
 								.success(
 										function(surveyReport) {
