@@ -47,10 +47,10 @@ mainApp
 
 				        // get ulbPager object from service
 				        superUser.ulbPager = PagerService.GetPager(superUser.superUserUlbWardsData.length, page ,pageSizeForUlb );
-				        console.log(superUser.ulbPager)
+				        
 				        // get current page of items
 				        superUser.ulbWardsData = superUser.superUserUlbWardsData.slice(superUser.ulbPager.startIndex, superUser.ulbPager.endIndex + 1);
-				        console.log(superUser.ulbWardsData)
+				        
 				        $(".pmay-loader").css({
 							"display" : "none"
 						});
@@ -969,7 +969,7 @@ mainApp
 									$(".pmay-loader").css({
 										"display" : "none"
 									});	
-									console.log(ulbReport)
+									
 										if (ulbReport != "") {
 											superUser.superUserUlbWardsData = ulbReport;
 											superUser.setUlbDetailsPage(1);

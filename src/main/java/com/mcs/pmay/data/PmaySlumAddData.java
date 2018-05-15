@@ -56,6 +56,9 @@ public class PmaySlumAddData {
 	private String dob;
 	private String geoLongitude;
 	private String geoLatitude;
+	
+	private String app;
+	
 	private MultipartFile slumApplicantPhoto;
 
 	public MultipartFile getSlumApplicantPhoto() {
@@ -424,6 +427,14 @@ public class PmaySlumAddData {
 
 	public void setGeoLatitude(String geoLatitude) {
 		this.geoLatitude = geoLatitude;
+	}
+	
+	public String getApp() {
+		return app;
+	}
+
+	public void setApp(String app) {
+		this.app = app;
 	}
 
 	@Override

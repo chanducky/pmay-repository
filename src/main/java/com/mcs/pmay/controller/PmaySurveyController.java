@@ -237,9 +237,8 @@ public class PmaySurveyController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/storeFilteredRowColumnDetailsForAdmins", method = RequestMethod.POST)
 	@ResponseBody
-	public String storeColumnNameDetailsForAdmin(@RequestBody FilteredRowColumnData rowColumnData,
-			HttpServletRequest req) {
-		System.out.println("rowColumnData>>"+rowColumnData);
+	public String storeColumnNameDetailsForAdmin(@RequestBody FilteredRowColumnData rowColumnData,HttpServletRequest req) {
+		
 		HttpSession session = req.getSession();
 		List<PmayReportDataForAdmins> filteredSurveyReportData = new ArrayList<>();
 		List<PmayReportDataForAdmins> listSurveyReportData = (List<PmayReportDataForAdmins>) httpSession
@@ -281,7 +280,7 @@ public class PmaySurveyController {
 		downloadData.setColumnData(columnNameData);
 		downloadData.setListAdminsData(filteredSurveyReportData);
 
-		System.out.println("downloadData>>>>>>>" + downloadData);
+		
 		return gson.toJson(downloadData);
 	}
 
@@ -325,9 +324,12 @@ public class PmaySurveyController {
 			@RequestParam(value = "incomeProofPhoto", required = false) MultipartFile incomeProofPhoto,
 			@RequestParam(value = "surveyData") String surveyData,
 			@RequestParam(value = "biometricDetails", required = false) byte[] biometricDetails) {
-		System.out.println(surveyData);
+		
 		Map surveyDetailsData = new Gson().fromJson(surveyData, Map.class);
 		PmayAddSurveyData pmayAddSurveyData = new PmayAddSurveyData();
+		
+		pmayAddSurveyData.setApp(PmayUtil.chkObjectNull(surveyDetailsData.get("APP")).toString());
+		
 		pmayAddSurveyData.setUserId(PmayUtil.chkObjectNull(surveyDetailsData.get("userId")).toString());
 		pmayAddSurveyData.setSurveyId(PmayUtil.chkObjectNull(surveyDetailsData.get("surveyId")).toString());
 		pmayAddSurveyData.setSlumRadio(PmayUtil.chkObjectForNonSlum(surveyDetailsData.get("slumRadio")).toString());
@@ -360,7 +362,7 @@ public class PmaySurveyController {
 		pmayAddSurveyData
 				.setIsSameAsPresentAdd(PmayUtil.chkCheckedRadioObjectNull(surveyDetailsData.get("isSameAsPresentAdd")).toString());
 		pmayAddSurveyData.setPermanentTown(PmayUtil.chkCheckedRadioObjectNull(surveyDetailsData.get("permanentTown")).toString());
-		System.out.println(surveyDetailsData.get("permanentTown"));
+		
 		pmayAddSurveyData
 				.setPermanentHouseNo(PmayUtil.chkObjectNull(surveyDetailsData.get("permanentHouseNo")).toString());
 		pmayAddSurveyData.setPermanentStreetName(
@@ -436,8 +438,6 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setBiometricDetails(biometricDetails);
 		Map<String, String> addSurveystatus = pmaySurveyService.addSurvey(pmayAddSurveyData);
 
-		System.out.println("in controller-----------" + gson.toJson(addSurveystatus));
-
 		return gson.toJson(addSurveystatus);
 	}
 
@@ -453,14 +453,10 @@ public class PmaySurveyController {
 		
 		if(userDetails.get("userId") != null) {
 			userId =userDetails.get("userId");
-			System.out.println("user id from js>>>>>>"+userDetails.get("userId"));
 		}
 		else if((String) session.getAttribute("userId") != null){
 			userId = (String) session.getAttribute("userId");
-			System.out.println("userId from session>>>>>"+userId);
 		}
-		
-		System.out.println("userId>>>>>"+userId);
 		
 		List<PmayReportDataForAdmins> surveyUserReport = pmaySurveyService
 				.getSurveyUserReport(userId);
@@ -477,7 +473,7 @@ public class PmaySurveyController {
 		}
 
 		httpSession.setAttribute("surveyReportList", surveyUserReport);
-		System.out.println("report>>>>>>>>>" + surveyUserReport);
+		
 		return gson.toJson(surveyUserReport);
 	}
 
@@ -489,7 +485,6 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getFilteredReportBySearch(@RequestBody PmaySeachData seachDetails) {
 		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdmins(seachDetails);
-		System.out.println(">>>>>>>>" + surveyReports);
 		return gson.toJson(surveyReports);
 	}
 	
@@ -504,7 +499,6 @@ public class PmaySurveyController {
 		data.put("surveyReport", surveyReports);
 		data.put("total_count", total_count);
 		
-		System.out.println(">>>>>>>>" + surveyReports);
 		return gson.toJson(data);
 	}
 
@@ -517,7 +511,7 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getFilteredReportForSuperUser(@RequestBody PmaySeachData seachDetails) {
 		List<PmaySurveyReportData> surveyReports = pmaySurveyService.getFilteredReportForSuperUser(seachDetails);
-		System.out.println(">>>>>>>>" + surveyReports);
+		
 		return gson.toJson(surveyReports);
 	}
 
@@ -541,7 +535,7 @@ public class PmaySurveyController {
 
 			}
 		}
-		System.out.println(">>>>>>>>" + surveyReports);
+		
 		return gson.toJson(surveyReports);
 	}
 
@@ -562,9 +556,11 @@ public class PmaySurveyController {
 			@RequestParam(value = "surveyData") String surveyData,
 			@RequestParam(value = "slumBiometricDetails", required = false) byte[] slumBiometricDetails,
 			@RequestParam(value = "applicantPhoto", required = false) MultipartFile applicantPhoto) {
-		System.out.println(surveyData);
+		
 		Map surveyDetailsData = new Gson().fromJson(surveyData, Map.class);
 		PmaySlumAddData pmayAddSurveyData = new PmaySlumAddData();
+		pmayAddSurveyData.setApp(PmayUtil.chkObjectNull(surveyDetailsData.get("APP")).toString());
+		
 		pmayAddSurveyData.setUserId(PmayUtil.chkObjectNull(surveyDetailsData.get("userId")).toString());
 		pmayAddSurveyData.setSurveyId(PmayUtil.chkObjectNull(surveyDetailsData.get("surveyId")).toString());
 		pmayAddSurveyData.setChckSlumRadio(PmayUtil.chkObjectForSlum(surveyDetailsData.get("chckSlumRadio")).toString());
@@ -638,7 +634,7 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setSlumIdImage(slumIdImage);
 		pmayAddSurveyData.setSlumApplicantPhoto(applicantPhoto);
 		Map<String, String> addSlumSurveystatus = pmaySurveyService.addSlumSurvey(pmayAddSurveyData);
-		System.out.println("in controller-----------" + gson.toJson(addSlumSurveystatus));
+		
 		return gson.toJson(addSlumSurveystatus);
 	}
 
@@ -674,7 +670,6 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getTodaySurveyReportForSlumNonSlum() {
 		SlumNonSlumReportData slumNonSlumReportData = pmaySurveyService.getTodaySurveyReportForSlumNonSlum();
-		System.out.println(gson.toJson(slumNonSlumReportData));
 		return gson.toJson(slumNonSlumReportData);
 	}
 	
@@ -696,7 +691,7 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getTotalSurveyReportForUlbSlumNonSlum(String ulbNo) {
 		SlumNonSlumReportData slumNonSlumReportData = pmaySurveyService.getUlbSurveyReportForSlumNonSlum(ulbNo);
-		System.out.println(gson.toJson(slumNonSlumReportData));
+		
 		return gson.toJson(slumNonSlumReportData);
 	}
 	
@@ -708,7 +703,7 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getTodaySurveyReportForUlbSlumNonSlum(String ulbNo,String surveyDate) {
 		SlumNonSlumReportData slumNonSlumReportData = pmaySurveyService.getTodayUlbSurveyReportForSlumNonSlum(ulbNo,surveyDate);
-		System.out.println(gson.toJson(slumNonSlumReportData));
+		
 		return gson.toJson(slumNonSlumReportData);
 	}
 	
@@ -719,7 +714,7 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getUlbWardDetails(@RequestBody Map<String,String> data) {
 		List<UlbWardDetailsData>ulbWardDetailsData = pmaySurveyService.getUlbWardDetails(data.get("searchData"));
-		System.out.println(gson.toJson(ulbWardDetailsData));
+		
 		return gson.toJson(ulbWardDetailsData);
 	}
 	
@@ -727,7 +722,7 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getAdminUlbWardDetails(@RequestBody Map<String,String> data) {
 		List<UlbWardDetailsData>getAdminUlbWardDetails = pmaySurveyService.getAdminUlbWardDetails(data.get("searchData"));
-		System.out.println(gson.toJson(getAdminUlbWardDetails));
+		
 		return gson.toJson(getAdminUlbWardDetails);
 	}
 	
@@ -736,7 +731,7 @@ public class PmaySurveyController {
 	public String getSurveyerUserUlbWardDetails(@RequestBody Map<String,String> data,HttpSession session) {
 		String userId = session.getAttribute("userId").toString();
 		List<UlbWardDetailsData>getSurveyerUserUlbWardDetails = pmaySurveyService.getSurveyerUserUlbWardDetails(data.get("searchData"),userId);
-		System.out.println(gson.toJson(getSurveyerUserUlbWardDetails));
+		
 		return gson.toJson(getSurveyerUserUlbWardDetails);
 	}
 	

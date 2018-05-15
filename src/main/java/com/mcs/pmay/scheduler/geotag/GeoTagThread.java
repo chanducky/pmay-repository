@@ -36,7 +36,7 @@ public class GeoTagThread implements Runnable{
 
 				imagePath = imageDirMap.get("applicantPhoto")+File.separator+surveyData.getUserSurveyId()+"_"+"slumApplicantPhoto.jpg";
 				gps =getGeoLocation(imagePath);
-				System.out.println(" imagePath = " + imagePath);
+				
 				if(gps!=null && gps[0]!=0.0 && gps[1]!=0.0) {
 					found=true;
 				}
@@ -46,11 +46,11 @@ public class GeoTagThread implements Runnable{
 					if(gps!=null && gps[0]!=0.0 && gps[1]!=0.0) {
 						found=true;
 					}
-					System.out.println(" imagePath = " + imagePath);
+				
 				}
 			}else{
 				imagePath = imageDirMap.get("applicantPhoto")+File.separator+surveyData.getUserSurveyId()+"_"+"applicantPhoto.jpg";
-				System.out.println(" imagePath = " + imagePath);
+				
 				gps =getGeoLocation(imagePath);
 				if(gps!=null && gps[0]!=0.0 && gps[1]!=0.0) {
 					found=true;
@@ -59,7 +59,7 @@ public class GeoTagThread implements Runnable{
 			
 			if(!found) {
 				imagePath = imageDirMap.get("signature")+File.separator+surveyData.getUserSurveyId()+"_"+"applicantSignature.jpg";
-				System.out.println(" imagePath = " + imagePath);
+				
 				gps =getGeoLocation(imagePath);
 				if(gps!=null && gps[0]!=0.0 && gps[1]!=0.0) {
 					found=true;

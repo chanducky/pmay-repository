@@ -105,6 +105,8 @@ public class PmayAddSurveyData {
 	private String geoLongitude;
 	private String geoLatitude;
 
+	private String app;
+	
 	public byte[] getBiometricDetails() {
 		return biometricDetails;
 	}
@@ -850,4 +852,12 @@ public class PmayAddSurveyData {
 		this.geoLatitude = geoLatitude;
 	}
 
+	public String getApp() {
+		return app;
+	}
+
+	public void setApp(String app) {
+		this.app = app;
+	}
+	
 }

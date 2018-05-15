@@ -269,7 +269,6 @@ public class PmayUserController {
 		
 		List<PmayUserData> pmayUserData = pmayUserService.getUsersLoggedinHistory();
 		
-		System.out.println("getLoggedInDetails called ..");
 		return gson.toJson(pmayUserData);
 	}
 

@@ -1681,31 +1681,39 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			});
 			int[] saveFamilyStatus = null;
 			
-			String[] familyMemberName = surveyData.getFamilyMemberName().split(",");
-			String[] familyMemberRelation = surveyData.getFamilyMemberRelation().split(",");
-			String[] familyMemberGender = surveyData.getFamilyMemberGender().split(",");
-			String[] familyMemberAge = surveyData.getFamilyMemberAge().split(",");
-			String[] familyMemberIdCardNo = surveyData.getFamilyMemberIdCardNo().split(",");
-			jdbcTemplate.update(PmayMysqlQueries.DELETE_FAMILY_RELATIONSHIP_QUERY, surveyData.getSurveyId());
-
-			saveFamilyStatus = jdbcTemplate.batchUpdate(PmayMysqlQueries.SAVE_FAMILY_RELATIONSHIP_QUERY,
-					new BatchPreparedStatementSetter() {
-				@Override
-				public int getBatchSize() {
-					return familyMemberName.length;
+			if("WEB".equalsIgnoreCase(surveyData.getApp())) {
+				if (surveyData.getIsSubmitted() == "Y") {
+					saveFamilyStatus= new int[1];
+					saveFamilyStatus[0]= 1;
 				}
+			}else {
+				String[] familyMemberName = surveyData.getFamilyMemberName().split(",");
+				String[] familyMemberRelation = surveyData.getFamilyMemberRelation().split(",");
+				String[] familyMemberGender = surveyData.getFamilyMemberGender().split(",");
+				String[] familyMemberAge = surveyData.getFamilyMemberAge().split(",");
+				String[] familyMemberIdCardNo = surveyData.getFamilyMemberIdCardNo().split(",");
+				jdbcTemplate.update(PmayMysqlQueries.DELETE_FAMILY_RELATIONSHIP_QUERY, surveyData.getSurveyId());
 
-				@Override
-				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					ps.setString(1, surveyData.getSurveyId());
-					ps.setString(2, PmayUtil.convertBlankToNull(familyMemberName[i]));
-					ps.setString(3, PmayUtil.convertBlankToNull(familyMemberRelation[i]));
-					ps.setString(4, PmayUtil.convertBlankToNull(familyMemberGender[i]));
-					ps.setString(5, PmayUtil.convertBlankToNull(familyMemberAge[i]));
-					ps.setString(6, PmayUtil.convertBlankToNull(familyMemberIdCardNo[i]));
-					ps.setString(7, surveyData.getUserId());
-				}
-			});
+				saveFamilyStatus = jdbcTemplate.batchUpdate(PmayMysqlQueries.SAVE_FAMILY_RELATIONSHIP_QUERY,
+						new BatchPreparedStatementSetter() {
+					@Override
+					public int getBatchSize() {
+						return familyMemberName.length;
+					}
+
+					@Override
+					public void setValues(PreparedStatement ps, int i) throws SQLException {
+						ps.setString(1, surveyData.getSurveyId());
+						ps.setString(2, PmayUtil.convertBlankToNull(familyMemberName[i]));
+						ps.setString(3, PmayUtil.convertBlankToNull(familyMemberRelation[i]));
+						ps.setString(4, PmayUtil.convertBlankToNull(familyMemberGender[i]));
+						ps.setString(5, PmayUtil.convertBlankToNull(familyMemberAge[i]));
+						ps.setString(6, PmayUtil.convertBlankToNull(familyMemberIdCardNo[i]));
+						ps.setString(7, surveyData.getUserId());
+					}
+				});
+				
+			}
 
 			/*********** code for return value **********/
 
@@ -2429,6 +2437,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				return ps;
 			});
 
+			
 			String[] familyMemberName = pmayAddSurveyData.getFamilyMemberName().split(",");
 			String[] familyMemberRelation = pmayAddSurveyData.getFamilyMemberRelation().split(",");
 			String[] familyMemberGender = pmayAddSurveyData.getFamilyMemberGender().split(",");
@@ -2802,32 +2811,40 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				return ps;
 			});
 
-			String[] familyMemberName = pmayAddSurveyData.getFamilyMemberName().split(",");
-			String[] familyMemberRelation = pmayAddSurveyData.getFamilyMemberRelation().split(",");
-			String[] familyMemberGender = pmayAddSurveyData.getFamilyMemberGender().split(",");
-			String[] familyMemberAge = pmayAddSurveyData.getFamilyMemberAge().split(",");
-			String[] familyMemberIdCardNo = pmayAddSurveyData.getFamilyMemberIdCardNo().split(",");
-
-			jdbcTemplate.update(PmayMysqlQueries.DELETE_FAMILY_RELATIONSHIP_QUERY, pmayAddSurveyData.getSurveyId());
-
-			int[] saveFamilyStatus = jdbcTemplate.batchUpdate(PmayMysqlQueries.SAVE_FAMILY_RELATIONSHIP_QUERY,
-					new BatchPreparedStatementSetter() {
-				@Override
-				public int getBatchSize() {
-					return familyMemberName.length;
+			int[] saveFamilyStatus =null;
+			if("WEB".equalsIgnoreCase(pmayAddSurveyData.getApp())) {
+				if (pmayAddSurveyData.getIsSubmittedFlag() == "Y") {
+					saveFamilyStatus=new int[1];
+					saveFamilyStatus[0]=1;
 				}
+			}else {
+				String[] familyMemberName = pmayAddSurveyData.getFamilyMemberName().split(",");
+				String[] familyMemberRelation = pmayAddSurveyData.getFamilyMemberRelation().split(",");
+				String[] familyMemberGender = pmayAddSurveyData.getFamilyMemberGender().split(",");
+				String[] familyMemberAge = pmayAddSurveyData.getFamilyMemberAge().split(",");
+				String[] familyMemberIdCardNo = pmayAddSurveyData.getFamilyMemberIdCardNo().split(",");
 
-				@Override
-				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					ps.setString(1, pmayAddSurveyData.getSurveyId());
-					ps.setString(2, PmayUtil.convertBlankToNull(familyMemberName[i]));
-					ps.setString(3, PmayUtil.convertBlankToNull(familyMemberRelation[i]));
-					ps.setString(4, PmayUtil.convertBlankToNull(familyMemberGender[i]));
-					ps.setString(5, PmayUtil.convertBlankToNull(familyMemberAge[i]));
-					ps.setString(6, PmayUtil.convertBlankToNull(familyMemberIdCardNo[i]));
-					ps.setString(7, PmayUtil.convertBlankToNull(pmayAddSurveyData.getUserId()));
-				}
-			});
+				jdbcTemplate.update(PmayMysqlQueries.DELETE_FAMILY_RELATIONSHIP_QUERY, pmayAddSurveyData.getSurveyId());
+
+				saveFamilyStatus = jdbcTemplate.batchUpdate(PmayMysqlQueries.SAVE_FAMILY_RELATIONSHIP_QUERY,
+						new BatchPreparedStatementSetter() {
+					@Override
+					public int getBatchSize() {
+						return familyMemberName.length;
+					}
+
+					@Override
+					public void setValues(PreparedStatement ps, int i) throws SQLException {
+						ps.setString(1, pmayAddSurveyData.getSurveyId());
+						ps.setString(2, PmayUtil.convertBlankToNull(familyMemberName[i]));
+						ps.setString(3, PmayUtil.convertBlankToNull(familyMemberRelation[i]));
+						ps.setString(4, PmayUtil.convertBlankToNull(familyMemberGender[i]));
+						ps.setString(5, PmayUtil.convertBlankToNull(familyMemberAge[i]));
+						ps.setString(6, PmayUtil.convertBlankToNull(familyMemberIdCardNo[i]));
+						ps.setString(7, PmayUtil.convertBlankToNull(pmayAddSurveyData.getUserId()));
+					}
+				});
+			}
 
 			if (pmayAddSurveyData.getIsSubmittedFlag() == "Y") {
 				System.out.println("SUBMIT");
@@ -2853,11 +2870,12 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			
 			hmap.put("success", status);
 			hmap.put("surveyId", pmayAddSurveyData.getSurveyId());
+			
 			ImageUpload.SaveImage(pmayAddSurveyData.getSlumApplicantSignature(), slumApplicantSignatureName, signature);
-			ImageUpload.SaveImage(pmayAddSurveyData.getSlumLocationDetailsPic(), slumLocationDetailsPicName,
-					pattaPhoto);
+			ImageUpload.SaveImage(pmayAddSurveyData.getSlumLocationDetailsPic(), slumLocationDetailsPicName, pattaPhoto);
 			ImageUpload.SaveImage(pmayAddSurveyData.getSlumIdImage(), slumIdProofPhoto, idProofPhoto);
 			ImageUpload.SaveImage(pmayAddSurveyData.getSlumApplicantPhoto(), slumApplicantPhoto, applicantPhoto);
+			
 			return hmap;
 		}
 	}

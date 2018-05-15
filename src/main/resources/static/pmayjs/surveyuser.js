@@ -458,7 +458,7 @@ mainApp.controller('surveyUserController',
 							$(".pmay-loader").css({
 								"display" : "none"
 							});
-							console.log(data)
+							
 							$scope.addSurvey = {};
 							$scope.nonSlumVal=false;
 							swal({

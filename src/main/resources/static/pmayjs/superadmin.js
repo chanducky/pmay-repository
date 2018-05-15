@@ -1003,7 +1003,7 @@ mainApp
 							$(".pmay-loader").css({
 								"display" : "none"
 							});
-							console.log(data)
+							
 							$scope.addSurvey = {};
 							$scope.nonSlumVal=false;
 							swal({
@@ -1800,7 +1800,7 @@ mainApp
 							   $(".pmay-loader").css({
 									"display" : "none"
 								});		
-							   console.log(data)
+							   
 										if (data != "") {
 											superAdmin.superAdminUserUlbWardsData = data;
 											superAdmin.setUlbDetailsPage(1);
