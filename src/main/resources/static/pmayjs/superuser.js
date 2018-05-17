@@ -131,7 +131,8 @@ mainApp
 										});
 
 					}
-
+					/*
+					 
 					$scope.getSuperUserSurveyReport=function getSuperUserSurveyReport() {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -151,6 +152,8 @@ mainApp
 											
 										});
 					}
+					
+					*/
 					
 					$scope.logout = function logout() {
 						$http.get(baseUrl + 'logout/').success(function(data) {
@@ -287,7 +290,7 @@ mainApp
 											$scope.longLat = downloadData.columnData.longLat;
 										});
 					}
-
+/*
 					$scope.resetAll = function resetAll() {
 						$scope.searchData = {};
 						superUser.superUserSurveyData = $scope.tempSurveyData;
@@ -339,6 +342,7 @@ mainApp
 										});
 
 					}
+					*/
 
 					$scope.customizeSearchSurveyData = function customizeSearchSurveyData() {
 						$(".pmay-loader").css({
@@ -981,7 +985,138 @@ mainApp
 
 					   }
 					   
-					   
-					   
+					   	// new search report with pagination
+
+						$scope.currentPage = 1;
+						$scope.pageSize = 20;
+						$scope.total_count = 0;
+						$scope.reportType=1;
+						
+						 $scope.range = function (size,pageNo) {
+						     var ret = [];    
+						     var range=9;
+						     var start=pageNo;
+						     var end=pageNo+range;
+						     
+						     if(start <0){
+						    	 	start = 1;
+						    	 	end=size;
+						    	 	
+						    	 	if(size > range){
+						    	 		end =  range;
+						    	 	}
+						     }
+						     
+						     if (size < end) {
+						         end = size;
+						         start = size-range;
+						         if(start <0){
+						        	 	start= 1;
+						         }
+						     }
+						     
+						     for (var i = start; i <= end; i++) {
+						         ret.push(i);
+						     }        
+						      console.log(JSON.stringify(ret));        
+						     return ret;
+						 };
+						 
+						 $scope.setReportPager=function(pageNo){
+							 if(pageNo > $scope.total_count){
+								 pageNo=$scope.total_count;
+							 }
+							 
+							 if(pageNo < 1){
+								 pageNo=1;
+							 }
+							 $scope.currentPage = pageNo;
+							 
+							 if($scope.reportType==1){
+								 $scope.getSuperUserSurveyReport();
+							 }else{
+								 $scope.customizeSearchReport();
+							 }
+						 }
+						 
+						$scope.resetAll = function resetAll() {
+							$scope.searchData = {};
+							$scope.reportType=1;
+							$scope.total_count = 0;
+							$scope.currentPage = 1;
+							$scope.getSuperUserSurveyReport();
+						}
+
+						
+						$scope.getSuperUserSurveyReport=function getSuperUserSurveyReport() {
+							$scope.reportType=1;
+							
+							$(".pmay-loader").css({
+								"display" : "block"
+							});
+							$http
+									.get(baseUrl + '/getSuperUserSurveyReportPaging/'+$scope.pageSize+'/'+$scope.currentPage)
+									.success(
+											function(data) {
+												$(".pmay-loader").css({
+													"display" : "none"
+												});
+												
+												superUser.surveyReportData = data.surveyReport;
+												$scope.total_count = data.total_count;
+												
+											});
+						}
+						
+
+						$scope.customizeSearchReport = function customizeSearchReport() {
+							$scope.reportType=2;
+							
+							$(".pmay-loader").css({
+								"display" : "block"
+							});
+							
+							var searchData = {
+									"searchName" : $scope.searchData.superUserReportName,
+									"aadharOrIdNumber" : $scope.searchData.superUserReportAadharNo,
+									"ulbName" : $scope.searchData.superUserReportUlbName,
+									"fatherSpouseName" : $scope.searchData.superUserReportFatherSpouseName,
+									"bankAccountNo" : $scope.searchData.superUserReportBankAc,
+									"searchScopeName" : $scope.searchData.superUserReportScopeName,
+									"searchScopeValue" : $scope.searchData.superUserReportScopeValue
+							}
+
+							$http
+									.post(
+											baseUrl
+													+ '/getSuperUserSurveyReportFilterdPaging/'+$scope.pageSize+'/'+$scope.currentPage,
+											searchData)
+									.success(
+											function(data) {
+												$(".pmay-loader").css({
+													"display" : "none"
+												});
+												if (data.surveyReport != "") {
+													superUser.surveyReportData = data.surveyReport;
+													$scope.total_count = data.total_count;
+													
+												} else {
+													swal({
+														position : 'top',
+														text : "No Result Found",
+														type : 'info',
+														animation : false,
+														customClass : 'animated tada',
+														showConfirmButton : false,
+														timer : 3000,
+													})
+													superUser.surveyReportData = {};
+													$scope.total_count = 0;
+													$scope.currentPage = 1;
+												}
+											});
+
+						}
+
 					   
 				});

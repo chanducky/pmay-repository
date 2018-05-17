@@ -294,7 +294,7 @@
 											</tr>
 											<tr ng-repeat="surveyReport in admin.adminSurveyData">
 												<td><input type="checkbox" name="selectedAdminReportSurveyId" ng-model ="adminReport.selectedId[surveyReport.userSurveyId]" ng-init="adminReport.selectedId[surveyReport.userSurveyId] = true" /></td>
-												<td class="text-center">{{(admin.reportPager.currentPage-1) * admin.reportPager.pageSize+ $index+1}}</td>
+												<td class="text-center">{{(currentPage-1) * pageSize+ $index+1}}</td>
 	                                            <td>{{surveyReport.userRMN}}</td>
 	                                            <td>{{surveyReport.createdOn}}</td>
 												<td>{{surveyReport.userSurveyId}}</td>
@@ -339,21 +339,23 @@
 									</div>
 									<div class="clearfix"></div>
 									<div class="text-center">
-						                   <ul ng-if="admin.reportPager.pages.length" class="pagination">
-						                        <li ng-class="{disabled:admin.reportPager.currentPage === 1}">
-						                            <a ng-click="admin.setReportPage(1)" href ="">First</a>
+						                   <ul ng-if="total_count >0" class="pagination">
+						                        <li ng-class="{disabled:currentPage === 1}">
+						                            <a ng-disabled="currentPage==1" ng-click="setReportPager(1)" href ="">First</a>
 						                        </li>
-						                        <li ng-class="{disabled:admin.reportPager.currentPage === 1}">
-						                            <a ng-click="admin.setReportPage(admin.reportPager.currentPage - 1)" href ="">Previous</a>
+						                        <li ng-class="{disabled:currentPage === 1}">
+						                            <a ng-disabled="currentPage==1" ng-click="setReportPager(currentPage - 1)" href ="">Previous</a>
 						                        </li>
-						                        <li ng-repeat="page in admin.reportPager.pages" ng-class="{active:admin.reportPager.currentPage === page}">
-						                            <a ng-click="admin.setReportPage(page)" href ="">{{page}}</a>
-						                        </li>               
-						                        <li ng-class="{disabled:admin.reportPager.currentPage === admin.reportPager.totalPages}">
-						                            <a ng-click="admin.setReportPage(admin.reportPager.currentPage + 1)" href ="">Next</a>
+						                        
+						                        <li ng-repeat="page in range(total_count,currentPage) " ng-class="{active:currentPage === page}">
+						                            <a ng-click="setReportPager(page)" href ="">{{page}}</a>
+						                        </li>   
+						                                    
+						                        <li ng-class="{disabled:currentPage === total_count}">
+						                            <a  ng-click="setReportPager(currentPage + 1)" href ="">Next</a>
 						                        </li>
-						                        <li ng-class="{disabled:admin.reportPager.currentPage === admin.reportPager.totalPages}">
-						                            <a ng-click="admin.setReportPage(admin.reportPager.totalPages)" href ="">Last</a>
+						                        <li ng-class="{disabled:currentPage === total_count}">
+						                            <a ng-click="setReportPager(total_count)" href ="">Last</a>
 						                        </li>
 						                    </ul>
 						                </div>

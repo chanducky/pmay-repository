@@ -173,13 +173,16 @@ public interface PmaySurveyDao {
 	boolean deleteMultipleRecord(Map<String, String[]> userSurveyIds);
 
 	List<PmayReportDataForAdmins> getSurveyReportForSuperUser();
-
-	Integer getTotalAdminsSurveyReports();
+	
 
 	List<PmayReportDataForAdmins> getFilteredReportBySearchForAdminsWithPaging(PmaySeachData seachDetails,Integer itemsPerPage, Integer pageno);
 
 	Integer getTotalCountFilteredReportBySearchForAdmins(PmaySeachData seachDetails);
 
 	List<PmaySurveyReportData> getSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
+
+	Integer getTotalCountSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
+
+	List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno);
 
 }

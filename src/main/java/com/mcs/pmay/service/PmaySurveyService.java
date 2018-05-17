@@ -173,6 +173,10 @@ public interface PmaySurveyService {
 	Integer getTotalCountFilteredReportBySearchForAdmins(PmaySeachData seachDetails);
 
 	List<PmaySurveyReportData> getSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
+
+	Integer getTotalCountSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
+
+	List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno);
 	
 
 }

@@ -393,4 +393,13 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 		return pmaySurveyDao.getSuperUserSurveyReportFilterd(seachDetails);
 	}
 	
+	@Override
+	public Integer getTotalCountSuperUserSurveyReportFilterd(PmaySeachData seachDetails) {
+		return pmaySurveyDao.getTotalCountSuperUserSurveyReportFilterd(seachDetails);
+	}
+	
+	@Override
+	public List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno){
+		return pmaySurveyDao.getSuperUserSurveyReportFilterdPaging(seachDetails,itemsPerPage,pageno);
+	}
 }

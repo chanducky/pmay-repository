@@ -186,8 +186,15 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	@Override
 	public List<PmaySurveyReportData> getSuperUserSurveyReportFilterd(PmaySeachData seachDetails) {
 	
-		return fecthSuperUserSurveyReport(seachDetails);
+		return fecthSuperUserSurveyReport(seachDetails,null,null);
 	}
+	
+	@Override
+	public List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails,Integer itemsPerPage,Integer pageno) {
+	
+		return fecthSuperUserSurveyReport(seachDetails, itemsPerPage,pageno);
+	}
+	
 	
 	/*
 	 * (non-Javadoc)
@@ -196,10 +203,10 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	 */
 	@Override
 	public List<PmaySurveyReportData> getSuperUserSurveyReport() {
-		return fecthSuperUserSurveyReport(null);
+		return fecthSuperUserSurveyReport(null,null,null);
 	}
 
-	private List<PmaySurveyReportData> fecthSuperUserSurveyReport(PmaySeachData seachDetails) {
+	private List<PmaySurveyReportData> fecthSuperUserSurveyReport(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno) {
 		StringBuffer queryBuilder = new StringBuffer(PmayMysqlQueries.QUERY_FOR_GET_SUPER_USER_REPORT);
 		
 		if(seachDetails!=null) {
@@ -229,9 +236,15 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				queryBuilder.append(
 						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
 			}
+
+			
 		}
 		
 		queryBuilder.append(" order by pus.user_survey_id ");
+		
+		if(itemsPerPage!=null && pageno!=null ) {
+			queryBuilder.append(" LIMIT "+((pageno-1) * itemsPerPage ) + ", "+ itemsPerPage);
+		}
 
 		return jdbcTemplate.query(queryBuilder.toString(),
 				new RowMapper<PmaySurveyReportData>() {
@@ -3362,12 +3375,6 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	}
 
 	@Override
-	public Integer getTotalAdminsSurveyReports() {
-		Integer count = jdbcTemplate.queryForObject(PmayMysqlQueries.QUERY_FOR_TOTAL_ADMINS_SURVEY_REPORT, Integer.class);
-		return count;
-	}
-
-	@Override
 	public Integer getTotalCountFilteredReportBySearchForAdmins(PmaySeachData seachDetails ) {
 
 		StringBuilder queryToGetAdminReportBySearchData = new StringBuilder(PmayMysqlQueries.QUERY_FOR_TOTAL_ADMINS_SURVEY_REPORT);
@@ -3405,6 +3412,42 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		return count;
 	}
 
+	@Override
+	public Integer getTotalCountSuperUserSurveyReportFilterd(PmaySeachData seachDetails) {
+		StringBuffer queryBuilder = new StringBuffer(PmayMysqlQueries.TOTAL_COUNT_QUERY_FOR_GET_SUPER_USER_REPORT);
+		
+		if(seachDetails!=null) {
+			if (seachDetails.getSearchName() != null && isNotSpace(seachDetails.getSearchName())) {
+				queryBuilder
+				.append(" and pus.family_head_name like '" + seachDetails.getSearchName() + "%'");
+			}
+
+			if (seachDetails.getAadharOrIdNumber() != null && isNotSpace(seachDetails.getAadharOrIdNumber())) {
+				queryBuilder
+				.append(" and '" + seachDetails.getAadharOrIdNumber() + "' in (pus.aadhar_card_no, pus.id_number)");
+			}
+			if (seachDetails.getUlbName() != null && isNotSpace(seachDetails.getUlbName())) {
+				queryBuilder.append(" and pun.ulb_name like '" + seachDetails.getUlbName() + "%'");
+			}
+			if (seachDetails.getFatherSpouseName() != null && isNotSpace(seachDetails.getFatherSpouseName())) {
+				queryBuilder
+				.append(" and pus.father_husband_name like '" + seachDetails.getFatherSpouseName() + "%'");
+			}
+			if (seachDetails.getBankAccountNo() != null && isNotSpace(seachDetails.getBankAccountNo())) {
+				queryBuilder
+				.append(" and pus.bank_account_number = '" + seachDetails.getBankAccountNo() + "'");
+			}
+
+			if (seachDetails.getSearchScopeName() != null && seachDetails.getSearchScopeValue() != null
+					&& isNotSpace(seachDetails.getSearchScopeValue())) {
+				queryBuilder.append(
+						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
+			}
+		}
+		
+		Integer count = jdbcTemplate.queryForObject(queryBuilder.toString(), Integer.class);
+		return count;
+	}
 	/*public static void main(String[] args) {
 
 		PmayReportDataForAdmins surveyReportData = new PmayReportDataForAdmins();

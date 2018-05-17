@@ -216,17 +216,7 @@ public class PmaySurveyController {
 		
 		httpSession.setAttribute("surveyReportList", surveyReports);
 		return gson.toJson(surveyReports);
-		
-/*		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(null,20,1);
 
-		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(null);
-		
-		HashMap<String,Object> data = new HashMap<>();
-		data.put("surveyReport", surveyReports);
-		data.put("total_count", total_count);
-		
-		return gson.toJson(data);
-		*/
 	}
 
 	/**
@@ -487,21 +477,6 @@ public class PmaySurveyController {
 		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdmins(seachDetails);
 		return gson.toJson(surveyReports);
 	}
-	
-	@RequestMapping(value = "/getFilteredReportBySearch/{itemsPerPage}/{pageno}", method = RequestMethod.POST)
-	@ResponseBody
-	public String getFilteredReportBySearchWithPaging(@RequestBody PmaySeachData seachDetails,@PathVariable("itemsPerPage")Integer itemsPerPage,@PathVariable("pageno")Integer pageno) {
-		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(seachDetails,itemsPerPage,pageno);
-
-		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(seachDetails);
-		
-		HashMap<String,Object> data = new HashMap<>();
-		data.put("surveyReport", surveyReports);
-		data.put("total_count", total_count);
-		
-		return gson.toJson(data);
-	}
-
 
 	/**
 	 * @param seachDetails
@@ -751,6 +726,90 @@ public class PmaySurveyController {
 	public String getSuperUserSurveyReportFilterd(@RequestBody PmaySeachData seachDetails) {
 		List<PmaySurveyReportData> surveyReports = pmaySurveyService.getSuperUserSurveyReportFilterd(seachDetails);
 		return gson.toJson(surveyReports);
+	}
+
+	/**
+	 * @return surveyReports
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getAdminsSurveyReportsPaging/{pageSize}/{pageNo}", method = RequestMethod.GET)
+	public String getAdminsSurveyReportsPaging(@PathVariable(value="pageSize")Integer pageSize,@PathVariable(value="pageNo")Integer pageNo) {
+		
+		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(null,pageSize,pageNo);
+
+		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(null);
+		if(total_count!=null) {
+			total_count =   (int) Math.ceil(total_count.doubleValue()/pageSize); // convert no of record to no of pages
+		}
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReports);
+		data.put("total_count", total_count);
+		
+		return gson.toJson(data);
+		
+	}
+	
+	@RequestMapping(value = "/getFilteredReportBySearchPaging/{pageSize}/{pageNo}", method = RequestMethod.POST)
+	@ResponseBody
+	public String getFilteredReportBySearchWithPaging(@RequestBody PmaySeachData seachDetails,@PathVariable("pageSize")Integer itemsPerPage,@PathVariable("pageNo")Integer pageno) {
+		List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getFilteredReportBySearchForAdminsWithPaging(seachDetails,itemsPerPage,pageno);
+
+		Integer total_count =  pmaySurveyService.getTotalCountFilteredReportBySearchForAdmins(seachDetails);
+		
+		if(total_count!=null) {
+			total_count =   (int) Math.ceil(total_count.doubleValue()/itemsPerPage); // convert no of record to no of pages
+		}
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReports);
+		data.put("total_count", total_count);
+		
+		return gson.toJson(data);
+	}
+	
+
+	/**
+	 * @return SurveyReports
+	 */
+	@RequestMapping(value = "/getSuperUserSurveyReportPaging/{pageSize}/{pageNo}", method = RequestMethod.GET)
+	@ResponseBody
+	public String getSurveyReportPaging(@PathVariable(value="pageSize")Integer pageSize,@PathVariable(value="pageNo")Integer pageNo) {
+		List<PmaySurveyReportData> surveyReportList = pmaySurveyService.getSuperUserSurveyReportFilterdPaging(null,pageSize,pageNo);
+		
+		Integer total_count = pmaySurveyService.getTotalCountSuperUserSurveyReportFilterd(null);
+		
+		if(total_count!=null) {
+			total_count =   (int) Math.ceil(total_count.doubleValue()/pageSize); // convert no of record to no of pages
+		}
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReportList);
+		data.put("total_count", total_count);
+		
+		return gson.toJson(data);
+	}
+
+	/**
+	 * @param seachDetails
+	 * @return
+	 */
+	@RequestMapping(value = "/getSuperUserSurveyReportFilterdPaging/{pageSize}/{pageNo}", method = RequestMethod.POST)
+	@ResponseBody
+	public String getSuperUserSurveyReportFilterd_paging(@RequestBody PmaySeachData seachDetails,@PathVariable(value="pageSize")Integer pageSize,@PathVariable(value="pageNo")Integer pageNo) {
+		List<PmaySurveyReportData> surveyReports = pmaySurveyService.getSuperUserSurveyReportFilterdPaging(seachDetails,pageSize,pageNo);
+		
+		Integer total_count = pmaySurveyService.getTotalCountSuperUserSurveyReportFilterd(seachDetails);
+		
+		if(total_count!=null) {
+			total_count =   (int) Math.ceil(total_count.doubleValue()/pageSize); // convert no of record to no of pages
+		}
+		
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("surveyReport", surveyReports);
+		data.put("total_count", total_count);
+		
+		return gson.toJson(data);
 	}
 	
 }

@@ -3,8 +3,9 @@ mainApp
 				'adminController',
 				function($scope, $http, $window, $rootScope, Excel, $timeout,$compile,PagerService) {
 					$http.defaults.headers.post["Content-Type"] = "application/json";
-					$scope.curPage = 0;
-					$scope.pageSize = 20;
+			//		$scope.curPage = 0;
+			//		$scope.pageSize = 20;
+
 					$scope.disabledOtherReligion = true;
 					$scope.locationDetailsPicDis = true;
 					$scope.landRecordPicDis = true;
@@ -177,6 +178,8 @@ mainApp
 							location.href = "/"
 						});
 					}
+					
+/*					
 					$scope.getSurveyReports = function getSurveyReports() {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -192,6 +195,8 @@ mainApp
 									admin.setReportPage(1);
 								});
 					}
+*/
+					
 					$scope.getAllPendingUsers = function getAllPendingUsers() {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -483,7 +488,7 @@ mainApp
 										});
 					}
 					
-
+/*
 					$scope.resetAll = function resetAll() {
 						$scope.searchData = {};
 						admin.adminSurveyReport = $scope.tempSurveyData;
@@ -531,6 +536,8 @@ mainApp
 
 										});
 					}
+					
+					*/
 
 					$scope.getSurveyedFilteredDataForAdmin = function getSurveyedFilteredDataForAdmin() {
 						$(".pmay-loader").css({
@@ -1666,5 +1673,128 @@ mainApp
 						});
 				    }
 					
-					
+					$scope.currentPage = 1;
+					$scope.pageSize = 20;
+					$scope.total_count = 0;
+					$scope.reportType=1;
+					// load survey report with pagination
+					$scope.getSurveyReports = function getSurveyReports() {
+						$(".pmay-loader").css({
+							"display" : "block"
+						});
+						
+						$scope.reportType=1;
+						
+						$http.get(baseUrl + 'getAdminsSurveyReportsPaging/'+$scope.pageSize+'/'+$scope.currentPage).success(
+								function(data) {
+									$(".pmay-loader").css({
+										"display" : "none"
+									});
+									admin.adminSurveyData=data.surveyReport;
+									$scope.total_count=data.total_count;
+								});
+					}
+	
+					 $scope.range = function (size,pageNo) {
+					     var ret = [];    
+					     var range=9;
+					     var start=pageNo;
+					     var end=pageNo+range;
+					     
+					     if(start <0){
+					    	 	start = 1;
+					    	 	end=size;
+					    	 	
+					    	 	if(size > range){
+					    	 		end =  range;
+					    	 	}
+					     }
+					     
+					     if (size < end) {
+					         end = size;
+					         start = size-range;
+					         if(start <0){
+					        	 	start= 1;
+					         }
+					     }
+					     
+					     for (var i = start; i <= end; i++) {
+					         ret.push(i);
+					     }        
+					      console.log(JSON.stringify(ret));        
+					     return ret;
+					 };
+					 
+					 $scope.setReportPager=function(pageNo){
+						 if(pageNo > $scope.total_count){
+							 pageNo=$scope.total_count;
+						 }
+						 
+						 if(pageNo < 1){
+							 pageNo=1;
+						 }
+						 $scope.currentPage = pageNo;
+						 
+						 if($scope.reportType==1){
+							 $scope.getSurveyReports();
+						 }else{
+							 $scope.getReportFilteredDataForAdmin();
+						 }
+					 }
+					 
+						$scope.resetAll = function resetAll() {
+							$scope.searchData = {};
+							$scope.reportType=1;
+							$scope.total_count = 0;
+							$scope.currentPage = 1;
+							$scope.getSurveyReports();
+						}
+
+						$scope.getReportFilteredDataForAdmin = function getReportFilteredDataForAdmin() {
+							$scope.reportType=2;
+							
+							$(".pmay-loader").css({
+								"display" : "block"
+							});
+							var searchData = {
+								"searchName" : $scope.searchData.adminReportName,
+								"aadharOrIdNumber" : $scope.searchData.adminReportAadharNo,
+								"ulbName" : $scope.searchData.adminReportUlbName,
+								"fatherSpouseName" : $scope.searchData.adminReportFatherSpouseName,
+								"bankAccountNo" : $scope.searchData.adminReportBankAc,
+								"searchScopeName" : $scope.searchData.adminReportScopeName,
+								"searchScopeValue" : $scope.searchData.adminReportScopeValue
+							}
+
+							$http
+									.post(baseUrl + '/getFilteredReportBySearchPaging/'+$scope.pageSize+'/'+$scope.currentPage,
+											searchData)
+									.success(
+											function(data) {
+												$(".pmay-loader").css({
+													"display" : "none"
+												});
+												
+												if (data != "" && data.surveyReport != "") {
+													admin.adminSurveyData=data.surveyReport;
+													$scope.total_count=data.total_count;
+												} else {
+													swal({
+														position : 'top',
+														text : "No Result Found",
+														type : 'info',
+														animation : false,
+														customClass : 'animated tada',
+														showConfirmButton : false,
+														timer : 3000,
+													})
+													admin.adminSurveyData = {};
+													$scope.total_count = 0;
+													$scope.currentPage = 1;
+												}
+
+											});
+						}
+						
+					// end of controller
 				});

@@ -114,5 +114,7 @@ public class PmayMysqlQueries {
 	public static final String GET_SURVEY_DATA_FOR_GEOTAG = "select us.user_survey_id,us.photo_attachment_name,signature_of_applicant,us.photo_attachment_in_front_of_house,us.slum_nonslum from p_user_survey us  where us.`user_survey_id` not in (select user_survey_id from p_geotag gt where gt.user_survey_id > ?) and us.user_survey_id >? and (us.`geo_lat` is NULL OR us.`geo_lat` =0.0  OR us.`geo_lon` is NULL OR us.`geo_lon`=0.0 ) limit 100; ";
 	
 	public static final String INSERT_GEOTAG_QUERY = "INSERT INTO p_geotag VALUES (?,?,?,NOW())";
+
+	public static final String TOTAL_COUNT_QUERY_FOR_GET_SUPER_USER_REPORT = "select count(*) from p_user_survey pus left outer join p_gender pg on pus.gender_id = pg.gender_id left outer join p_marital_status pms on pus.marital_status_id = pms.marital_status_id left outer join p_religion prg on pus.religion_id = prg.religion_id left outer join p_id_type pit on pus.id_type_id = pit.id_type_id left outer join preferred_assistance_hfa_category pac on pus.preferred_assistance_hfa_category_id = pac.preferred_assistance_hfa_category_id left outer join p_city pec on pus.permanent_city_id = pec.city_id LEFT OUTER JOIN pmay.p_user pu ON pus.user_id = pu.user_id LEFT OUTER JOIN p_ulb_name pun ON pus.ulb_name_id = pun.ulb_name_id where deleted_flag='N'";
 	
 }
