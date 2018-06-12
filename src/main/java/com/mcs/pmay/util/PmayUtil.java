@@ -195,4 +195,8 @@ public class PmayUtil {
 		return ip;  
 	}
 
+	public static void main(String[] args) throws IOException {
+		boolean status = PmayUtil.sendOtp("8652311521", "test otp");
+		System.out.println(" status = " + status);
+	}
 }

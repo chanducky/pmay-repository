@@ -829,8 +829,14 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				|| PmayUtil.chkNull(surveyData.getSurveyId()).equals("")) {
 			
 
+			boolean found = checkAdharIsExist(surveyData.getAdharNo());
+			if(found) {
+				hmap.put("success", status);
+				hmap.put("code", "1001");
+				hmap.put("message", "Aadhar no "+surveyData.getAdharNo() +" already exist.");
+				return hmap;
+			}
 			
-			System.out.println("In if block>>>>>>>>>>>>>>>>>>>");
 			String maxId = "SELECT IF(MAX(user_survey_id) IS NULL,1,MAX(user_survey_id+1)) AS user_survey_id FROM p_user_survey";
 			int nextUserSurveyid = jdbcTemplate.queryForObject(maxId, Integer.class);
 			String imageName = Integer.toString(nextUserSurveyid) + "_";
@@ -2349,6 +2355,14 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				|| pmayAddSurveyData.getSurveyId().equalsIgnoreCase("0")
 				|| PmayUtil.chkNull(pmayAddSurveyData.getSurveyId()).equals("")) {
 			
+			boolean found = checkAdharIsExist(pmayAddSurveyData.getSlumAdharNo());
+			if(found) {
+				hmap.put("success", status);
+				hmap.put("code", "1001");
+				hmap.put("message", "Aadhar no "+pmayAddSurveyData.getSlumAdharNo() +" already exist.");
+				return hmap;
+			}
+			
 			String maxId = "SELECT IF(MAX(user_survey_id) IS NULL,1,MAX(user_survey_id+1)) AS user_survey_id FROM p_user_survey";
 			int nextUserSurveyid = jdbcTemplate.queryForObject(maxId, Integer.class);
 			String imageName = Integer.toString(nextUserSurveyid) + "_";
@@ -3448,13 +3462,5 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		Integer count = jdbcTemplate.queryForObject(queryBuilder.toString(), Integer.class);
 		return count;
 	}
-	/*public static void main(String[] args) {
-
-		PmayReportDataForAdmins surveyReportData = new PmayReportDataForAdmins();
-		List<PmayReportDataForAdmins> ls=new ArrayList<PmayReportDataForAdmins>();
-
-		PmaySurveyDaoImpl pm=new PmaySurveyDaoImpl();
-		ls=pm.getAdminsSurveyReports();
-
-	}*/
+	
 }

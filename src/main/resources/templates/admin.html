@@ -293,6 +293,8 @@
 												<th>Preferred Component of the Mission</th>
 												<th>Eligible/Not-Eligible</th>
 												<th>Remarks for Non Eligibility</th>
+												<th>Photo</th>
+												<th>Biometrics</th>
 												<th>Long - Lat</th>
 												<th>Validation Pending</th>
 												<th>Edit</th>
@@ -316,6 +318,9 @@
 												<td>{{surveyReport.hfaCategoryName}}</td>
 												<td>{{surveyReport.eligibleStatus}}</td>
 												<td>{{surveyReport.reasonForNonEligibility}}</td><!-- Remarks for Non Eligibility -->
+												<td><img class="myImg" width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" /></td>
+												<td><img class="myImg" width="40px"  src="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" /></td>
+												
 												<td> <a ng-if="surveyReport.geoLongitude.length" href="/showLocation?lat={{surveyReport.geoLatitude}}&amp;lng={{surveyReport.geoLongitude}}" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  </td>
 												<td>{{surveyReport.validationPendingStatus}}</td>
 												<td class="text-center"><button class="c-edt" ng-click="editSurvryReport(surveyReport)"><span class="fa fa-edit"></span></button></td>

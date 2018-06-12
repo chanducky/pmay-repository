@@ -185,4 +185,5 @@ public interface PmaySurveyDao {
 
 	List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno);
 
+	
 }
