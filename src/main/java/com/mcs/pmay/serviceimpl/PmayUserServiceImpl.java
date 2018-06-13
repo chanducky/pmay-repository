@@ -1,10 +1,4 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:44:38 PM
- * File Name : PmayUserServiceImpl.java
- * Last Modified By : Smruti Ranjan
- * Last Modified On :
- */
+
 package com.mcs.pmay.serviceimpl;
 
 import java.io.IOException;
@@ -21,6 +15,10 @@ import com.mcs.pmay.data.PmayUserData;
 import com.mcs.pmay.service.PmayUserService;
 import com.mcs.pmay.util.PmayUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Service("pmayUserService")
 public class PmayUserServiceImpl implements PmayUserService {
 	@Resource

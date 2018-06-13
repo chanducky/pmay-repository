@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 20187:44:14 PM
- * File Name : PmayRequirementData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayRequirementData {
 	private String houseRequirementId;
 	private String houseRequirementName;

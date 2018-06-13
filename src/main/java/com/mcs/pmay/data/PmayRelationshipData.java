@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 20188:16:04 PM
- * File Name : PmayRelationshipData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayRelationshipData {
 	private String relationshipId;
 	private String relationshipName;

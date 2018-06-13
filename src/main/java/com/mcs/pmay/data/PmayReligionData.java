@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 201812:25:40 PM
- * File Name : PmayReligionData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayReligionData {
 
 	private String religionId;

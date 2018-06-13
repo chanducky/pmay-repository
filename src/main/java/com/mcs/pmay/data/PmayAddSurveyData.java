@@ -1,16 +1,14 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 27, 201811:21:33 AM
- * File Name : PmayAddSurveyData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
 
 import java.util.Arrays;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayAddSurveyData {
 
 	private String userId;

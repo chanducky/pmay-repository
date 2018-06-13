@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -17,9 +20,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @RestController
 @ConfigurationProperties("image.path")
 public class ImageDownloadController {
@@ -232,5 +240,53 @@ public class ImageDownloadController {
 			}
 			fis.close();
 		}
+	}
+
+	@RequestMapping(value="/showImage" ,method=RequestMethod.GET)
+	public void showImage(@RequestParam("filename") String filename, HttpServletResponse response) {
+		try {
+			
+			StringBuilder filePathBuilder = new StringBuilder();
+			
+			if(filename.contains("pplicantPhoto")) {
+				filePathBuilder.append(getApplicantPhoto());
+				filePathBuilder.append(File.separator);
+				filePathBuilder.append(filename);
+				
+			}else if(filename.contains("applicantSignature")) {
+				filePathBuilder.append(getSignature());
+				filePathBuilder.append(File.separator);
+				filePathBuilder.append(filename);
+			}else if(filename.contains("presentInfrontHousePhoto")) {
+				filePathBuilder.append(getPresentHousePhoto());
+				filePathBuilder.append(File.separator);
+				filePathBuilder.append(filename);
+			}
+			
+			File file = new File(filePathBuilder.toString());
+			if(file.exists() && (! file.isDirectory())) {
+
+				FileInputStream fis = new FileInputStream(file);
+
+				byte[] bufferData = new byte[1024];
+				int read=0;
+
+				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+				ServletOutputStream os = response.getOutputStream();
+				
+				while((read = fis.read(bufferData))!= -1){
+					os.write(bufferData, 0, read);
+				}
+				os.flush();
+				os.close();
+				fis.close();
+				
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }

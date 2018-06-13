@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmaySlumAddData {
 
 	private String surveyId;

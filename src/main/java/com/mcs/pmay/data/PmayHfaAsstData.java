@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 20188:45:39 PM
- * File Name : PmayHfaAsstData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayHfaAsstData {
 	
 	private String preferredAssistanceHfaCategoryId;

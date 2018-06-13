@@ -3,8 +3,10 @@ package com.mcs.pmay.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * @author chandrakumar
+ *
+ */
 @SuppressWarnings("serial")
 public class PmayReportDataForAdmins implements Serializable {
 

@@ -2,6 +2,10 @@ package com.mcs.pmay.data;
 
 import java.io.Serializable;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @SuppressWarnings("serial")
 public class PmaySurveyReportData implements Serializable {
 	private String userId;

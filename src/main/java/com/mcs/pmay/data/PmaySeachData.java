@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmaySeachData {
 	private String seachCity;
 	private String searchName;

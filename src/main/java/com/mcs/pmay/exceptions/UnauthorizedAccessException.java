@@ -1,5 +1,9 @@
 package com.mcs.pmay.exceptions;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class UnauthorizedAccessException extends Exception {
 	 /**
 	 * 

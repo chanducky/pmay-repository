@@ -7,6 +7,10 @@ import java.io.FileOutputStream;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Component
 public class ImageUpload {
 	private ImageUpload() {

@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayHouseCategoryData {
 	private String houseCategoryId;
 	private String houseCategoryName;

@@ -1,10 +1,4 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:45:07 PM
- * File Name : PmayUserDao.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.dao;
 
 import java.util.List;
@@ -14,6 +8,10 @@ import com.mcs.pmay.data.PmaySurveyReportData;
 import com.mcs.pmay.data.PmayUserData;
 import com.mcs.pmay.scheduler.geotag.GeoTagImage;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public interface PmayUserDao {
 
 	int isUesrExist(String mobileNo);

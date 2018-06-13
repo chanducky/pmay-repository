@@ -1,16 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 201812:31:58 PM
- * File Name : PmayData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
 
 import java.util.List;
 
 /**
- * @author MCS-SRIBATSA
+ * @author chandrakumar
  *
  */
 public class PmayData {

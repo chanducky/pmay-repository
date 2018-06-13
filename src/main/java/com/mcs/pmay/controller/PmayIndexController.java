@@ -1,15 +1,13 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20189:22:30 PM
- * File Name : PmayIndexController.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Controller
 public class PmayIndexController {
 	@RequestMapping("/")

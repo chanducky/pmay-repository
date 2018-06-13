@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayBankData {
 	private String bankId;
 	private String bankName;

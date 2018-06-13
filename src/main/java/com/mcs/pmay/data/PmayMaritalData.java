@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 20185:26:37 PM
- * File Name : PmayMaritalData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayMaritalData {
 	private String maritalStatusId;
 	private String maritalStatusName;

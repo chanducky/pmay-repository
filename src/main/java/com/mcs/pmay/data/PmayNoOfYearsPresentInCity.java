@@ -1,12 +1,10 @@
-/**
- * Created By: user
- * Created On: Mar 12, 20186:57:34 PM
- * File Name : PmayNoOfYearsPresentInCity.java
- * Last Modified By :
- * Last Modified On : 
- */
+
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayNoOfYearsPresentInCity {
 
 	private String noOfyearsPresentId;

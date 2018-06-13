@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayStateData {
 	private String stateId;
 	private String stateName;

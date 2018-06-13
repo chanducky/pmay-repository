@@ -1,10 +1,4 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:43:12 PM
- * File Name : PmayUserController.java
- * Last Modified By : Smruti Ranjan
- * Last Modified On :
- */
+
 package com.mcs.pmay.controller;
 
 import java.io.IOException;
@@ -28,6 +22,10 @@ import com.mcs.pmay.data.PmayUserData;
 import com.mcs.pmay.service.PmayUserService;
 import com.mcs.pmay.util.PmayUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @RestController
 public class PmayUserController {
 	@Resource

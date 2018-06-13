@@ -17,6 +17,10 @@ import com.mcs.pmay.data.PmaySurveyReportData;
 import com.mcs.pmay.scheduler.geotag.GeoTagThread;
 
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Configuration
 @ConfigurationProperties("image.path")
 public class PmayGeoTagReaderTask {

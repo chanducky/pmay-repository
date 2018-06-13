@@ -2,6 +2,10 @@ package com.mcs.pmay.scheduler.geotag;
 
 import java.util.Date;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class GeoTagImage {
 	
 	private Long userSurveyId;

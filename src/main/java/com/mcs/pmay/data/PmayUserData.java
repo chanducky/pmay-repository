@@ -2,6 +2,10 @@ package com.mcs.pmay.data;
 
 import java.io.Serializable;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @SuppressWarnings("serial")
 public class PmayUserData implements Serializable {
 	private String userId;

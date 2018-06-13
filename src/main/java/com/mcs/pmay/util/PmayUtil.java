@@ -18,6 +18,10 @@ import org.springframework.stereotype.Component;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Component
 @Scope("singleton")
 public class PmayUtil {

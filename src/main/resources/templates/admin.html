@@ -318,8 +318,8 @@
 												<td>{{surveyReport.hfaCategoryName}}</td>
 												<td>{{surveyReport.eligibleStatus}}</td>
 												<td>{{surveyReport.reasonForNonEligibility}}</td><!-- Remarks for Non Eligibility -->
-												<td><img class="myImg" width="40px" src="//choice-pmayodisha.org/images/pmay_servey_images/applicant_photo/{{surveyReport.idAttachmentName}}" /></td>
-												<td><img class="myImg" width="40px"  src="//choice-pmayodisha.org/images/pmay_servey_images/signature/{{surveyReport.signatureOfApplicant}}" /></td>
+												<td><img class="myImg" width="40px" src="/showImage?filename={{surveyReport.idAttachmentName}}" /></td>
+												<td><img class="myImg" width="40px" src="/showImage?filename={{surveyReport.signatureOfApplicant}}" /></td>
 												
 												<td> <a ng-if="surveyReport.geoLongitude.length" href="/showLocation?lat={{surveyReport.geoLatitude}}&amp;lng={{surveyReport.geoLongitude}}" target="_blank"><i class="fa fa-map-marker" aria-hidden="true"></i></a>  </td>
 												<td>{{surveyReport.validationPendingStatus}}</td>
@@ -467,7 +467,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="slumApplicantImageShow" ng-init="slumApplicantImageShow = false">
                                          <div class="pic-box">
-                                            <img class="myImg" src="images/pmay_servey_images/applicant_photo/{{slumPhotoAttachmentName}}" width="40" height="40"/>
+                                            <img class="myImg" src="/showImage?filename={{slumPhotoAttachmentName}}" width="40" height="40"/>
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
@@ -526,7 +526,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="slumApplicantSignatureShow" ng-init="slumApplicantSignatureShow = false">
                                         <div class="pic-box">
-                                          <img class="myImg" src="images/pmay_servey_images/signature/{{signatureOfApplicant}}" width="40" height="40"/>
+                                          <img class="myImg" src="/showImage?filename={{signatureOfApplicant}}" width="40" height="40"/>
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
@@ -677,7 +677,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="applicantImageShow" ng-init="applicantImageShow = false">
                                          <div class="pic-box">
-                                            <img class="myImg" src="images/pmay_servey_images/applicant_photo/{{nonSlumPhotoAttachmentName}}"/>
+                                            <img class="myImg" src="/showImage?filename={{nonSlumPhotoAttachmentName}}"/>
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
@@ -703,7 +703,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="presentInfrontHousePicShow" ng-init="presentInfrontHousePicShow = false">
                                          <div class="pic-box">
-                                            <img class="myImg" src="images/pmay_servey_images/present_house_photo/{{nonSlumPhotoAttachmentInFrontOfHouse}}"/>
+                                            <img class="myImg" src="/showImage?filename={{nonSlumPhotoAttachmentInFrontOfHouse}}"/>
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
@@ -720,7 +720,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 no-padding">
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 no-padding" ng-show="applicantSignatureShow" ng-init="applicantSignatureShow = false">
                                          <div class="pic-box">
-                                            <img class="myImg" src="images/pmay_servey_images/signature/{{nonSlumSignatureOfApplicant}}"/>
+                                            <img class="myImg" src="/showImage?filename={{nonSlumSignatureOfApplicant}}"/>
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">

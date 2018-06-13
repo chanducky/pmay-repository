@@ -1,12 +1,10 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:45:58 PM
- * File Name : PmayMysqiQueries.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.util;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayMysqlQueries {
 	private PmayMysqlQueries() {
 

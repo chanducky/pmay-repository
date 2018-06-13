@@ -1,12 +1,10 @@
-/**
- * Created By: ZEESHAN
- * Created On: Feb 24, 20189:00:11 PM
- * File Name : PmayVehicleData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayVehicleData {
 	private String vehicleCategoryId;
 	private String vehicleCategoryName;

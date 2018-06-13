@@ -1,10 +1,4 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:44:13 PM
- * File Name : PmayUserService.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.service;
 
 import java.io.IOException;
@@ -13,6 +7,10 @@ import java.util.Map;
 
 import com.mcs.pmay.data.PmayUserData;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public interface PmayUserService {
 
 	int isUesrExist(String mobileNo);

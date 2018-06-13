@@ -1,6 +1,7 @@
 var mainApp = angular.module("mainApp", []);
 var baseUrl="http://localhost:8080/";
-/*var baseUrl="https://choice-pmayodisha.org/";*/
+//var baseUrl="https://statsodisha.org/";
+
 
 
 /* This method used for pagination concept */

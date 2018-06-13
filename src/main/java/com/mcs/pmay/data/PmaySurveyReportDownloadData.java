@@ -2,6 +2,10 @@ package com.mcs.pmay.data;
 
 import java.util.List;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmaySurveyReportDownloadData {
 	private List<PmaySurveyReportData> listSurveyData;
 	private List<PmayReportDataForAdmins> listAdminsData;

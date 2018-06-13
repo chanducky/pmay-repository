@@ -30,6 +30,10 @@ import com.mcs.pmay.data.PmayWardData;
 import com.mcs.pmay.data.SlumNonSlumReportData;
 import com.mcs.pmay.data.UlbWardDetailsData;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public interface PmaySurveyService {
 
 	public List<PmayCityData> getCitiesDetails();

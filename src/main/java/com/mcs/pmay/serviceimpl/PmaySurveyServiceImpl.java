@@ -1,6 +1,5 @@
 package com.mcs.pmay.serviceimpl;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +39,10 @@ import com.mcs.pmay.data.UlbWardDetailsData;
 import com.mcs.pmay.service.PmaySurveyService;
 import com.mcs.pmay.util.PmayDateUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Service("pmaySurveyService")
 public class PmaySurveyServiceImpl implements PmaySurveyService {
 	@Resource

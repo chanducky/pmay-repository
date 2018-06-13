@@ -47,6 +47,10 @@ import com.mcs.pmay.util.ImageUpload;
 import com.mcs.pmay.util.PmayMysqlQueries;
 import com.mcs.pmay.util.PmayUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Repository("pmaySurveyDao")
 @ConfigurationProperties("image.path")
 public class PmaySurveyDaoImpl implements PmaySurveyDao {

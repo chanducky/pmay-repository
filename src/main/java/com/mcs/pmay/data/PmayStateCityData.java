@@ -2,6 +2,10 @@ package com.mcs.pmay.data;
 
 import java.util.List;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayStateCityData {
 	private List<PmayStateData> listStateData;
 	private List<PmayCityData> listCityData;

@@ -53,6 +53,10 @@ import com.mcs.pmay.data.UlbWardDetailsData;
 import com.mcs.pmay.service.PmaySurveyService;
 import com.mcs.pmay.util.PmayUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @RestController
 public class PmaySurveyController {
 	@Resource

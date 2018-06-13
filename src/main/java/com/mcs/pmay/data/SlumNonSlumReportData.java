@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class SlumNonSlumReportData {
 	private int noOfSlumSurvey;
 	private int noOfNonSlumSurvey;

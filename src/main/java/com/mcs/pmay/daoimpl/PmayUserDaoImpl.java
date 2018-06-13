@@ -1,10 +1,4 @@
-/**
- * Created By: SRIBATSA
- * Created On: Feb 22, 20188:45:25 PM
- * File Name : PmayUserDaoImpl.java
- * Last Modified By : Smruti Ranjan
- * Last Modified On :
- */
+
 package com.mcs.pmay.daoimpl;
 
 import java.sql.PreparedStatement;
@@ -28,6 +22,10 @@ import com.mcs.pmay.scheduler.geotag.GeoTagImage;
 import com.mcs.pmay.util.PmayMysqlQueries;
 import com.mcs.pmay.util.PmayUtil;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Repository("pmayUserDao")
 public class PmayUserDaoImpl implements PmayUserDao {
 	@Resource

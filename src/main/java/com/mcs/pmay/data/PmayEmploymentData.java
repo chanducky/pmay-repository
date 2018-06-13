@@ -1,12 +1,10 @@
-/**
- * Created By: Zeeshan
- * Created On: Feb 24, 20187:58:09 PM
- * File Name : PmayEmploymentData.java
- * Last Modified By :
- * Last Modified On :
- */
+
 package com.mcs.pmay.data;
  
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayEmploymentData {
 	private String employementCategoryId;
 	private String employementCategoryName;

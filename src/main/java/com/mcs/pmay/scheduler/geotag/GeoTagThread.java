@@ -8,6 +8,10 @@ import com.mcs.pmay.dao.PmayUserDao;
 import com.mcs.pmay.data.PmaySurveyReportData;
 
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class GeoTagThread implements Runnable{
 
 

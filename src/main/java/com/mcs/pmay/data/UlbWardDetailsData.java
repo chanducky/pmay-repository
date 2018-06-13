@@ -1,5 +1,9 @@
 package com.mcs.pmay.data;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class UlbWardDetailsData {
 	private String ulbName;
 	private String wardNames;

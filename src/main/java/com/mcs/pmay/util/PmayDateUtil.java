@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author chandrakumar
+ *
+ */
 public class PmayDateUtil {
 	public static final String DATE_FORMAT_DDMMYYYY="dd/MM/yyyy";
 	public static final String DATE_FORMAT_YYYY_MM_DD="yyyy-MM-dd";

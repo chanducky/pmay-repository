@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
+/**
+ * @author chandrakumar
+ *
+ */
 @Configuration
 @ConfigurationProperties("mysql")
 public class DBConfigFrMySQL {
