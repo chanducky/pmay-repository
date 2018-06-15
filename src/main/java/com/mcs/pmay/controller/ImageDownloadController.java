@@ -179,6 +179,10 @@ public class ImageDownloadController {
 		}
 		// String dirPath = "F:\\tempzip";
 		//String home = System.getProperty("user.home");
+		File dir = new File(tempForZip);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
 		File zipFileName = new File(tempForZip+images.get("surveyId") + "_images.zip");
 		System.out.println("Zip file name from image controller=="+zipFileName.getAbsolutePath() + "::--::"+ zipFileName.getName());
 		// File zipFileName = new File(tempForZip + "\\tempzip.zip");

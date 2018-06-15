@@ -73,7 +73,7 @@ public class PmayUserServiceImpl implements PmayUserService {
 		String password = pmayUserDao.approveUser(userData);
 		String message = "Hi " + userData.getFirstName() + ",Your request is approved,you can login by using password:"
 				+ password;
-		return PmayUtil.sendOtp(userData.getMobileNo(), message);
+		return PmayUtil.sendOtpMsg91(userData.getMobileNo(), message);
 	}
 
 	@Override
