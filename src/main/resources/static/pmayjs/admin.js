@@ -1796,5 +1796,14 @@ mainApp
 											});
 						}
 						
+						
+						
+						$scope.getDistWiseStats = function getDistWiseStats(){
+							$http.get(baseUrl + 'getDistWiseStats/').success(function(data) {
+								admin.distWiseStats = data;
+							});
+						}
+						
+						$scope.getDistWiseStats();
 					// end of controller
 				});

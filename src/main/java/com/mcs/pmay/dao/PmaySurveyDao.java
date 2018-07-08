@@ -7,6 +7,7 @@ import com.mcs.pmay.data.PmayAddSurveyData;
 import com.mcs.pmay.data.PmayBankData;
 import com.mcs.pmay.data.PmayCasteData;
 import com.mcs.pmay.data.PmayCityData;
+import com.mcs.pmay.data.PmayDistWiseStats;
 import com.mcs.pmay.data.PmayEmploymentData;
 import com.mcs.pmay.data.PmayGenderData;
 import com.mcs.pmay.data.PmayHfaAsstData;
@@ -188,6 +189,8 @@ public interface PmaySurveyDao {
 	Integer getTotalCountSuperUserSurveyReportFilterd(PmaySeachData seachDetails);
 
 	List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno);
+
+	List<PmayDistWiseStats> getDistWiseStats();
 
 	
 }

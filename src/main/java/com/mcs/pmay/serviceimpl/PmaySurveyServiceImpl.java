@@ -1,6 +1,8 @@
 package com.mcs.pmay.serviceimpl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import com.mcs.pmay.data.PmayAddSurveyData;
 import com.mcs.pmay.data.PmayBankData;
 import com.mcs.pmay.data.PmayCasteData;
 import com.mcs.pmay.data.PmayCityData;
+import com.mcs.pmay.data.PmayDistWiseStats;
 import com.mcs.pmay.data.PmayEmploymentData;
 import com.mcs.pmay.data.PmayGenderData;
 import com.mcs.pmay.data.PmayHfaAsstData;
@@ -404,5 +407,33 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 	@Override
 	public List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno){
 		return pmaySurveyDao.getSuperUserSurveyReportFilterdPaging(seachDetails,itemsPerPage,pageno);
+	}
+
+	@Override
+	public List<PmayDistWiseStats> getDistWiseStats() {
+		
+		LinkedHashMap<String,PmayDistWiseStats> mapData = new LinkedHashMap<>();
+		List<PmayDistWiseStats> list = pmaySurveyDao.getDistWiseStats();
+		if(list!=null) {
+			for(PmayDistWiseStats pdw: list) {
+				if(mapData.containsKey(pdw.getDistName())) {
+					PmayDistWiseStats stored = mapData.get(pdw.getDistName());
+					if(pdw.getSlum() > 0) {
+						stored.setSlum(pdw.getSlum());
+					}else {
+						stored.setNonSlum(pdw.getNonSlum());
+					}
+				}else {
+					mapData.put(pdw.getDistName(), pdw);
+				}
+			}
+		}
+		
+		List<PmayDistWiseStats> finalStats = new LinkedList<>();
+		for(PmayDistWiseStats mData: mapData.values()) {
+			finalStats.add(mData);
+		}
+		
+		return finalStats;
 	}
 }

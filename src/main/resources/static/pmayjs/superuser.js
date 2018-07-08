@@ -1118,5 +1118,14 @@ mainApp
 
 						}
 
+						
+						
+						$scope.getDistWiseStats = function getDistWiseStats(){
+							$http.get(baseUrl + 'getDistWiseStats/').success(function(data) {
+								superUser.distWiseStats = data;
+							});
+						}
+						
+						$scope.getDistWiseStats();
 					   
 				});

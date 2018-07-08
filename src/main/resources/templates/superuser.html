@@ -91,7 +91,33 @@
 				<div class="s_nav_cnt">
 					<div class="tab-content">
                       <div id="home" class="tab-pane fade in active">
-                        <div class="mn-hmpmay">
+
+							<div id="distwise-stats" style="width: 70%;margin-left: 15%;">
+								<div class="pm-suptb">
+									<table class="table-responsive">
+										<tr>
+											<th style="width: 5%;">SR. NO.</th>
+											<th width="20%">District Name</th>
+											<th width="20%">Slum</th>
+											<th width="20%">Non-Slum</th>
+											<!-- <th>BLC</th> -->
+											<th width="20%">Total</th>
+										</tr>
+										<tr ng-repeat="distData in superUser.distWiseStats">
+											<td class="text-center">{{ $index + 1 }}</td>
+											<td class="text-center">{{distData.distName}}</td>
+											<td class="text-center">{{distData.slum}}</td>
+											<td class="text-center">{{distData.nonSlum}}</td>
+											<!-- <td class="text-center">{{distData.blc}}</td> -->
+											<td class="text-center">{{distData.slum+distData.nonSlum}}</td>
+
+										</tr>
+									</table>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+
+							<div class="mn-hmpmay">
                            <!--  <div class="rdo-pmay">
                                 <label class="radio-inline"><input type="radio" value="slum" name="optradio" ng-model="reportParam" ng-init="reportParam = 'slum'" ng-click = "getFilterForUlbDetails(reportParam)"/>Slum</label>
                                 <label class="radio-inline"><input type="radio" value="nonSlum" name="optradio" ng-model="reportParam" ng-click = "getFilterForUlbDetails(reportParam)"/>Non-slum</label>

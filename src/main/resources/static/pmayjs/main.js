@@ -1,6 +1,8 @@
 var mainApp = angular.module("mainApp", []);
-//var baseUrl="http://localhost:8080/";
-var baseUrl="https://statsodisha.org/";
+var baseUrl="http://localhost:8080/";
+//var baseUrl="https://statsodisha.org/";
+// var baseUrl="https://choice-awaasodisha.org/";
+
 
 
 

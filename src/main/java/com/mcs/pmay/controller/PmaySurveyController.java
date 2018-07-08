@@ -27,6 +27,7 @@ import com.mcs.pmay.data.PmayBankData;
 import com.mcs.pmay.data.PmayCasteData;
 import com.mcs.pmay.data.PmayCityData;
 import com.mcs.pmay.data.PmayData;
+import com.mcs.pmay.data.PmayDistWiseStats;
 import com.mcs.pmay.data.PmayEmploymentData;
 import com.mcs.pmay.data.PmayGenderData;
 import com.mcs.pmay.data.PmayHfaAsstData;
@@ -342,6 +343,7 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setIdType(PmayUtil.chkObjectNull(surveyDetailsData.get("idType")).toString());
 		pmayAddSurveyData.setIdNo(PmayUtil.chkObjectNull(surveyDetailsData.get("idNo")).toString());
 		pmayAddSurveyData.setDob(PmayUtil.chkObjectNull(surveyDetailsData.get("dob")).toString());
+		
 		pmayAddSurveyData.setReligion(PmayUtil.chkObjectNull(surveyDetailsData.get("religion")).toString());
 		pmayAddSurveyData
 				.setReligionIfOther(PmayUtil.chkObjectNull(surveyDetailsData.get("religionIfOther")).toString());
@@ -430,6 +432,70 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setRationCardPic(rationCardPic);
 		pmayAddSurveyData.setApplicantSignature(applicantSignature);
 		pmayAddSurveyData.setBiometricDetails(biometricDetails);
+		
+		boolean dobValid =false;
+		HashMap<String,String> hmap = new HashMap<>();
+		
+		System.out.println("pmayAddSurveyData.getDob() = "+pmayAddSurveyData.getDob());
+		
+		if(pmayAddSurveyData.getDob()!=null) {
+			if(pmayAddSurveyData.getDob().contains("-")) {
+				String[] dateArr = pmayAddSurveyData.getDob().split("-");
+				StringBuilder dateBuilder = new StringBuilder();
+				if(dateArr.length ==3) {
+					dateBuilder.append(dateArr[2]);
+					dateBuilder.append("/");
+					if(dateArr[1].trim().length()==1) {
+						dateBuilder.append("0"+dateArr[1]);
+					}else {
+						dateBuilder.append(dateArr[1]);
+					}
+					
+					dateBuilder.append("/");
+					if(dateArr[0].trim().length()==1) {
+						dateBuilder.append("0"+dateArr[0]);
+					}else {
+						dateBuilder.append(dateArr[0]);
+					}
+					
+					pmayAddSurveyData.setDob(dateBuilder.toString());
+					dobValid=true;
+				}
+			}else if(pmayAddSurveyData.getDob().contains("/")) {
+				String[] dateArr = pmayAddSurveyData.getDob().split("/");
+				StringBuilder dateBuilder = new StringBuilder();
+				
+				if(dateArr.length ==3) {
+					if(dateArr[0].length()==1) {
+						dateBuilder.append("0"+dateArr[0]);
+					}else {
+						dateBuilder.append(dateArr[0]);
+					}
+					
+					dateBuilder.append("/");
+					if(dateArr[1].length()==1) {
+						dateBuilder.append("0"+dateArr[1]);
+					}else {
+						dateBuilder.append(dateArr[1]);
+					}
+					
+					dateBuilder.append("/");
+					dateBuilder.append(dateArr[2]);
+					
+					pmayAddSurveyData.setDob(dateBuilder.toString());
+					
+					dobValid=true;
+				}
+			}
+		}
+		if(!dobValid) {
+			System.out.println(" invalid dob ="+pmayAddSurveyData.getDob());
+			hmap.put("success", "false");
+			hmap.put("code", "400");
+			hmap.put("message", "Invalid dob "+pmayAddSurveyData.getDob());
+			return gson.toJson(hmap);
+		}
+		
 		Map<String, String> addSurveystatus = pmaySurveyService.addSurvey(pmayAddSurveyData);
 
 		return gson.toJson(addSurveystatus);
@@ -448,7 +514,7 @@ public class PmaySurveyController {
 		if(userDetails.get("userId") != null) {
 			userId =userDetails.get("userId");
 		}
-		else if((String) session.getAttribute("userId") != null){
+		else if(session.getAttribute("userId") != null){
 			userId = (String) session.getAttribute("userId");
 		}
 		
@@ -612,6 +678,71 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setSlumBiometricDetails(slumBiometricDetails);
 		pmayAddSurveyData.setSlumIdImage(slumIdImage);
 		pmayAddSurveyData.setSlumApplicantPhoto(applicantPhoto);
+		
+		boolean dobValid =false;
+		HashMap<String,String> hmap = new HashMap<>();
+		
+		System.out.println("pmayAddSurveyData.getDob() = "+pmayAddSurveyData.getDob());
+		
+		if(pmayAddSurveyData.getDob()!=null) {
+			if(pmayAddSurveyData.getDob().contains("-")) {
+				String[] dateArr = pmayAddSurveyData.getDob().split("-");
+				StringBuilder dateBuilder = new StringBuilder();
+				if(dateArr.length ==3) {
+					dateBuilder.append(dateArr[2]);
+					dateBuilder.append("/");
+					if(dateArr[1].trim().length()==1) {
+						dateBuilder.append("0"+dateArr[1]);
+					}else {
+						dateBuilder.append(dateArr[1]);
+					}
+					
+					dateBuilder.append("/");
+					if(dateArr[0].trim().length()==1) {
+						dateBuilder.append("0"+dateArr[0]);
+					}else {
+						dateBuilder.append(dateArr[0]);
+					}
+					
+					pmayAddSurveyData.setDob(dateBuilder.toString());
+					dobValid=true;
+				}
+			}else if(pmayAddSurveyData.getDob().contains("/")) {
+				String[] dateArr = pmayAddSurveyData.getDob().split("/");
+				StringBuilder dateBuilder = new StringBuilder();
+				
+				if(dateArr.length ==3) {
+					if(dateArr[0].length()==1) {
+						dateBuilder.append("0"+dateArr[0]);
+					}else {
+						dateBuilder.append(dateArr[0]);
+					}
+					
+					dateBuilder.append("/");
+					if(dateArr[1].length()==1) {
+						dateBuilder.append("0"+dateArr[1]);
+					}else {
+						dateBuilder.append(dateArr[1]);
+					}
+					
+					dateBuilder.append("/");
+					dateBuilder.append(dateArr[2]);
+					
+					pmayAddSurveyData.setDob(dateBuilder.toString());
+					
+					dobValid=true;
+				}
+			}
+		}
+		if(!dobValid) {
+			System.out.println(" invalid dob ="+pmayAddSurveyData.getDob());
+			hmap.put("success", "false");
+			hmap.put("code", "400");
+			hmap.put("message", "Invalid dob "+pmayAddSurveyData.getDob());
+			return gson.toJson(hmap);
+		}
+		
+		
 		Map<String, String> addSlumSurveystatus = pmaySurveyService.addSlumSurvey(pmayAddSurveyData);
 		
 		return gson.toJson(addSlumSurveystatus);
@@ -814,6 +945,17 @@ public class PmaySurveyController {
 		data.put("total_count", total_count);
 		
 		return gson.toJson(data);
+	}
+	
+	/**
+	 * @param seachDetails
+	 * @return
+	 */
+	@RequestMapping(value = "/getDistWiseStats", method = RequestMethod.GET)
+	@ResponseBody
+	public String getDistWiseStats() {
+		List<PmayDistWiseStats> stats = pmaySurveyService.getDistWiseStats();
+		return gson.toJson(stats);
 	}
 	
 }

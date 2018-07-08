@@ -91,11 +91,42 @@
                      <button class="expand-btn"><span class="fa fa-bars"></span></button>
                     </div>
 			</div>
+			
+			
+
 			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
 				<div class="s_nav_cnt">
+
 					<div class="tab-content">
 					   <div id="home" class="tab-pane fade in active">
-                        <div class="mn-hmpmay">
+
+
+							<div id="distwise-stats" style="width: 70%;margin-left: 15%;">
+								<div class="pm-suptb">
+									<table class="table-responsive">
+										<tr>
+											<th style="width: 5%;">SR. NO.</th>
+											<th width="20%">District Name</th>
+											<th width="20%">Slum</th>
+											<th width="20%">Non-Slum</th>
+											<!-- <th>BLC</th> -->
+											<th width="20%">Total</th>
+										</tr>
+										<tr ng-repeat="distData in superUser.distWiseStats">
+											<td class="text-center">{{ $index + 1 }}</td>
+											<td class="text-center">{{distData.distName}}</td>
+											<td class="text-center">{{distData.slum}}</td>
+											<td class="text-center">{{distData.nonSlum}}</td>
+											<!-- <td class="text-center">{{distData.blc}}</td> -->
+											<td class="text-center">{{distData.slum+distData.nonSlum}}</td>
+
+										</tr>
+									</table>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+
+							<div class="mn-hmpmay">
                             <div class="row m-50">
                             		<div class="form-group">
 							      <label class="control-label col-sm-2" for="surveyDate">Survey Date:</label>
@@ -337,7 +368,7 @@
 									<div class="r_l_sec">
 										<div class="r-dnld col-lg-6 col-md-6 col-sm-6 col-xs-6">
 											<div class="rdwnld_btn">
-												<a href="/downloadSurveyForAdminUser"  target="_blank">Download in Excel</a>
+												<a href="/downloadSurveyForSuperUser"  target="_blank">Download in Excel</a>
 												<!-- <a href="" ng-click = "getReportDetailsForDownload()" target="_blank">Download in Excel</a> -->
 												
 											</div>
