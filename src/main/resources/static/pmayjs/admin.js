@@ -1679,6 +1679,7 @@ mainApp
 					$scope.reportType=1;
 					// load survey report with pagination
 					$scope.getSurveyReports = function getSurveyReports() {
+						
 						$(".pmay-loader").css({
 							"display" : "block"
 						});
@@ -1690,6 +1691,7 @@ mainApp
 									$(".pmay-loader").css({
 										"display" : "none"
 									});
+									
 									admin.adminSurveyData=data.surveyReport;
 									$scope.total_count=data.total_count;
 								});
@@ -1721,7 +1723,7 @@ mainApp
 					     for (var i = start; i <= end; i++) {
 					         ret.push(i);
 					     }        
-					      console.log(JSON.stringify(ret));        
+					            
 					     return ret;
 					 };
 					 

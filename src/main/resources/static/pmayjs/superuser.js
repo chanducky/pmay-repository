@@ -1018,7 +1018,7 @@ mainApp
 						     for (var i = start; i <= end; i++) {
 						         ret.push(i);
 						     }        
-						      console.log(JSON.stringify(ret));        
+						            
 						     return ret;
 						 };
 						 

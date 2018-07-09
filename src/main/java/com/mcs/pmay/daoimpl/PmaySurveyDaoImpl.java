@@ -1983,116 +1983,48 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 			}
 		}
 		
-		queryToGetAdminReportBySearchData.append(" GROUP BY pus.user_survey_id ");
-		
 		if(itemsPerPage!=null && pageno!=null ) {
 			queryToGetAdminReportBySearchData.append(" LIMIT "+((pageno-1) * itemsPerPage ) + ", "+ itemsPerPage);
 		}
-
-		
 
 		return jdbcTemplate.query(queryToGetAdminReportBySearchData.toString(),
 				new RowMapper<PmayReportDataForAdmins>() {
 			@Override
 			public PmayReportDataForAdmins mapRow(ResultSet rs, int rownumber) throws SQLException {
 				PmayReportDataForAdmins surveyReportData = new PmayReportDataForAdmins();
-				surveyReportData.setUserSurveyId(rs.getString(1));
-				surveyReportData.setUserId(rs.getString(2));
-				surveyReportData.setWardId(rs.getString(3));
-				surveyReportData.setWardName(rs.getString(4));
-				surveyReportData.setSlumNonSlum(rs.getString(5));
-				surveyReportData.setValidationPendingNonSlum(rs.getString(6));
-				surveyReportData.setEligibilityForScheme(rs.getString(7));
-				surveyReportData.setFamilyHead(rs.getString(8));
-				surveyReportData.setFatherOrHusbandName(rs.getString(9));
-				surveyReportData.setPhotoAttachmentName(rs.getString(10));
-				surveyReportData.setAadharCardNumber(rs.getString(11));
-				surveyReportData.setReasonforAAdharNotAvailable(rs.getString(12));
-				surveyReportData.setIdTypeId(rs.getString(13));
-				surveyReportData.setIdTypeName(rs.getString(14));
-				surveyReportData.setIdNumber(rs.getString(15));
-				surveyReportData.setIdAttachmentName(rs.getString(16));
-				surveyReportData.setGenderId(rs.getString(17));
-				surveyReportData.setGenderName(rs.getString(18));
-				surveyReportData.setDob(rs.getString(19));
-				surveyReportData.setAge(rs.getString(20));
-				surveyReportData.setMaritalStatusId(rs.getString(21));
-				surveyReportData.setMaritalStatusName(rs.getString(22));
-				surveyReportData.setReligionId(rs.getString(23));
-				surveyReportData.setReligionName(rs.getString(24));
-				surveyReportData.setReligionIfOther(rs.getString(25));
-				surveyReportData.setCasteId(rs.getString(26));
-				surveyReportData.setCasteName(rs.getString(27));
-				surveyReportData.setReasonForNonEligibility(rs.getString(28));
-				surveyReportData.setNoOfYearsOfStayPresent(rs.getString(29));
-				surveyReportData.setPresentHouseFlatNo(rs.getString(30));
-				surveyReportData.setPresentNameOfStreet(rs.getString(31));
-				surveyReportData.setPresentCityId(rs.getString(32));
-				surveyReportData.setPresentCityName(rs.getString(33));
-				surveyReportData.setPresentMobNo(rs.getString(34));
-				surveyReportData.setPermanentSameAsPresent(rs.getString(35));
-				surveyReportData.setNoOfYearsOfStayPermanent(rs.getString(36));
-				surveyReportData.setPermanentHouseFlatNo(rs.getString(37));
-				surveyReportData.setPermanentNameOfStreet(rs.getString(38));
-				surveyReportData.setPermanentCityId(rs.getString(39));
-				surveyReportData.setPermanentCityName(rs.getString(40));
-				surveyReportData.setPermanentMobileNo(rs.getString(41));
-				surveyReportData.setPhotoAttachmentInFrontOfHouse(rs.getString(42));
-				surveyReportData.setHouseOwnershipId(rs.getString(43));
-				surveyReportData.setGeoLatitude(rs.getString(44));
-				surveyReportData.setGeoLongitude(rs.getString(45));
-				surveyReportData.setHouseTypeRoofId(rs.getString(46));
-				surveyReportData.setHouseTypeRoofName(rs.getString(47));
-				surveyReportData.setHouseTypeWallId(rs.getString(48));
-				surveyReportData.setHouseTypeWallName(rs.getString(49));
-				surveyReportData.setNoOfRoomDwellingexceptKitchen(rs.getString(50));
-				surveyReportData.setSizeOfDwellUnitCarpetArea(rs.getString(51));
-				surveyReportData.setFamilyOwnHouseInIndia(rs.getString(52));
-				surveyReportData.setIndiaLocationDetailsAttachment(rs.getString(53));
-				surveyReportData.setIndiaLandInSquareMeter(rs.getString(54));
-				surveyReportData.setLandAttachmentName(rs.getString(55));
-				surveyReportData.setHousingCategoryId(rs.getString(56));
-				surveyReportData.setHouseRequirementName(rs.getString(57));
-				surveyReportData.setNameOfPattadars(rs.getString(58));
-				surveyReportData.setPattaNumber(rs.getString(59));
-				surveyReportData.setDagNumber(rs.getString(60));
-				surveyReportData.setLandAreaAsInPatta(rs.getString(61));
-				surveyReportData.setDimentionOfLandLength(rs.getString(62));
-				surveyReportData.setDimensionOfLandbreadth(rs.getString(63));
-				surveyReportData.setLandAttachment1(rs.getString(64));
-				surveyReportData.setLandAttachment2(rs.getString(65));
-				surveyReportData.setEmployementCategoryId(rs.getString(66));
-				surveyReportData.setEmployementCategoryName(rs.getString(67));
-				surveyReportData.setIfOtherCategoryName(rs.getString(68));
-				surveyReportData.setIncomeProofDocName(rs.getString(69));
-				surveyReportData.setIncomeProofAttachment(rs.getString(70));
-				surveyReportData.setFamilyHaveBplCard(rs.getString(71));
-				surveyReportData.setBplCardNumber(rs.getString(72));
-				surveyReportData.setBplCardAttachment(rs.getString(73));
-				surveyReportData.setFamilyHaveRationCard(rs.getString(74));
-				surveyReportData.setRationCardNumber(rs.getString(75));
-				surveyReportData.setRationCardAttachment(rs.getString(76));
-				surveyReportData.setHfaCategoryId(rs.getString(77));
-				surveyReportData.setHfaCategoryName(rs.getString(78));
-				surveyReportData.setBankAccountNo(rs.getString(79));
-				surveyReportData.setBankName(rs.getString(80));
-				surveyReportData.setBranchName(rs.getString(81));
-				surveyReportData.setBranchIfscCode(rs.getString(82));
-				surveyReportData.setSignatureOfApplicant(rs.getString(83));
-				surveyReportData.setSubmittedData(rs.getString(84));
-				surveyReportData.setNameOfFamilyMember(rs.getString(85));
-				surveyReportData.setRelationshipId(rs.getString(86));
-				surveyReportData.setRelationshipName(rs.getString(87));
-				surveyReportData.setFamilyGenderId(rs.getString(88));
-				surveyReportData.setFamilyGenderName(rs.getString(89));
-				surveyReportData.setAgeOfFamilyMember(rs.getString(90));
-				surveyReportData.setFamilyMemberIdCardNumber(rs.getString(91));
-				surveyReportData.setBankId(rs.getString(93));
-				surveyReportData.setOtherBankName(rs.getString(94));
-				surveyReportData.setLandAddress(rs.getString(95));
-				surveyReportData.setUlbNameId(rs.getString(96));
-				surveyReportData.setUlbName(rs.getString(97));
-				surveyReportData.setUserRMN(rs.getString(98));
+				int col=0;
+				surveyReportData.setUserSurveyId(rs.getString(++col));
+				surveyReportData.setUserId(rs.getString(++col));
+				surveyReportData.setWardName(rs.getString(++col));
+				
+				surveyReportData.setSlumNonSlum(rs.getString(++col));
+				surveyReportData.setValidationPendingNonSlum(rs.getString(++col));
+				surveyReportData.setEligibilityForScheme(rs.getString(++col));
+				
+				surveyReportData.setFamilyHead(rs.getString(++col));
+				surveyReportData.setFatherOrHusbandName(rs.getString(++col));
+				surveyReportData.setPhotoAttachmentName(rs.getString(++col));
+				
+				surveyReportData.setAadharCardNumber(rs.getString(++col));
+				surveyReportData.setReasonforAAdharNotAvailable(rs.getString(++col));
+				surveyReportData.setGenderName(rs.getString(++col));
+				
+				surveyReportData.setDob(rs.getString(++col));
+				surveyReportData.setAge(rs.getString(++col));
+				surveyReportData.setReasonForNonEligibility(rs.getString(++col));
+				
+				surveyReportData.setPhotoAttachmentInFrontOfHouse(rs.getString(++col));
+				surveyReportData.setGeoLatitude(rs.getString(++col));
+				surveyReportData.setGeoLongitude(rs.getString(++col));
+				
+				surveyReportData.setHfaCategoryName(rs.getString(++col));
+				surveyReportData.setSignatureOfApplicant(rs.getString(++col));
+				
+				surveyReportData.setSubmittedData(rs.getString(++col));
+				surveyReportData.setUlbName(rs.getString(++col));
+				surveyReportData.setUserRMN(rs.getString(++col));
+				
+				surveyReportData.setCreatedOnStr(rs.getString(++col));
 
 				if (PmayUtil.chkNull(surveyReportData.getSlumNonSlum()).equalsIgnoreCase("S")) {
 					surveyReportData.setSlumNonSlumStatus("Slum");
@@ -3287,7 +3219,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				surveyReportData.setHfaCategoryName(rs.getString(15));
 				surveyReportData.setUlbName(rs.getString(16));
 				surveyReportData.setUserRMN(rs.getString(17));
-				surveyReportData.setIdNumber(rs.getString(18));
+				surveyReportData.setWardId(rs.getString(18));
 
 				if (PmayUtil.chkNull(surveyReportData.getSlumNonSlum()).equalsIgnoreCase("S")) {
 					surveyReportData.setSlumNonSlumStatus("Slum");

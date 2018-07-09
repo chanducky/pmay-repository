@@ -34,7 +34,7 @@ public class PmayReportController {
 	 * Handle request to download an Excel document
 	 * @throws Exception 
 	 */
-	@RequestMapping(value = "/downloadSurveyForSuperUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/downloadSurvey", method = RequestMethod.GET)
 	public void downloadExcel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		OutputStream out = null;
@@ -83,7 +83,9 @@ public class PmayReportController {
 		header.createCell(cell++).setCellValue("Slum/Non-SLum");
 
 		header.createCell(cell++).setCellValue("ULB Name");
+		header.createCell(cell++).setCellValue("Ward No");
 		header.createCell(cell++).setCellValue("Preffered Component of the Mission");
+		
 		header.createCell(cell++).setCellValue("Eligibe/Non-Eligible");
 		header.createCell(cell++).setCellValue("Long - Lat");
 
@@ -93,7 +95,7 @@ public class PmayReportController {
 			int col=0;
 			row.createCell(col++).setCellValue(counter-1);
 			row.createCell(col++).setCellValue(sd.getUserRMN());
-			row.createCell(col++).setCellValue(sd.getIdNumber());
+			row.createCell(col++).setCellValue(sd.getUserSurveyId());
 			row.createCell(col++).setCellValue(sd.getAadharCardNumber());
 			row.createCell(col++).setCellValue(sd.getFamilyHead());
 			row.createCell(col++).setCellValue(sd.getFatherOrHusbandName());
@@ -101,6 +103,7 @@ public class PmayReportController {
 			row.createCell(col++).setCellValue(sd.getDob()); 
 			row.createCell(col++).setCellValue(sd.getSlumNonSlumStatus());
 			row.createCell(col++).setCellValue(sd.getUlbName());
+			row.createCell(col++).setCellValue(sd.getWardId());
 
 			row.createCell(col++).setCellValue(sd.getHfaCategoryName()); 
 			row.createCell(col++).setCellValue(sd.getEligibleStatus());

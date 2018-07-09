@@ -119,6 +119,7 @@ public class PmayReportDataForAdmins implements Serializable {
 	private String validationPendingStatus;
 	private String userRMN;
 	private Date createdOn;
+	private String createdOnStr;
 	
 	
 
@@ -1068,4 +1069,13 @@ public class PmayReportDataForAdmins implements Serializable {
 		this.ulbNameId = ulbNameId;
 	}
 
+	public String getCreatedOnStr() {
+		return createdOnStr;
+	}
+
+	public void setCreatedOnStr(String createdOnStr) {
+		this.createdOnStr = createdOnStr;
+	}
+	
+	
 }
