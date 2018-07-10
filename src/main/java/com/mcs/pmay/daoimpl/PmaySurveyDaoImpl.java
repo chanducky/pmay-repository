@@ -3349,4 +3349,41 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 
 		});
 	}
+	
+	@Override
+	public List<PmayDistWiseStats> getPKGWiseStats() {
+		
+		return jdbcTemplate.query(PmayMysqlQueries.QUERY_PKGWISE_SLUM_NONSLUM_STATS, new RowMapper<PmayDistWiseStats>() {
+			@Override
+			public PmayDistWiseStats mapRow(ResultSet rs, int rowNum) throws SQLException {
+				PmayDistWiseStats data = new PmayDistWiseStats();
+				
+				String pkg = rs.getString(1);
+				String slumNonSlum = rs.getString(2);
+				String count = rs.getString(3);
+				
+				if("Package 1".equalsIgnoreCase(pkg)) {
+					if(count!=null) {
+						data.setPkg1(Integer.parseInt(count));
+					}
+				}else {
+					if(count!=null) {
+						data.setPkg4(Integer.parseInt(count));
+					}
+				}
+				
+				if("S".equalsIgnoreCase(slumNonSlum)) {
+					data.setSlumType("Slum");
+				}else {
+					data.setSlumType("Non-Slum");
+				}
+				
+				return data;
+
+			}
+
+		});
+	}
+	
+	
 }

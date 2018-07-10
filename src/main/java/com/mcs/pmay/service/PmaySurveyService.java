@@ -184,4 +184,6 @@ public interface PmaySurveyService {
 	List<PmaySurveyReportData> getSuperUserSurveyReportFilterdPaging(PmaySeachData seachDetails, Integer itemsPerPage,Integer pageno);
 	
 	List<PmayDistWiseStats> getDistWiseStats();
+
+	List<PmayDistWiseStats> getPKGWiseStats();
 }

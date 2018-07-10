@@ -92,7 +92,7 @@ public class PmayMysqlQueries {
 	public static final String DELETE_PENDING_USER_QUERY = "delete from p_user where user_id=?";
 	public static final String IS_ID_PROOF_EXIST_QUERY = "select count(*) from p_user_survey where id_number=?";
 	public static final String GET_TODAY_SLUM_NONSLUM_SURVEY_REPORT = "SELECT (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'S' AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) slum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum = 'N' AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) nonslum, (SELECT COUNT(*) FROM pmay.p_user_survey WHERE slum_nonslum in('S','N') AND created_on >= DATE(NOW()) - INTERVAL 1 DAY) total";
-	public static final String GET_TOTAL_SLUM_NONSLUM_SURVEY_REPORT = "SELECT (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'S') slum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'N') nonslum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum in('S','N') ) total";
+	public static final String GET_TOTAL_SLUM_NONSLUM_SURVEY_REPORT = "SELECT (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'S' and deleted_flag='N') slum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'N' and deleted_flag='N') nonslum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum in('S','N')  and deleted_flag='N') total";
 	//12th April
 	//public static final String GET_ULB_SLUM_NONSLUM_SURVEY_REPORT = "SELECT (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id=?) slum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id=?) nonslum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum in('S','N') ) total";	
 	public static final String UPDATE_STATUS_TO_ACTIVE_INACTIVE = "update p_user set user_status=?,last_updated_by=?,last_updated_on=NOW() where user_id=?";
@@ -119,4 +119,8 @@ public class PmayMysqlQueries {
 	public static final String TOTAL_COUNT_QUERY_FOR_GET_SUPER_USER_REPORT = "select count(*) from p_user_survey pus left outer join p_gender pg on pus.gender_id = pg.gender_id left outer join p_marital_status pms on pus.marital_status_id = pms.marital_status_id left outer join p_religion prg on pus.religion_id = prg.religion_id left outer join p_id_type pit on pus.id_type_id = pit.id_type_id left outer join preferred_assistance_hfa_category pac on pus.preferred_assistance_hfa_category_id = pac.preferred_assistance_hfa_category_id left outer join p_city pec on pus.permanent_city_id = pec.city_id LEFT OUTER JOIN pmay.p_user pu ON pus.user_id = pu.user_id LEFT OUTER JOIN p_ulb_name pun ON pus.ulb_name_id = pun.ulb_name_id where deleted_flag='N'";
 
 	public static final String QUERY_DISTWISE_SLUM_NONSLUM_STATS="select ulb.`dist_name`,s.`slum_nonslum`,count(*) from `p_user_survey` s left JOIN `p_ulb_name` ulb on s.`ulb_name_id` = ulb.`ulb_name_id` where dist_name is not null and s.deleted_flag='N' GROUP BY ulb.`dist_name`,s.`slum_nonslum`;";
+	
+	public static final String QUERY_PKGWISE_SLUM_NONSLUM_STATS="select ulb.`pkg_name`,s.`slum_nonslum`,count(*) from `p_user_survey` s left JOIN `p_ulb_name` ulb on s.`ulb_name_id` = ulb.`ulb_name_id` where dist_name is not null and s.deleted_flag='N' GROUP BY ulb.`pkg_name`,s.`slum_nonslum` ORDER BY `slum_nonslum` desc;";
+	
+	
 }

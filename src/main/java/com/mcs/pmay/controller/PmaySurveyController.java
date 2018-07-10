@@ -790,7 +790,6 @@ public class PmaySurveyController {
 	@ResponseBody
 	public String getTotalSurveyReportForSlumNonSlum() {
 		SlumNonSlumReportData slumNonSlumReportData = pmaySurveyService.getTotalSurveyReportForSlumNonSlum();
-		System.out.println(gson.toJson(slumNonSlumReportData));
 		return gson.toJson(slumNonSlumReportData);
 	}
 	
@@ -951,11 +950,17 @@ public class PmaySurveyController {
 	 * @param seachDetails
 	 * @return
 	 */
-	@RequestMapping(value = "/getDistWiseStats", method = RequestMethod.GET)
 	@ResponseBody
+	@RequestMapping(value = "/getDistWiseStats", method = RequestMethod.GET)
 	public String getDistWiseStats() {
 		List<PmayDistWiseStats> stats = pmaySurveyService.getDistWiseStats();
 		return gson.toJson(stats);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getPkgWiseStats", method = RequestMethod.GET)
+	public String getPkgWiseStats() {
+		List<PmayDistWiseStats> stats = pmaySurveyService.getPKGWiseStats();
+		return gson.toJson(stats);
+	}
 }

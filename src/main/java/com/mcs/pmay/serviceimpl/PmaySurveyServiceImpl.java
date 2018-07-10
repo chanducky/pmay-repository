@@ -436,4 +436,48 @@ public class PmaySurveyServiceImpl implements PmaySurveyService {
 		
 		return finalStats;
 	}
+	
+	@Override
+	public List<PmayDistWiseStats> getPKGWiseStats() {
+		
+		LinkedHashMap<String,PmayDistWiseStats> mapData = new LinkedHashMap<>();
+		List<PmayDistWiseStats> list = pmaySurveyDao.getPKGWiseStats();
+		
+		int totalPkg1=0;
+		int totalPkg4=0;
+		
+		if(list!=null) {
+			for(PmayDistWiseStats pdw: list) {
+				if(mapData.containsKey(pdw.getSlumType())) {
+					PmayDistWiseStats stored = mapData.get(pdw.getSlumType());
+					if(pdw.getPkg1() > 0) {
+						stored.setPkg1(pdw.getPkg1());
+					}else {
+						stored.setPkg4(pdw.getPkg4());
+					}
+					
+					totalPkg1+=stored.getPkg1();
+					totalPkg4+=stored.getPkg4();
+					
+				}else {
+					mapData.put(pdw.getSlumType(), pdw);
+				}
+			}
+			
+			PmayDistWiseStats calTotal = new PmayDistWiseStats();
+			calTotal.setSlumType("Total");
+			calTotal.setPkg1(totalPkg1);
+			calTotal.setPkg4(totalPkg4);
+			
+			mapData.put(calTotal.getSlumType(), calTotal);
+			
+		}
+		
+		List<PmayDistWiseStats> finalStats = new LinkedList<>();
+		for(PmayDistWiseStats mData: mapData.values()) {
+			finalStats.add(mData);
+		}
+		
+		return finalStats;
+	}
 }

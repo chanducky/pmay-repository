@@ -73,7 +73,7 @@ public class PmayReportController {
 		int cell=0;
 		header.createCell(cell++).setCellValue("Sr No)");
 		header.createCell(cell++).setCellValue("Surveyor RMN (Registerd Mobile No)");
-		header.createCell(cell++).setCellValue("Unique ID");
+		header.createCell(cell++).setCellValue("Survey ID");
 		header.createCell(cell++).setCellValue("Aadhaar No");
 		header.createCell(cell++).setCellValue("Name");
 		header.createCell(cell++).setCellValue("Father's/Husband's Name");

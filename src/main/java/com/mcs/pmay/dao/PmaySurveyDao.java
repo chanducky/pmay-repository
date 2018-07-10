@@ -192,5 +192,7 @@ public interface PmaySurveyDao {
 
 	List<PmayDistWiseStats> getDistWiseStats();
 
+	List<PmayDistWiseStats> getPKGWiseStats();
+
 	
 }

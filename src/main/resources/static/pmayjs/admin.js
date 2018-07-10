@@ -1799,6 +1799,13 @@ mainApp
 						}
 						
 						
+						$scope.getPkgWiseStats = function getPkgWiseStats(){
+							$http.get(baseUrl + 'getPkgWiseStats/').success(function(data) {
+								admin.pkgWiseStats = data;
+							});
+						}
+						
+						$scope.getPkgWiseStats();
 						
 						$scope.getDistWiseStats = function getDistWiseStats(){
 							$http.get(baseUrl + 'getDistWiseStats/').success(function(data) {
