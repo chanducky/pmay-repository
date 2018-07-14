@@ -85,8 +85,8 @@ public class GeoTagThread implements Runnable{
 		try {
 			File file  = new File(imagePath);
 			if(file.exists() && ! file.isDirectory()) { 
-				javaxt.io.Image image = new javaxt.io.Image(imagePath);
-				gps = image.getGPSCoordinate();
+				//javaxt.io.Image image = new javaxt.io.Image(imagePath);
+				//gps = image.getGPSCoordinate();
 			}
 
 		}catch(Exception ex) {

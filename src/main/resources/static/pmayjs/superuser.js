@@ -1118,7 +1118,13 @@ mainApp
 
 						}
 
+						$scope.getPkgWiseStats = function getPkgWiseStats(){
+							$http.get(baseUrl + 'getPkgWiseStats/').success(function(data) {
+								superUser.pkgWiseStats = data;
+							});
+						}
 						
+						$scope.getPkgWiseStats();						
 						
 						$scope.getDistWiseStats = function getDistWiseStats(){
 							$http.get(baseUrl + 'getDistWiseStats/').success(function(data) {

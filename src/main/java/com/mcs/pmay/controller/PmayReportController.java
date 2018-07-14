@@ -1,15 +1,17 @@
 package com.mcs.pmay.controller;
 
 import java.io.OutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,10 +49,14 @@ public class PmayReportController {
 			
 			List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getSurveyReportForSuperUser();
 			
-			response.setContentType("application/vnd.ms-excel");
-			response.setHeader("Content-Disposition",  "attachment; filename=SurveyReport.xls");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        String excelFileName = "SurveyReport-" + formatter.format(LocalDateTime.now()) + ".xlsx";
+	        
+	        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Expires:", "0"); // eliminates browser caching
+            response.setHeader("Content-Disposition", "attachment; filename=" + excelFileName);
 
-			HSSFWorkbook workbook =  setRecord(surveyReports);
+			SXSSFWorkbook workbook =  setRecord(surveyReports);
 			out = response.getOutputStream();
 
 			workbook.write(out);
@@ -64,36 +70,25 @@ public class PmayReportController {
 
 	}
 
-	private HSSFWorkbook  setRecord(List<PmayReportDataForAdmins> surveyList) {
-		HSSFWorkbook workbook =  new HSSFWorkbook();
-
-		HSSFSheet sheet = workbook.createSheet("Survey Report");
-
-		HSSFRow header = sheet.createRow(0);
-		int cell=0;
-		header.createCell(cell++).setCellValue("Sr No)");
-		header.createCell(cell++).setCellValue("Surveyor RMN (Registerd Mobile No)");
-		header.createCell(cell++).setCellValue("Survey ID");
-		header.createCell(cell++).setCellValue("Aadhaar No");
-		header.createCell(cell++).setCellValue("Name");
-		header.createCell(cell++).setCellValue("Father's/Husband's Name");
-
-		header.createCell(cell++).setCellValue("Gender");
-		header.createCell(cell++).setCellValue("DOB");
-		header.createCell(cell++).setCellValue("Slum/Non-SLum");
-
-		header.createCell(cell++).setCellValue("ULB Name");
-		header.createCell(cell++).setCellValue("Ward No");
-		header.createCell(cell++).setCellValue("Preffered Component of the Mission");
+	private SXSSFWorkbook  setRecord(List<PmayReportDataForAdmins> surveyList) {
+		SXSSFWorkbook workbook =new SXSSFWorkbook(1000);
+		SXSSFSheet sheet = workbook.createSheet();
+		createHeader(sheet);
 		
-		header.createCell(cell++).setCellValue("Eligibe/Non-Eligible");
-		header.createCell(cell++).setCellValue("Long - Lat");
-
-		int counter = 1;
+		int counter = 0;
+		int rowNo=0;
 		for (PmayReportDataForAdmins sd : surveyList) {
-			HSSFRow row = sheet.createRow(counter++);
+			++counter;
+			if(rowNo >1 && (counter % 50000)==1){
+				sheet = workbook.createSheet();
+				createHeader(sheet);
+				rowNo=0;
+				
+			}
+			
+			SXSSFRow row = sheet.createRow(++rowNo);
 			int col=0;
-			row.createCell(col++).setCellValue(counter-1);
+			row.createCell(col++).setCellValue(counter);
 			row.createCell(col++).setCellValue(sd.getUserRMN());
 			row.createCell(col++).setCellValue(sd.getUserSurveyId());
 			row.createCell(col++).setCellValue(sd.getAadharCardNumber());
@@ -113,43 +108,32 @@ public class PmayReportController {
 			}else {
 				row.createCell(col++).setCellValue("");
 			}
-			
 		}
 		
 		return workbook;
 	}
+	
+	private void createHeader(SXSSFSheet sheet){
+		
+		SXSSFRow header = sheet.createRow(0);
+		int cell=0;
+		header.createCell(cell++).setCellValue("Sr No.");
+		header.createCell(cell++).setCellValue("Surveyor RMN (Registerd Mobile No)");
+		header.createCell(cell++).setCellValue("Survey ID");
+		header.createCell(cell++).setCellValue("Aadhaar No");
+		header.createCell(cell++).setCellValue("Name");
+		header.createCell(cell++).setCellValue("Father's/Husband's Name");
 
-	/**
-	 * Handle request to download an Excel document
-	 * @throws Exception 
-	 */
-	@RequestMapping(value = "/downloadSurveyForAdminUser", method = RequestMethod.GET)
-	public void downloadSurveyForAdminUser(HttpServletRequest request, HttpServletResponse response) {
+		header.createCell(cell++).setCellValue("Gender");
+		header.createCell(cell++).setCellValue("DOB");
+		header.createCell(cell++).setCellValue("Slum/Non-SLum");
 
-		OutputStream out = null;
-		try
-		{
-			PmayUserData userData= 	(PmayUserData) request.getSession().getAttribute("userDtls");
-			if(userData==null) {
-				throw new UnauthorizedAccessException("User not logged in or Unauthorized.");
-			}
-			
-			List<PmayReportDataForAdmins> surveyReports = pmaySurveyService.getAdminsSurveyReports();
-			
-			response.setContentType("application/vnd.ms-excel");
-			response.setHeader("Content-Disposition",  "attachment; filename=SurveyReport.xls");
-
-			HSSFWorkbook workbook =  setRecord(surveyReports);
-			out = response.getOutputStream();
-
-			workbook.write(out);
-			out.flush();
-			out.close();
-
-		}catch(Exception ex) {
-			ex.printStackTrace();
-		}
-
+		header.createCell(cell++).setCellValue("ULB Name");
+		header.createCell(cell++).setCellValue("Ward No");
+		header.createCell(cell++).setCellValue("Preffered Component of the Mission");
+		
+		header.createCell(cell++).setCellValue("Eligibe/Non-Eligible");
+		header.createCell(cell++).setCellValue("Long - Lat");
 	}
 
 }

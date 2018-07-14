@@ -647,7 +647,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		
 		String surveyQuery = PmayMysqlQueries.QUERY_FOR_GET_ADMINS_SURVEY_REPORT;
 		
-		surveyQuery =surveyQuery+"  GROUP BY pus.user_survey_id ";
+		// surveyQuery =surveyQuery+"  GROUP BY pus.user_survey_id ";
 		
 		return jdbcTemplate.query(surveyQuery,
 				new RowMapper<PmayReportDataForAdmins>() {
