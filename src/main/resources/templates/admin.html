@@ -468,8 +468,11 @@
                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                        <div class="adsurvy-bx">
                                     <p><b>Ward Name </b><br /></p>
-                                    <input type="text" name="slumWardName" placeholder="" ng-model="addSlumSurvey.slumWardName"  required="required"/>
-                                      
+                                    <!-- <input type="text" name="slumWardName" placeholder="" ng-model="addSlumSurvey.slumWardName"  required="required"/> -->
+                                        <select ng-model="addSlumSurvey.slumWardName" required="required">
+                                          <option value="">select</option>
+                                          <option ng-repeat="ward in wardData" value="{{ward.wardId}}">{{ward.wardName}}</option>
+                                       </select>
                                     </div>
                                    </div>
                                    <div class="clearfix"></div>
@@ -527,6 +530,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
                                         <input type="file"  name="applicantImage" placeholder="" accept="image/*" file-model="addSlumSurvey.applicantImageFile" ng-init="addSlumSurvey.applicantImageFile=''" />
+                                       		
                                         </div>
                                         <span ng-show="applicantImageFileError" ng-init="applicantImageFileError=false" style="color:red" >Please Select Applicant photo</span>
                                         <div class="clearfix"></div>
@@ -585,7 +589,8 @@
                                         </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 no-padding">
-                                        <input type="file" name="" file-model="addSlumSurvey.slumApplicantSignature" ng-init="addSlumSurvey.slumApplicantSignature=''" />
+                                        <input type="file" name="" file-model="addSlumSurvey.slumApplicantSignature"  />
+                                        
                                         </div>
                                         <span ng-show="slumApplicantSignatureError" ng-init="slumApplicantSignatureError=false" style="color:red" >Please Select A Signature photo</span>
                                         <div class="clearfix"></div>
@@ -659,7 +664,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                      <div class="adsurvy-bx">
                                        <p><b>ULB Name</b><br /></p>
-                                       <select ng-model="slumNonUlbDetails" required="required">
+                                       <select ng-model="addSurvey.slumNonUlbDetails" required="required">
                                           <option value="">select</option>
                                           <option ng-repeat="ulb in ulbList" value="{{ulb.ulbNameId}}">{{ulb.ulbName}}</option>
                                        </select>
@@ -668,8 +673,11 @@
                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                        <div class="adsurvy-bx">
                                     <p><b>Ward Name </b><br /></p>
-                                    <input type="text" name="slumWardName" placeholder="" ng-model="slumNonWardDetails"  required="required"/>
-                                      
+                                  	<!--   <input type="text" name="slumWardName" placeholder="" ng-model="slumNonWardDetails"  required="required"/> -->
+                                       <select ng-model="addSurvey.slumNonWardDetails" required="required">
+                                          <option value="">select</option>
+                                          <option ng-repeat="ward in wardData" value="{{ward.wardId}}">{{ward.wardName}}</option>
+                                       </select>
                                     </div>
                                    </div>
                                    <div class="clearfix"></div>

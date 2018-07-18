@@ -320,6 +320,8 @@ public class PmaySurveyController {
 			@RequestParam(value = "surveyData") String surveyData,
 			@RequestParam(value = "biometricDetails", required = false) byte[] biometricDetails) {
 		
+		System.out.println(" surveyData = " + surveyData);
+		
 		Map surveyDetailsData = new Gson().fromJson(surveyData, Map.class);
 		PmayAddSurveyData pmayAddSurveyData = new PmayAddSurveyData();
 		
@@ -601,6 +603,8 @@ public class PmaySurveyController {
 			@RequestParam(value = "surveyData") String surveyData,
 			@RequestParam(value = "slumBiometricDetails", required = false) byte[] slumBiometricDetails,
 			@RequestParam(value = "applicantPhoto", required = false) MultipartFile applicantPhoto) {
+		
+		System.out.println(" slum surveyData = " + surveyData);
 		
 		Map surveyDetailsData = new Gson().fromJson(surveyData, Map.class);
 		PmaySlumAddData pmayAddSurveyData = new PmaySlumAddData();

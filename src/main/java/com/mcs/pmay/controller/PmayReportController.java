@@ -71,7 +71,7 @@ public class PmayReportController {
 	}
 
 	private SXSSFWorkbook  setRecord(List<PmayReportDataForAdmins> surveyList) {
-		SXSSFWorkbook workbook =new SXSSFWorkbook(1000);
+		SXSSFWorkbook workbook =new SXSSFWorkbook(100);
 		SXSSFSheet sheet = workbook.createSheet();
 		createHeader(sheet);
 		

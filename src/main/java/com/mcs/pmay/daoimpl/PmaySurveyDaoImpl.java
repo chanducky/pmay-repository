@@ -1122,8 +1122,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 								surveyData.getApplicantPhoto().getOriginalFilename().lastIndexOf("."),
 								surveyData.getApplicantPhoto().getOriginalFilename().length());
 			}else {
-				hmap.put("success", status);
-				return hmap;
+				applicantPhotoName=null;
 			}
 			
 			if (surveyData.getBplPicture() != null) {
@@ -1203,8 +1202,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 								surveyData.getApplicantSignature().getOriginalFilename().lastIndexOf("."),
 								surveyData.getApplicantSignature().getOriginalFilename().length());
 			}else {
-				hmap.put("success", status);
-				return hmap;
+				applicantSignatureName=null;
 			}
 				
 			if (surveyData.getBiometricDetails() != null) {
@@ -1981,7 +1979,10 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				queryToGetAdminReportBySearchData.append(
 						" and " + seachDetails.getSearchScopeName() + " = '" + seachDetails.getSearchScopeValue() + "'");
 			}
+			
 		}
+		
+		queryToGetAdminReportBySearchData.append(" order by pus.user_survey_id ");
 		
 		if(itemsPerPage!=null && pageno!=null ) {
 			queryToGetAdminReportBySearchData.append(" LIMIT "+((pageno-1) * itemsPerPage ) + ", "+ itemsPerPage);
@@ -2023,8 +2024,13 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				surveyReportData.setSubmittedData(rs.getString(++col));
 				surveyReportData.setUlbName(rs.getString(++col));
 				surveyReportData.setUserRMN(rs.getString(++col));
-				
 				surveyReportData.setCreatedOnStr(rs.getString(++col));
+				surveyReportData.setUlbNameId(rs.getString(++col));
+				surveyReportData.setWardId(rs.getString(++col));
+				surveyReportData.setGenderId(rs.getString(++col));
+				surveyReportData.setHfaCategoryId(rs.getString(++col));
+				
+				//,pus.`ulb_name_id`,pus.`ward_id`,pus.`gender_id`,pus.`preferred_assistance_hfa_category_id`
 
 				if (PmayUtil.chkNull(surveyReportData.getSlumNonSlum()).equalsIgnoreCase("S")) {
 					surveyReportData.setSlumNonSlumStatus("Slum");
@@ -2082,6 +2088,8 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 		if (seachDetails.getBankId() != null) {
 			queryToGetSuperUserReportBySearchData.append(" and pus.bank_id =" + seachDetails.getBankId());
 		}
+		
+		queryToGetSuperUserReportBySearchData.append(" order by pus.user_survey_id ");
 
 		return jdbcTemplate.query(queryToGetSuperUserReportBySearchData.toString(),
 				new RowMapper<PmaySurveyReportData>() {

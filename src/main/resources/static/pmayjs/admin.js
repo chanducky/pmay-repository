@@ -179,24 +179,6 @@ mainApp
 						});
 					}
 					
-/*					
-					$scope.getSurveyReports = function getSurveyReports() {
-						$(".pmay-loader").css({
-							"display" : "block"
-						});
-						
-						$http.get(baseUrl + 'getAdminsSurveyReports/').success(
-								function(data) {
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									admin.adminSurveyReport = data;
-									$scope.tempSurveyData = data;
-									admin.setReportPage(1);
-								});
-					}
-*/
-					
 					$scope.getAllPendingUsers = function getAllPendingUsers() {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -608,6 +590,7 @@ mainApp
 							}else{
 								$scope.applicantImageFileError=false;
 							}
+							
 							if(addSlumSurvey.slumApplicantSignature == null ||addSlumSurvey.slumApplicantSignature == ""){
 								if($scope.signatureOfApplicant==null || $scope.signatureOfApplicant==""){
 									$scope.slumApplicantSignatureError=true;
@@ -719,8 +702,10 @@ mainApp
 								showConfirmButton : false,
 								timer : 3000,
 							})
+							
+							// $scope.getSurveyReports();
 							location.reload();
-							/*$scope.getSurveyReports();
+							/*
 							$('.nav-tabs a[href="#' + "surrpt" + '"]').tab('show');*/
 							
 						});
@@ -1069,8 +1054,8 @@ mainApp
 							"rationCardNo" : addSurvey.rationCardNo,
 							*/
 							"preferredAssistanceHfa" : addSurvey.preferredAssistanceHfa,
-							"wardDetails" : $scope.slumNonWardDetails,
-							"ulbNameId" : $scope.slumNonUlbDetails,
+							"wardDetails" : addSurvey.slumNonWardDetails,
+							"ulbNameId" : addSurvey.slumNonUlbDetails,
 							/*"vehicleCategoryId" : addSurvey.vehicleCategory,
 							"vehicleRegdNo" : addSurvey.vehicleRegdNo,
 							"bankAccNo" : addSurvey.bankAccNo,
@@ -1139,8 +1124,9 @@ mainApp
 								showConfirmButton : false,
 								timer : 3000,
 							})
+
 							location.reload();
-							/*$scope.getSurveyReports();
+							/*
 							$('.nav-tabs a[href="#' + "surrpt" + '"]').tab('show');*/
 						});
 					}else{
@@ -1235,68 +1221,70 @@ mainApp
 							$scope.addSlumSurvey.dob=surveyReport.dob;
 						
 							$scope.addSlumSurvey.nonEligibleReason=surveyReport.reasonForNonEligibility;
+							$scope.addSlumSurvey.slumNonEligibleReason=surveyReport.reasonForNonEligibility;
+							
 							$scope.addSlumSurvey.slumEligibleStatus = surveyReport.eligibilityForScheme;
 						}else{
 							$('.nav-tabs a[href="#' + "nonslum" + '"]').tab('show');
 							$("#nonslumedit").css({"display" : "block"});
 							$("#slumedit").css({"display" : "none"});
+									
+								$scope.validationPendingStatusNonSlum();
+								
+								$scope.applicantImageShow = true;
+								$scope.presentInfrontHousePicShow = true;
+								$scope.applicantSignatureShow = true;
+								
+								$scope.showSubmitButton = false;
+								$scope.showSaveButton = false;
+								$scope.showUpdateButton = true;
+		
+								if (surveyReport.eligibilityForScheme == "N") {
+									surveyReport.eligibilityForScheme = false ;
+								} else {
+									surveyReport.eligibilityForScheme = true;
+								}
+								
+								$scope.nonSlumVal = false;
+								if(surveyReport.aadharCardNumber == "" || surveyReport.aadharCardNumber == undefined){
+									$scope.nonSlumVal = true;
+								}
+								
+								
+								$scope.addSurvey = {};
+								$scope.addSurvey.formNo ="demo";
+		//						$scope.addSurvey.surveyCity="demo";
+								
+								$scope.nonSlumPhotoAttachmentName = surveyReport.photoAttachmentName;
+								$scope.nonSlumPhotoAttachmentInFrontOfHouse = surveyReport.photoAttachmentInFrontOfHouse;
+								$scope.nonSlumSignatureOfApplicant = surveyReport.signatureOfApplicant;
+								
+								$scope.addSurvey.slumNonWardDetails = surveyReport.wardId;
+								$scope.addSurvey.slumNonUlbDetails =  surveyReport.ulbNameId;
+								$scope.addSurvey.eligibleStatus = surveyReport.eligibilityForScheme;	
+								$scope.addSurvey.surveyId = surveyReport.userSurveyId;
+								$scope.addSurvey.chckSlumRadio=surveyReport.slumNonSlum
+								$scope.addSurvey.familyHeadName = surveyReport.familyHead;
+								$scope.addSurvey.fatherHusbandName=surveyReport.fatherOrHusbandName;
+								$scope.addSurvey.adharNo=surveyReport.aadharCardNumber;
+								$scope.addSurvey.hiddenNonSlumAdharNo=surveyReport.aadharCardNumber;
+								
+								// $scope. adhar check box
+								$scope.addSurvey.adharReason=surveyReport.reasonforAAdharNotAvailable;
+		
+								// $scope. Eligibility
+								$scope.addSurvey.nonEligibleReason=surveyReport.reasonForNonEligibility;
+								$scope.addSurvey.genderRadio=surveyReport.genderId;
 							
-						$scope.validationPendingStatusNonSlum();
-						
-						$scope.applicantImageShow = true;
-						$scope.presentInfrontHousePicShow = true;
-						$scope.applicantSignatureShow = true;
-						
-						$scope.showSubmitButton = false;
-						$scope.showSaveButton = false;
-						$scope.showUpdateButton = true;
-
-						if (surveyReport.eligibilityForScheme == "N") {
-							surveyReport.eligibilityForScheme = false ;
-						} else {
-							surveyReport.eligibilityForScheme = true;
+								// $scope. image file model
+								$scope.addSurvey.dob=surveyReport.dob;
+							
+								//$scope.addSurvey.geoLongitude=surveyReport.geoLongitude;
+								//$scope.addSurvey.geoLatitude = surveyReport.geoLatitude;
+								$scope.addSurvey.preferredAssistanceHfa=surveyReport.hfaCategoryId;
+		
+							}	
 						}
-						
-						$scope.nonSlumVal = false;
-						if(surveyReport.aadharCardNumber == "" || surveyReport.aadharCardNumber == undefined){
-							$scope.nonSlumVal = true;
-						}
-						
-						
-						$scope.addSurvey = {};
-						$scope.addSurvey.formNo ="demo";
-//						$scope.addSurvey.surveyCity="demo";
-						
-						$scope.nonSlumPhotoAttachmentName = surveyReport.photoAttachmentName;
-						$scope.nonSlumPhotoAttachmentInFrontOfHouse = surveyReport.photoAttachmentInFrontOfHouse;
-						$scope.nonSlumSignatureOfApplicant = surveyReport.signatureOfApplicant;
-						
-						$scope.slumNonWardDetails = surveyReport.wardId;
-						$scope.slumNonUlbDetails =  surveyReport.ulbNameId;
-						$scope.addSurvey.eligibleStatus = surveyReport.eligibilityForScheme;	
-						$scope.addSurvey.surveyId = surveyReport.userSurveyId;
-						$scope.addSurvey.chckSlumRadio=surveyReport.slumNonSlum
-						$scope.addSurvey.familyHeadName = surveyReport.familyHead;
-						$scope.addSurvey.fatherHusbandName=surveyReport.fatherOrHusbandName;
-						$scope.addSurvey.adharNo=surveyReport.aadharCardNumber;
-						$scope.addSurvey.hiddenNonSlumAdharNo=surveyReport.aadharCardNumber;
-						
-						// $scope. adhar check box
-						$scope.addSurvey.adharReason=surveyReport.reasonforAAdharNotAvailable;
-
-						// $scope. Eligibility
-						$scope.addSurvey.nonEligibleReason=surveyReport.reasonForNonEligibility;
-						$scope.addSurvey.genderRadio=surveyReport.genderId;
-					
-						// $scope. image file model
-						$scope.addSurvey.dob=surveyReport.dob;
-					
-						//$scope.addSurvey.geoLongitude=surveyReport.geoLongitude;
-						//$scope.addSurvey.geoLatitude = surveyReport.geoLatitude;
-						$scope.addSurvey.preferredAssistanceHfa=surveyReport.hfaCategoryId;
-
-					}	
-					}
 					}
 					
 /**********************fuction to hide error message********************/
