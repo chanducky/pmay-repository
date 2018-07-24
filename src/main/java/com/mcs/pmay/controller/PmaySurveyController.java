@@ -435,33 +435,50 @@ public class PmaySurveyController {
 		pmayAddSurveyData.setApplicantSignature(applicantSignature);
 		pmayAddSurveyData.setBiometricDetails(biometricDetails);
 		
-		boolean dobValid =false;
 		HashMap<String,String> hmap = new HashMap<>();
-		
+		boolean dobValid=true;
 		System.out.println("pmayAddSurveyData.getDob() = "+pmayAddSurveyData.getDob());
 		
 		if(pmayAddSurveyData.getDob()!=null) {
 			if(pmayAddSurveyData.getDob().contains("-")) {
-				String[] dateArr = pmayAddSurveyData.getDob().split("-");
+				String[] dateArr = pmayAddSurveyData.getDob().trim().split("-");
 				StringBuilder dateBuilder = new StringBuilder();
 				if(dateArr.length ==3) {
-					dateBuilder.append(dateArr[2]);
-					dateBuilder.append("/");
-					if(dateArr[1].trim().length()==1) {
-						dateBuilder.append("0"+dateArr[1]);
-					}else {
-						dateBuilder.append(dateArr[1]);
-					}
 					
-					dateBuilder.append("/");
-					if(dateArr[0].trim().length()==1) {
-						dateBuilder.append("0"+dateArr[0]);
-					}else {
-						dateBuilder.append(dateArr[0]);
+					if(dateArr[2].length()>=4){
+						if(dateArr[0].trim().length()==1) {
+							dateBuilder.append("0"+dateArr[0]);
+						}else {
+							dateBuilder.append(dateArr[0]);
+						}
+						
+						dateBuilder.append("/");
+						if(dateArr[1].trim().length()==1) {
+							dateBuilder.append("0"+dateArr[1]);
+						}else {
+							dateBuilder.append(dateArr[1]);
+						}
+						dateBuilder.append("/");
+						dateBuilder.append(dateArr[2]);
+					}else{
+						dateBuilder.append(dateArr[2]);
+						dateBuilder.append("/");
+						
+						if(dateArr[1].trim().length()==1) {
+							dateBuilder.append("0"+dateArr[1]);
+						}else {
+							dateBuilder.append(dateArr[1]);
+						}
+						
+						dateBuilder.append("/");
+						if(dateArr[0].trim().length()==1) {
+							dateBuilder.append("0"+dateArr[0]);
+						}else {
+							dateBuilder.append(dateArr[0]);
+						}
 					}
 					
 					pmayAddSurveyData.setDob(dateBuilder.toString());
-					dobValid=true;
 				}
 			}else if(pmayAddSurveyData.getDob().contains("/")) {
 				String[] dateArr = pmayAddSurveyData.getDob().split("/");
@@ -486,18 +503,19 @@ public class PmaySurveyController {
 					
 					pmayAddSurveyData.setDob(dateBuilder.toString());
 					
-					dobValid=true;
 				}
 			}
+		}else{
+			dobValid=false;
 		}
 		if(!dobValid) {
 			System.out.println(" invalid dob ="+pmayAddSurveyData.getDob());
 			hmap.put("success", "false");
 			hmap.put("code", "400");
-			hmap.put("message", "Invalid dob "+pmayAddSurveyData.getDob());
+			hmap.put("message", "dob is a required field. ");
 			return gson.toJson(hmap);
 		}
-		
+	
 		Map<String, String> addSurveystatus = pmaySurveyService.addSurvey(pmayAddSurveyData);
 
 		return gson.toJson(addSurveystatus);
