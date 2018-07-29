@@ -2975,7 +2975,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 	//Start 12th April2018
 	@Override
 	public SlumNonSlumReportData getUlbSurveyReportForSlumNonSlum(String ulbNo) {
-		String rsQuery ="SELECT (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id= ? ) slum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id= ?) nonslum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum in('S','N') AND ulb_name_id= ?) total";
+		String rsQuery ="SELECT (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'S' AND ulb_name_id in ("+ulbNo+")  and deleted_flag='N' ) slum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum = 'N' AND ulb_name_id in ("+ulbNo+")  and deleted_flag='N' ) nonslum, (SELECT COUNT(*) FROM p_user_survey WHERE slum_nonslum in('S','N') AND ulb_name_id in ("+ulbNo+")  and deleted_flag='N' ) total";
 		StringBuffer sb= new StringBuffer(rsQuery);
 		return jdbcTemplate.queryForObject(sb.toString(), 
 				new RowMapper<SlumNonSlumReportData>() {
@@ -2989,7 +2989,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				data.setTotalSurvay(rs.getInt(3));
 				return data;
 			}
-		},ulbNo,ulbNo,ulbNo);
+		});
 	}
 	
 	@Override
