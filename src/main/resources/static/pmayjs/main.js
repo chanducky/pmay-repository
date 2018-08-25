@@ -3,9 +3,6 @@ var mainApp = angular.module("mainApp", []);
 //var baseUrl="https://statsodisha.org/";
 var baseUrl="https://choice-awaasodisha.org/";
 
-
-
-
 /* This method used for pagination concept */
 mainApp.filter('pagination', function()
 {
@@ -81,8 +78,6 @@ function PagerService() {
         };
     }
 }
-
-
 
 /* HTML TABLE TO EXCEL CONVERTION */
 mainApp.factory('Excel',function($window){
