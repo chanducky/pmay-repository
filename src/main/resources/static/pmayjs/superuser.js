@@ -87,16 +87,6 @@ mainApp
 					
 					/******************** End Pagination for Survey Report**********************/
 					
-					
-					
-/****************************************************End Pagination ***************** *************************************************/									
-					
-					
-					
-					
-					
-					
-					
 					$scope.getDropDownData = function() {
 						$(".pmay-loader").css({
 							"display" : "block"
