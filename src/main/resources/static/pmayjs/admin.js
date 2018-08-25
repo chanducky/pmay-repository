@@ -3,8 +3,6 @@ mainApp
 				'adminController',
 				function($scope, $http, $window, $rootScope, Excel, $timeout,$compile,PagerService) {
 					$http.defaults.headers.post["Content-Type"] = "application/json";
-			//		$scope.curPage = 0;
-			//		$scope.pageSize = 20;
 
 					$scope.disabledOtherReligion = true;
 					$scope.locationDetailsPicDis = true;
@@ -32,7 +30,6 @@ mainApp
 						   $scope.packageCity = $("#selectULB option:selected").text();
 						   $scope.surveyDate = $("#surveyDate").val();
 						   
-						   //$http.get(baseUrl+'getTodaySurveyReportForSlumNonSlum/').success(function (data) {
 						   $http.get(baseUrl+getTodayUrl, {params: {ulbNo: $scope.packageULB,surveyDate:$scope.surveyDate}}).success(function (data) {
 							   $scope.surveyDate = $("#surveyDate").val();
 							   $scope.todaySurveyReport = data;
@@ -87,7 +84,7 @@ mainApp
 						   } else {
 							   getTotalUrl = 'getUlbSurveyReportForSlumNonSlum/';
 						   }
-						   //$http.get(baseUrl+'getTotalSurveyReportForSlumNonSlum/').success(function (data) {
+						   
 						   $http.get(baseUrl+getTotalUrl, {params: {ulbNo: $scope.packageULB}}).success(function (data) {
 						   
 							   $scope.totalSurveyReport = data;
@@ -189,8 +186,6 @@ mainApp
 										"display" : "none"
 									});
 									if (data == "") {
-										/*$('#pendingTable').hide();
-										$('#noPending').show();*/
 									} else {
 										admin.pendingUsers = data;
 										admin.setPendingUserReportPage(1);
@@ -469,57 +464,6 @@ mainApp
 											$scope.longLat = downloadData.columnData.longLat;
 										});
 					}
-					
-/*
-					$scope.resetAll = function resetAll() {
-						$scope.searchData = {};
-						admin.adminSurveyReport = $scope.tempSurveyData;
-						admin.setReportPage(1);
-					}
-
-					$scope.getReportFilteredDataForAdmin = function getReportFilteredDataForAdmin() {
-						$(".pmay-loader").css({
-							"display" : "block"
-						});
-						var searchData = {
-							"searchName" : $scope.searchData.adminReportName,
-							"aadharOrIdNumber" : $scope.searchData.adminReportAadharNo,
-							"ulbName" : $scope.searchData.adminReportUlbName,
-							"fatherSpouseName" : $scope.searchData.adminReportFatherSpouseName,
-							"bankAccountNo" : $scope.searchData.adminReportBankAc,
-							"searchScopeName" : $scope.searchData.adminReportScopeName,
-							"searchScopeValue" : $scope.searchData.adminReportScopeValue
-						}
-
-						$http
-								.post(baseUrl + '/getFilteredReportBySearch',
-										searchData)
-								.success(
-										function(surveyReport) {
-											$(".pmay-loader").css({
-												"display" : "none"
-											});
-											if (surveyReport != "") {
-												admin.adminSurveyReport = surveyReport;
-												admin.setReportPage(1);
-											} else {
-												swal({
-													position : 'top',
-													text : "No Result Found",
-													type : 'info',
-													animation : false,
-													customClass : 'animated tada',
-													showConfirmButton : false,
-													timer : 3000,
-												})
-												admin.adminSurveyReport = $scope.tempSurveyData;
-												admin.setReportPage(1);
-											}
-
-										});
-					}
-					
-					*/
 
 					$scope.getSurveyedFilteredDataForAdmin = function getSurveyedFilteredDataForAdmin() {
 						$(".pmay-loader").css({
@@ -627,57 +571,17 @@ mainApp
 							"slumFatherHusbandName":addSlumSurvey.slumFatherHusbandName,
 							"slumAdharNo":addSlumSurvey.slumAdharNo,
 							"genderValue":addSlumSurvey.slumGenderRadio,
-//							"slumAdharReason":addSlumSurvey.slumAdharReason,
-//							"slumIdProof" : addSlumSurvey.slumIdProof,
-//							"slumIdProofNo" : addSlumSurvey.slumIdProofNo,
-//							
-//							"maritalStatus" : addSlumSurvey.maritalStatus,
-//							"idType" : addSlumSurvey.slumIdProof,
-//							"idNo" : addSlumSurvey.slumIdProofNo,
-//
-//							"slumPresentTown":slumPresentTown,
-//							"slumPresentHouseNo":addSlumSurvey.slumPresentHouseNo,
-//							"slumPresentStreetName":addSlumSurvey.slumPresentStreetName,
-//							"slumPresentCity":addSlumSurvey.slumPresentCity,
-//							"presentMobileNo":addSlumSurvey.slumPresentMobileNo,
-//							"slumIsSameAsPresentAdd":addSlumSurvey.slumIsSameAsPresentAdd,
-//							"slumPermanentTown":slumPermanentTown,
-//							"slumPermanentHouseNo":addSlumSurvey.slumPermanentHouseNo,
-//							"slumPermanentStreetName":addSlumSurvey.slumPermanentStreetName,
-//							"slumPermanentCity":addSlumSurvey.slumPermanentCity,
-//							"slumPermanentMobileNo":addSlumSurvey.slumPermanentMobileNo,
-//
-//							"familyMemberName":familyMemberName.toString(),
-//							"familyMemberRelation":familyMemberRelation.toString(),
-//							"familyMemberGender":familyMemberGender.toString(),
-//							"familyMemberAge":familyMemberAge.toString(),
-//							"familyMemberIdCardNo":familyMemberIdCardNo.toString(),
-//							
-//							"slumReligion":addSlumSurvey.slumReligion,
-//							"religionIfOther" :addSlumSurvey.religionIfOther,
-							
-//							
-//							"slumCaste":addSlumSurvey.slumCaste,
-//							"slumOwnsRadio":addSlumSurvey.slumOwnsRadio,
-//							"slumLandAddress":addSlumSurvey.slumLandAddress,
-//							"slumLandinSqm":addSlumSurvey.slumLandinSqm,
-//							
 							"dob" : addSlumSurvey.dob,
 							"isSubmittedFlag":isSubmittedFlag,
 							"nonEligibleReason" : addSlumSurvey.slumNonEligibleReason,
 							"eligibleStatus" : addSlumSurvey.slumEligibleStatus,
 							"slumWardDetails" : addSlumSurvey.slumWardName,
 							"slumUlbNameId" : addSlumSurvey.slumUlbDetails,
-							//"geoLongitude": addSlumSurvey.geoLongitude,
-							//"geoLatitude": addSlumSurvey.geoLatitude
 							"APP":"WEB"
 						};
 						
 						var allImageFiles = new FormData();
 						allImageFiles.append('applicantSignature',addSlumSurvey.slumApplicantSignature);
-//						allImageFiles.append('locationDetailsPic',addSlumSurvey.slumLocationDetailsPic);
-//						allImageFiles.append('slumIdImage',addSlumSurvey.slumIdPhoto);
-//						allImageFiles.append('slumBiometricDetails','');//blank for slum biometric details
 						allImageFiles.append('applicantPhoto',addSlumSurvey.applicantImageFile);
 						allImageFiles.append('surveyData', angular.toJson(surveyData, true));
 						
@@ -702,11 +606,8 @@ mainApp
 								showConfirmButton : false,
 								timer : 3000,
 							})
-							
-							// $scope.getSurveyReports();
+
 							location.reload();
-							/*
-							$('.nav-tabs a[href="#' + "surrpt" + '"]').tab('show');*/
 							
 						});
 					}else{
@@ -776,15 +677,7 @@ mainApp
 							}else{
 								$scope.applicantImageFileError=false;
 							}
-//							if(addSurvey.idImage == null || addSurvey.idImage == ""){
-//								$scope.idImageError=true;
-//								$(".pmay-loader").css({
-//									"display" : "none"
-//								});
-//								return false;
-//							}else{
-//								$scope.idImageError=false;
-//							}
+
 							if(addSurvey.presentInfrontHousePic == null || addSurvey.presentInfrontHousePic == ""){
 								if($scope.nonSlumPhotoAttachmentInFrontOfHouse==null || $scope.nonSlumPhotoAttachmentInFrontOfHouse==""){
 									$scope.presentInfrontHousePicError=true;
@@ -796,133 +689,7 @@ mainApp
 							}else{
 								$scope.presentInfrontHousePicError=false;
 							}
-				/****************************Non slum new validation****************************/			
-/*							if(addSurvey.ownsRadio=="Y"){
-								if(addSurvey.landRecordPic == null ||addSurvey.landRecordPic == ""){
-									$scope.landRecordPicError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.landRecordPicError=false;
-								}
-								if(addSurvey.landAddress == null ||addSurvey.landAddress == ""){
-									$scope.locationAddressError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.locationAddressError=false;
-								}
-								if(addSurvey.landinSqm == null ||addSurvey.landinSqm == ""){
-									$scope.extentLandError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.extentLandError=false;
-								}
-							}
-							
-							if(addSurvey.houseRequirementRadio== "2"){
-								if(addSurvey.requirement == null ||addSurvey.requirement == ""){
-									$scope.requirementError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.requirementError=false;
-								}
-							}
-							
-							if(addSurvey.bplRadio== "Y"){
-								if(addSurvey.bplNo == null ||addSurvey.bplNo == ""){
-									$scope.bplError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.bplError=false;
-								}
-								if(addSurvey.bplPicture == null ||addSurvey.bplPicture == ""){
-									$scope.bplPicError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.bplPicError=false;
-								}
-							}
-							
-							if(addSurvey.rationRadio== "Y"){
-								if(addSurvey.rationCardNo == null ||addSurvey.rationCardNo == ""){
-									$scope.rationError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.rationError=false;
-								}
-								if(addSurvey.rationCardPic == null ||addSurvey.rationCardPic == ""){
-									$scope.rationPicError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.rationPicError=false;
-								}
-							}
-							
-							if($scope.disabledOtherBank== false){
-								if(addSurvey.otherBankName == null ||addSurvey.otherBankName == ""){
-									$scope.bankError=true;
-									$(".pmay-loader").css({
-										"display" : "none"
-									});
-									return false;
-								}else{
-									$scope.bankError=false;
-								}
-							}
-		*/					
-				/**************************End Non slum new validation****************************/			
-							
-	/*						if(addSurvey.landPhoto1 == null || addSurvey.landPhoto1 == ""){
-								$scope.landPhoto1Error=true;
-								$(".pmay-loader").css({
-									"display" : "none"
-								});
-								return false;
-							}else{
-								$scope.landPhoto1Error=false;
-							}
-							if(addSurvey.landPhoto2 == null || addSurvey.landPhoto2 == ""){
-								$scope.landPhoto2Error=true;
-								$(".pmay-loader").css({
-									"display" : "none"
-								});
-								return false;
-							}else{
-								$scope.landPhoto2Error=false;
-							}
-							if(addSurvey.incomeProofPhoto == null || addSurvey.incomeProofPhoto == ""){
-								$scope.incomeProofPhotoError=true;
-								$(".pmay-loader").css({
-									"display" : "none"
-								});
-								return false;
-							}else{
-								$scope.incomeProofPhotoError=false;
-							}
-		*/					
+				
 							if(addSurvey.applicantSignature == null || addSurvey.applicantSignature == ""){
 								if($scope.nonSlumSignatureOfApplicant==null || $scope.nonSlumSignatureOfApplicant==""){
 									$scope.applicantSignatureError=true;
@@ -943,56 +710,13 @@ mainApp
 						} else {
 							addSurvey.eligibleStatus = "Y";
 						}
-//						if (addSurvey.isSameAsPresentAdd == false) {
-//							addSurvey.isSameAsPresentAdd = "N";
-//						} else {
-//							addSurvey.isSameAsPresentAdd = "Y";
-//						}
+
 						if (addSurvey.chckSlumRadio == 'S') {
 							addSurvey.validationPendingStatus = "N";
 						} else {
 							addSurvey.validationPendingStatus = "Y";
 						}
 						
-						/*
-						var presentTown = 'N';
-						if(addSurvey.presentYearsInCity === true){
-							presentTown = 'Y';
-						}
-						
-						var permanentTown = 'N';
-						if(addSurvey.permanentYearsInCity === true){
-							permanentTown = 'Y';
-						}
-						
-						var familyMemberName = [];
-						var familyMemberRelation = [];
-						var familyMemberGender = [];
-						var familyMemberAge = [];
-						var familyMemberIdCardNo = [];
-						$("tr.familyMemberRow")
-								.each(
-										function() {
-											familyMemberName.push($(this).find(
-													"input.name").val());
-											familyMemberRelation
-													.push($(this)
-															.find(
-																	"select.memberrelationship option:selected")
-															.val());
-											familyMemberGender
-													.push($(this)
-															.find(
-																	"select.membergender option:selected")
-															.val());
-											familyMemberAge.push($(this).find(
-													"input.age").val());
-											familyMemberIdCardNo.push($(this)
-													.find("input.idcardno")
-													.val());
-										});
-						
-						*/
 
 						var surveyData = {
 							
@@ -1003,107 +727,22 @@ mainApp
 							"familyHeadName" : addSurvey.familyHeadName,
 							"fatherHusbandName" : addSurvey.fatherHusbandName,
 							"adharNo" : addSurvey.adharNo,
-//							"adharReason" : addSurvey.adharReason,
-//							"maritalStatus" : addSurvey.maritalRadio,
 							"eligibleStatus" : addSurvey.eligibleStatus,
 							"nonEligibleReason" : addSurvey.nonEligibleReason,
 							"genderId" : addSurvey.genderRadio,
-//							"idType" : addSurvey.idProof,
-//							"idNo" : addSurvey.idProofNo,
 							"dob" : addSurvey.dob,
-			/*				"religion" : addSurvey.religion,
-							"religionIfOther" : addSurvey.religionIfOther,
-							"caste" : addSurvey.caste,
-
-							"presentTown" : presentTown,
-							"presentHouseNo" : addSurvey.presentHouseNo,
-							"presentStreetName" : addSurvey.presentStreetName,
-							"presentCity" : addSurvey.presentCity,
-							"presentMobileNo" : addSurvey.presentMobileNo,
-							"isSameAsPresentAdd" : addSurvey.isSameAsPresentAdd,
-							"permanentTown" : permanentTown,
-							"permanentHouseNo" : addSurvey.permanentHouseNo,
-							"permanentStreetName" : addSurvey.permanentStreetName,
-							"permanentCity" : addSurvey.permanentCity,
-							"permanentMobileNo" : addSurvey.permanentMobileNo,
-
-							"houseRoofType" : addSurvey.houseRoofType,
-							"ownsRadio" : addSurvey.ownsRadio,
-							"landAddress" : addSurvey.landAddress,
-							"landinSqm" : addSurvey.landinSqm,
-							"ownershipHouse" : addSurvey.ownershipHouse,
-							"houseWallType" : addSurvey.houseWallType,
-							"dwellinUnitRoom" : addSurvey.dwellinUnitRoom,
-							"sizeExistingDwelling" : addSurvey.sizeExistingDwelling,
-							"houseRequirementRadio" : addSurvey.houseRequirementRadio,
-							"requirement" : addSurvey.requirement,
-
-							"pattadarName" : addSurvey.pattadarName,
-							"dagNo" : addSurvey.dagNo,
-							"pattaNo" : addSurvey.pattaNo,
-							"landAreaPatta" : addSurvey.landAreaPatta,
-							"landLength" : addSurvey.landLength,
-							"landBreadth" : addSurvey.landBreadth,
-							"employmentStatus" : addSurvey.employmentStatus,
-							"employmentStatusName" : addSurvey.employmentStatusName,
-							"averageIncome" : addSurvey.averageIncome,
-							"incomeProof" : addSurvey.incomeProof,
-							"bplRadio" : addSurvey.bplRadio,
-							"bplNo" : addSurvey.bplNo,
-							"rationRadio" : addSurvey.rationRadio,
-							"rationCardNo" : addSurvey.rationCardNo,
-							*/
 							"preferredAssistanceHfa" : addSurvey.preferredAssistanceHfa,
 							"wardDetails" : addSurvey.slumNonWardDetails,
 							"ulbNameId" : addSurvey.slumNonUlbDetails,
-							/*"vehicleCategoryId" : addSurvey.vehicleCategory,
-							"vehicleRegdNo" : addSurvey.vehicleRegdNo,
-							"bankAccNo" : addSurvey.bankAccNo,
-							"bankId" : addSurvey.bankName,
-							"bankName" : addSurvey.otherBankName,
-							"bankBranchName" : addSurvey.bankBranchName,
-							"bankIfscCode" : addSurvey.bankIfscCode,
-							"familyMemberName" : familyMemberName.toString(),
-							"familyMemberRelation" : familyMemberRelation
-									.toString(),
-							"familyMemberGender" : familyMemberGender
-									.toString(),
-							"familyMemberAge" : familyMemberAge.toString(),
-							"familyMemberIdCardNo" : familyMemberIdCardNo
-									.toString(),
-							
-							"geoLongitude": addSurvey.geoLongitude,
-							"geoLatitude": addSurvey.geoLatitude,
-							*/
 							"APP" : "WEB",
 							"isSubmitted" : isSubmittedFlag
 						};
 						var allImageFiles = new FormData();
-						allImageFiles.append('applicantPhoto',
-								addSurvey.applicantImageFile);
-//						allImageFiles.append('idPhoto', addSurvey.idImage);
-						allImageFiles.append('presentInfrontHousePic',
-								addSurvey.presentInfrontHousePic);
-						/*allImageFiles.append('locationDetailsPic',
-								addSurvey.locationDetailsPic);
-						allImageFiles.append('landRecordPic',
-								addSurvey.landRecordPic);
-						allImageFiles
-								.append('landPhoto1', addSurvey.landPhoto1);
-						allImageFiles
-								.append('landPhoto2', addSurvey.landPhoto2);
-						allImageFiles
-								.append('bplPicture', addSurvey.bplPicture);
-						allImageFiles.append('rationCardPic',
-								addSurvey.rationCardPic);
-						allImageFiles.append('vehiclePhoto',
-								addSurvey.vehiclePhoto);
-						*/
+						allImageFiles.append('applicantPhoto',addSurvey.applicantImageFile);
+						allImageFiles.append('presentInfrontHousePic',addSurvey.presentInfrontHousePic);
 						allImageFiles.append('applicantSignature',addSurvey.applicantSignature);
-//						allImageFiles.append('incomeProofPhoto',addSurvey.incomeProofPhoto);
-						allImageFiles.append('surveyData', angular.toJson(
-								surveyData, true));
-//						allImageFiles.append('biometricDetails','');
+						allImageFiles.append('surveyData', angular.toJson(surveyData, true));
+
 						$http.post(baseUrl + 'addSurvey/', allImageFiles, {
 							transformRequest : angular.identity,
 							headers : {
@@ -1126,8 +765,7 @@ mainApp
 							})
 
 							location.reload();
-							/*
-							$('.nav-tabs a[href="#' + "surrpt" + '"]').tab('show');*/
+							
 						});
 					}else{
 						return false;
@@ -1180,24 +818,14 @@ mainApp
 							$scope.addSlumSurvey ={};
 							$scope.slumApplicantImageShow = true;
 							$scope.slumApplicantSignatureShow = true;
-//							$scope.slumLocationDetailsPicShow = true;
-//							$scope.idImageShow = true;
 							$scope.slumPhotoAttachmentName = surveyReport.photoAttachmentName;
-//							$scope.idAttachmentName=surveyReport.idAttachmentName;
 							$scope.signatureOfApplicant = surveyReport.signatureOfApplicant;
-//							$scope.indiaLocationDetailsAttachment = surveyReport.landAttachmentName;
 							
 							if (surveyReport.eligibilityForScheme == "N") {
 								surveyReport.eligibilityForScheme = false ;
 							} else {
 								surveyReport.eligibilityForScheme = true;
 							}
-							
-//							if (surveyReport.permanentSameAsPresent == "N") {
-//								surveyReport.permanentSameAsPresent = false ;
-//							} else {
-//								surveyReport.permanentSameAsPresent = true;
-//							}
 							
 							$scope.val = false;
 							if(surveyReport.aadharCardNumber == "" || surveyReport.aadharCardNumber == undefined ){
@@ -1212,11 +840,7 @@ mainApp
 							$scope.addSlumSurvey.slumFatherHusbandName=surveyReport.fatherOrHusbandName;
 							$scope.addSlumSurvey.slumAdharNo=surveyReport.aadharCardNumber;
 							$scope.addSlumSurvey.hiddenSlumAdharNo=surveyReport.aadharCardNumber;
-
-//							$scope.addSlumSurvey.slumIdProof=surveyReport.idTypeId;
-//							$scope.addSlumSurvey.slumIdProofNo=surveyReport.idNumber;
-//							$scope.addSlumSurvey.hiddenSlumIdProofNo=surveyReport.idNumber;
-//							
+							
 							$scope.addSlumSurvey.slumGenderRadio=surveyReport.genderId;
 							$scope.addSlumSurvey.dob=surveyReport.dob;
 						
@@ -1253,7 +877,6 @@ mainApp
 								
 								$scope.addSurvey = {};
 								$scope.addSurvey.formNo ="demo";
-		//						$scope.addSurvey.surveyCity="demo";
 								
 								$scope.nonSlumPhotoAttachmentName = surveyReport.photoAttachmentName;
 								$scope.nonSlumPhotoAttachmentInFrontOfHouse = surveyReport.photoAttachmentInFrontOfHouse;
@@ -1268,19 +891,11 @@ mainApp
 								$scope.addSurvey.fatherHusbandName=surveyReport.fatherOrHusbandName;
 								$scope.addSurvey.adharNo=surveyReport.aadharCardNumber;
 								$scope.addSurvey.hiddenNonSlumAdharNo=surveyReport.aadharCardNumber;
-								
-								// $scope. adhar check box
 								$scope.addSurvey.adharReason=surveyReport.reasonforAAdharNotAvailable;
-		
-								// $scope. Eligibility
 								$scope.addSurvey.nonEligibleReason=surveyReport.reasonForNonEligibility;
 								$scope.addSurvey.genderRadio=surveyReport.genderId;
-							
-								// $scope. image file model
 								$scope.addSurvey.dob=surveyReport.dob;
 							
-								//$scope.addSurvey.geoLongitude=surveyReport.geoLongitude;
-								//$scope.addSurvey.geoLatitude = surveyReport.geoLatitude;
 								$scope.addSurvey.preferredAssistanceHfa=surveyReport.hfaCategoryId;
 		
 							}	
@@ -1288,14 +903,6 @@ mainApp
 					}
 					
 /**********************fuction to hide error message********************/
-					
-					/*$('[name=familyHeadName]').click(function(){
-						 $('#fmlyHdNmErr').hide();
-					 });*/
-					
-					/*$('[name=idProofNo]').click(function(){
-						 $('#fthrHusbNmErr').hide();
-					 });*/
 					
 					$scope.idVerify = function idVerify(id)
 					{
@@ -1480,7 +1087,6 @@ mainApp
 				    //used for survey report
 					admin.reportPager = {};
 					admin.setReportPage = setReportPage;
-					// $scope.getSurveyReports();
 					function setReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -1502,7 +1108,6 @@ mainApp
 				    //used for survey report
 					admin.pendingUserPager = {};
 					admin.setPendingUserReportPage = setPendingUserReportPage;
-					// $scope.getAllPendingUsers();
 					function setPendingUserReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -1524,7 +1129,6 @@ mainApp
 				    //used for survey report
 					admin.userPager = {};
 					admin.setUserReportPage = setUserReportPage;
-					// $scope.getUserDetails();
 					function setUserReportPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"
@@ -1643,7 +1247,7 @@ mainApp
 					 //used for logged in history
 					admin.loggedinHistoryPager = {};
 					admin.setLoggedinHistoryPage = setLoggedinHistoryPage;
-					// $scope.getLoggedInDetails();
+
 					function setLoggedinHistoryPage(page) {
 						$(".pmay-loader").css({
 							"display" : "block"

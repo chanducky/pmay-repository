@@ -21,8 +21,6 @@ mainApp
 				    superUser.setReportPage = setReportPage;
 
 				    getUlbWardDetails(searchData);
-				    // getSuperUserSurveyReport();
-				    
 
 				    /*****************Pagination For Ulb Details ********/
 				    
@@ -131,29 +129,6 @@ mainApp
 										});
 
 					}
-					/*
-					 
-					$scope.getSuperUserSurveyReport=function getSuperUserSurveyReport() {
-						$(".pmay-loader").css({
-							"display" : "block"
-						});
-						$http
-								.get(baseUrl + '/getSuperUserSurveyReport')
-								.success(
-										function(surveyReportData) {
-											$(".pmay-loader").css({
-												"display" : "none"
-											});
-											$scope.superUserReportData = surveyReportData;
-											superUser.superUserSurveyData = surveyReportData;
-											
-											$scope.tempSurveyData = surveyReportData;
-											superUser.setReportPage(1);
-											
-										});
-					}
-					
-					*/
 					
 					$scope.logout = function logout() {
 						$http.get(baseUrl + 'logout/').success(function(data) {
@@ -290,59 +265,6 @@ mainApp
 											$scope.longLat = downloadData.columnData.longLat;
 										});
 					}
-/*
-					$scope.resetAll = function resetAll() {
-						$scope.searchData = {};
-						superUser.superUserSurveyData = $scope.tempSurveyData;
-						superUser.setReportPage(1);
-					}
-
-					$scope.customizeSearchReport = function customizeSearchReport() {
-						$(".pmay-loader").css({
-							"display" : "block"
-						});
-						
-						var searchData = {
-								"searchName" : $scope.searchData.superUserReportName,
-								"aadharOrIdNumber" : $scope.searchData.superUserReportAadharNo,
-								"ulbName" : $scope.searchData.superUserReportUlbName,
-								"fatherSpouseName" : $scope.searchData.superUserReportFatherSpouseName,
-								"bankAccountNo" : $scope.searchData.superUserReportBankAc,
-								"searchScopeName" : $scope.searchData.superUserReportScopeName,
-								"searchScopeValue" : $scope.searchData.superUserReportScopeValue
-						}
-
-						$http
-								.post(
-										baseUrl
-												+ '/getSuperUserSurveyReportFilterd',
-										searchData)
-								.success(
-										function(surveyReport) {
-											$(".pmay-loader").css({
-												"display" : "none"
-											});
-											if (surveyReport != "") {
-												superUser.superUserSurveyData = surveyReport;
-												superUser.setReportPage(1);
-												
-											} else {
-												swal({
-													position : 'top',
-													text : "No Result Found",
-													type : 'info',
-													animation : false,
-													customClass : 'animated tada',
-													showConfirmButton : false,
-													timer : 3000,
-												})
-												superUser.superUserSurveyData = $scope.tempSurveyData;
-												superUser.setReportPage(1);
-											}
-										});
-
-					}
-					*/
 
 					$scope.customizeSearchSurveyData = function customizeSearchSurveyData() {
 						$(".pmay-loader").css({
@@ -386,22 +308,7 @@ mainApp
 										});
 
 					}
-/*
-					$scope.excelReport = function excelReport(tableId) {
-						var exportHref = Excel.tableToExcel(tableId,
-								'WireWorkbenchDataExport');
-						$timeout(function() {
-							location.href = exportHref;
-						}, 100);
-					}
-
-					
-					$scope.exportSurveyReport = function exportSurveyReport(){
-						location.target = "_blank";
-						location.href="downloadSurveyForSuperUser"
-					}
-					
-*/					
+			
 /************************functions for some validation**************************/
 					
 					$scope.validationPendingStatusSlum = function validationPendingStatusSlum(){
@@ -749,33 +656,21 @@ mainApp
 							$scope.addSurvey.landAreaPatta=surveyReport.landAreaAsInPatta;
 							$scope.addSurvey.landLength=surveyReport.dimentionOfLandLength;
 							$scope.addSurvey.landBreadth=surveyReport.dimensionOfLandbreadth;
-							// $scope.addSurvey.permanentStreetName
-							// $scope.addSurvey.permanentCity
 							$scope.addSurvey.employmentStatus=surveyReport.employementCategoryId;
-							// $scope.addSurvey.averageIncome=surveyReport.houseRequirementId;
-							// no columns
-							// $scope.addSurvey.employmentStatusName=surveyReport.houseRequirementId;
 							// no columns
 							$scope.addSurvey.incomeProof=surveyReport.incomeProofDocName;
-							// $scope.addSurvey.presentMobileNo
 							$scope.addSurvey.bplRadio=surveyReport.familyHaveBplCard;
 							$scope.addSurvey.bplNo=surveyReport.bplCardNumber;
-							// $scope.addSurvey.permanentHouseNo
 							$scope.addSurvey.rationRadio=surveyReport.familyHaveRationCard;
 							$scope.addSurvey.rationCardNo=surveyReport.rationCardNumber;
-							// $scope.addSurvey
 							$scope.addSurvey.geoLongitude=surveyReport.geoLongitude;
 							$scope.addSurvey.geoLatitude = surveyReport.geoLatitude;
 							$scope.addSurvey.preferredAssistanceHfa=surveyReport.hfaCategoryId;
-							/*$scope.addSurvey.vehicleCategory=surveyReport.vehicleCategoryId;
-							$scope.addSurvey.vehicleRegdNo=surveyReport.vehicleRegistrationNumber;*/
-							// $scope.addSurvey.
 							$scope.addSurvey.bankAccNo=surveyReport.bankAccountNo;
 							$scope.addSurvey.bankName=surveyReport.bankId;
 							$scope.addSurvey.otherBankName=surveyReport.otherBankName;
 							$scope.addSurvey.bankBranchName=surveyReport.branchName;
 							$scope.addSurvey.bankIfscCode=surveyReport.branchIfscCode;
-							// $scope.addSurvey
 							$(".memberAdd tr").slice(2).remove();
 							var nameOfFamilyMember = surveyReport.nameOfFamilyMember.split(","); 
 							var relationshipId = surveyReport.relationshipId.split(",");
@@ -912,7 +807,7 @@ mainApp
 						   } else {
 							   getTotalUrl = 'getUlbSurveyReportForSlumNonSlum/';
 						   }
-						   //$http.get(baseUrl+'getTotalSurveyReportForSlumNonSlum/').success(function (data) {
+						 
 						   $http.get(baseUrl+getTotalUrl, {params: {ulbNo: $scope.packageULB}}).success(function (data) {
 						   
 							   $scope.totalSurveyReport = data;

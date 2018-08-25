@@ -481,14 +481,6 @@ mainApp.controller('surveyUserController',
 
 					 /**********************fuction to hide error message********************/
 					
-					/*$('[name=familyHeadName]').click(function(){
-						 $('#fmlyHdNmErr').hide();
-					 });*/
-					
-					/*$('[name=idProofNo]').click(function(){
-						 $('#fthrHusbNmErr').hide();
-					 });*/
-					
 					$scope.idVerify = function idVerify(id)
 					{
 						$scope.idtype = id;
@@ -1497,33 +1489,21 @@ mainApp.controller('surveyUserController',
 							$scope.addSurvey.landAreaPatta=surveyReport.landAreaAsInPatta;
 							$scope.addSurvey.landLength=surveyReport.dimentionOfLandLength;
 							$scope.addSurvey.landBreadth=surveyReport.dimensionOfLandbreadth;
-							// $scope.addSurvey.permanentStreetName
-							// $scope.addSurvey.permanentCity
 							$scope.addSurvey.employmentStatus=surveyReport.employementCategoryId;
-							// $scope.addSurvey.averageIncome=surveyReport.houseRequirementId;
-							// no columns
-							// $scope.addSurvey.employmentStatusName=surveyReport.houseRequirementId;
-							// no columns
 							$scope.addSurvey.incomeProof=surveyReport.incomeProofDocName;
-							// $scope.addSurvey.presentMobileNo
 							$scope.addSurvey.bplRadio=surveyReport.familyHaveBplCard;
 							$scope.addSurvey.bplNo=surveyReport.bplCardNumber;
-							// $scope.addSurvey.permanentHouseNo
 							$scope.addSurvey.rationRadio=surveyReport.familyHaveRationCard;
 							$scope.addSurvey.rationCardNo=surveyReport.rationCardNumber;
-							// $scope.addSurvey
 							$scope.addSurvey.geoLongitude=surveyReport.geoLongitude;
 							$scope.addSurvey.geoLatitude = surveyReport.geoLatitude;
 							$scope.addSurvey.preferredAssistanceHfa=surveyReport.hfaCategoryId;
-							/*$scope.addSurvey.vehicleCategory=surveyReport.vehicleCategoryId;
-							$scope.addSurvey.vehicleRegdNo=surveyReport.vehicleRegistrationNumber;*/
-							// $scope.addSurvey.
 							$scope.addSurvey.bankAccNo=surveyReport.bankAccountNo;
 							$scope.addSurvey.bankName=surveyReport.bankId;
 							$scope.addSurvey.otherBankName=surveyReport.otherBankName;
 							$scope.addSurvey.bankBranchName=surveyReport.branchName;
 							$scope.addSurvey.bankIfscCode=surveyReport.branchIfscCode;
-							// $scope.addSurvey
+
 							$(".memberAdd tr").slice(2).remove();
 							var nameOfFamilyMember = surveyReport.nameOfFamilyMember.split(","); 
 							var relationshipId = surveyReport.relationshipId.split(",");
