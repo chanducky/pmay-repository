@@ -600,9 +600,6 @@ mainApp
 								timer : 3000,
 							})
 							location.reload();
-							/*$scope.getSurveyReports();
-							$('.nav-tabs a[href="#' + "surrpt" + '"]').tab('show');
-							$("#updateSurTab").css({"display" : "block"});*/
 							
 						});
 					}else{
