@@ -15,7 +15,6 @@ mainApp
 					$scope.slumLocationDetailsPicDis = true;
 					$scope.disabledOtherSlumReligion = true;
 					
-					
 					/*************************************************Code For High Chart for Survey Report ********************************************/
 					   Highcharts.setOptions({
 						    colors: ['#FF4210', '#004586']
@@ -74,7 +73,6 @@ mainApp
 							   
 						   })
 					   }
-					   
 					   
 					   $scope.getTotalSurveyReport = function getTotalSurveyReport() {
 						   var getTotalUrl = 'getUlbSurveyReportForSlumNonSlum/';
