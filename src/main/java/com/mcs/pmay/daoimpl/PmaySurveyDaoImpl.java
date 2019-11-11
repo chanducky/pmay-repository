@@ -1396,9 +1396,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 				if(PmayUtil.convertBlankToNull(surveyData.getBplRadio())!=null) {
 					queryString.append(", family_have_bpl_card = ? ");
 				}
-				if(PmayUtil.convertBlankToNull(surveyData.getBplNo())!=null) {
-					queryString.append(", if_yes_bpl_card_number = ? ");
-				}
+				
 				if(PmayUtil.convertBlankToNull(surveyData.getBplNo())!=null) {
 					queryString.append(", if_yes_bpl_card_number = ? ");
 				}
