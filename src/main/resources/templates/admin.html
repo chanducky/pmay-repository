@@ -104,15 +104,15 @@
 								<div class="pm-suptb">
 									<table class="table-responsive">
 										<tr>
-											<th width="25%"><h5>Slum/Non-Slum</h5></th>
-											<th width="25%"><h5>Package 1</h5></th>
-											<th width="25%"><h5>Package 4</h5></th>
-											<th width="25%"><h5>G.Total</h5></th>
+											<th width="50%"><h5>Slum/Non-Slum</h5></th>
+											<!-- <th width="25%"><h5>Package 1</h5></th>
+											<th width="25%"><h5>Package 4</h5></th> -->
+											<th width="50%"><h5>G.Total</h5></th>
 										</tr>
 										<tr ng-repeat="pkgData in admin.pkgWiseStats">
 											<td class="text-center">{{pkgData.slumType}}</td>
-											<td class="text-center">{{pkgData.pkg1}}</td>
-											<td class="text-center">{{pkgData.pkg4}}</td>
+											<!-- <td class="text-center">{{pkgData.pkg1}}</td>
+											<td class="text-center">{{pkgData.pkg4}}</td> -->
 											<td class="text-center">{{pkgData.pkg1+pkgData.pkg4}}</td>
 
 										</tr>
@@ -122,7 +122,7 @@
 							</div>
 	
 							<div class="clearfix"></div>
-	
+<!-- 	
 							<div id="distwise-stats" style="width: 50%;margin-left: 25%;">
 								<div class="pm-suptb">
 									<table class="table-responsive">
@@ -131,7 +131,7 @@
 											<th width="20%"><h5>District Name</h5></th>
 											<th width="20%"><h5>Slum</h5></th>
 											<th width="20%"><h5>Non-Slum</h5></th>
-											<!-- <th>BLC</th> -->
+											<th>BLC</th>
 											<th width="20%"><h5>Total</h5></th>
 										</tr>
 										<tr ng-repeat="distData in admin.distWiseStats">
@@ -139,14 +139,14 @@
 											<td class="text-center">{{distData.distName}}</td>
 											<td class="text-center">{{distData.slum}}</td>
 											<td class="text-center">{{distData.nonSlum}}</td>
-											<!-- <td class="text-center">{{distData.blc}}</td> -->
+											<td class="text-center">{{distData.blc}}</td>
 											<td class="text-center">{{distData.slum+distData.nonSlum}}</td>
 
 										</tr>
 									</table>
 								</div>
 							</div>
-							<div class="clearfix"></div>
+							<div class="clearfix"></div> -->
 
 							<div class="mn-hmpmay">
                             <div class="row m-50">
@@ -163,7 +163,7 @@
 												ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
 												<option selected="selected" ng-selected="true" value="ALL">ALL</option>
 
-												<option value="12,43,24,34,44">Balangir</option>
+<!-- 												<option value="12,43,24,34,44">Balangir</option>
 												<option value="12">&nbsp;&nbsp;&nbsp;Bolangir (M) </option>
 												<option value="43">&nbsp;&nbsp;&nbsp;Titlagarh (N)</option>
 												<option value="24">&nbsp;&nbsp;&nbsp;Kantabanji (N)</option>
@@ -204,9 +204,9 @@
 												<option value="22">&nbsp;&nbsp;&nbsp;Joda (M) </option>
 												<option value="25">&nbsp;&nbsp;&nbsp;Keonjhargarh (M) </option>
 
-												<option value="10,21,28,4,5">Khordha</option>
-												<option value="10">&nbsp;&nbsp;&nbsp;Bhubaneswar (MC)</option>
-												<option value="21">&nbsp;&nbsp;&nbsp;Jatni (M) </option>
+												<option value="10,21,28,4,5">Khordha</option> -->
+												<option value="1,10">Bhubaneswar (MC)</option>
+												<!-- <option value="21">&nbsp;&nbsp;&nbsp;Jatni (M) </option>
 												<option value="28">&nbsp;&nbsp;&nbsp;Khordha (M)</option>
 												<option value="4">&nbsp;&nbsp;&nbsp;Balugaon (N)</option>
 												<option value="5">&nbsp;&nbsp;&nbsp;Banpur (N)</option>
@@ -233,7 +233,7 @@
 												<option value="41">&nbsp;&nbsp;&nbsp;Sonepur (M) </option>
 												<option value="11">&nbsp;&nbsp;&nbsp;Binika (N)</option>
 												<option value="42">&nbsp;&nbsp;&nbsp;Tarva (N) </option>
-
+ -->
 											</select>
 										</div>
 							    </div>

@@ -1403,6 +1403,6 @@ mainApp
 							});
 						}
 						
-						$scope.getDistWiseStats();
+						// $scope.getDistWiseStats();
 					// end of controller
 				});

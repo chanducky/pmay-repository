@@ -266,10 +266,11 @@ public class PmayUtil {
 	public static void main(String[] args) throws IOException {
 		//boolean status = PmayUtil.sendOtp("8652311521", "test otp");
 		
-		boolean status = PmayUtil.sendOtpMsg91("8651", "test otp msg 91");
+		//boolean status = PmayUtil.sendOtpMsg91("8652311521", "test otp msg 91");
 		
+		String password = PmayUtil.encryptPassword("Super@4295");
 		
-		
-		System.out.println(" status = " + status);
+		System.out.println(password);
+		//System.out.println(" status = " + status);
 	}
 }

@@ -933,8 +933,7 @@ public class PmaySurveyDaoImpl implements PmaySurveyDao {
 								surveyData.getApplicantSignature().getOriginalFilename().length());
 
 			}else {
-				hmap.put("success", status);
-				return hmap;
+				applicantSignatureName=null;
 			}
 			
 			if (surveyData.getBiometricDetails() != null) {

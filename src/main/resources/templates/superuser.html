@@ -161,7 +161,7 @@
 												ng-change="getTodaySurveyReport() ; getTotalSurveyReport()">
 												<option selected="selected" ng-selected="true" value="ALL">ALL</option>
 
-												<option value="12,43,24,34,44">Balangir</option>
+							<!-- 					<option value="12,43,24,34,44">Balangir</option>
 												<option value="12">&nbsp;&nbsp;&nbsp;Bolangir (M) </option>
 												<option value="43">&nbsp;&nbsp;&nbsp;Titlagarh (N)</option>
 												<option value="24">&nbsp;&nbsp;&nbsp;Kantabanji (N)</option>
@@ -202,9 +202,9 @@
 												<option value="22">&nbsp;&nbsp;&nbsp;Joda (M) </option>
 												<option value="25">&nbsp;&nbsp;&nbsp;Keonjhargarh (M) </option>
 
-												<option value="10,21,28,4,5">Khordha</option>
-												<option value="10">&nbsp;&nbsp;&nbsp;Bhubaneswar (MC)</option>
-												<option value="21">&nbsp;&nbsp;&nbsp;Jatni (M) </option>
+												<option value="10,21,28,4,5">Khordha</option> -->
+												<option value="1,10">&nbsp;&nbsp;&nbsp;Bhubaneswar (MC)</option>
+												<!-- <option value="21">&nbsp;&nbsp;&nbsp;Jatni (M) </option>
 												<option value="28">&nbsp;&nbsp;&nbsp;Khordha (M)</option>
 												<option value="4">&nbsp;&nbsp;&nbsp;Balugaon (N)</option>
 												<option value="5">&nbsp;&nbsp;&nbsp;Banpur (N)</option>
@@ -231,7 +231,7 @@
 												<option value="41">&nbsp;&nbsp;&nbsp;Sonepur (M) </option>
 												<option value="11">&nbsp;&nbsp;&nbsp;Binika (N)</option>
 												<option value="42">&nbsp;&nbsp;&nbsp;Tarva (N) </option>
-
+ -->
 											</select>
 									 </div>
 							    </div>
@@ -365,7 +365,7 @@
 											<tr>
 												<th><input type="checkbox" name="selectall" ng-model="selectedAll" ng-click ="selectAllSurveyReportData()" ng-init="selectedAll = true"/></th>
 												<th><h5>Sl No.</h5></th>
-												<th><h5>Surveyor RMN</h5></th>
+												<th><h5>Ward No</h5></th>
 												<th><h5>Survey ID</h5></th>
 												<th><h5>Aadhaar No</h5></th>
 												<th><h5>Name</h5></th>
@@ -387,7 +387,7 @@
 											<tr ng-repeat="surveyReport in superUser.surveyReportData">
 												<td><input type="checkbox" name="selectedSuperUserReportSurveyId" ng-model ="superUserReport.selectedId[surveyReport.userSurveyId]" ng-init="superUserReport.selectedId[surveyReport.userSurveyId] = true" /></td>
 												<td class="text-center">{{(currentPage-1) * pageSize+ $index+1}}</td>
-												<td>{{surveyReport.presentMobNo ? surveyReport.presentMobNo : surveyReport.userRMN}}</td>
+												<td>{{surveyReport.wardName ? surveyReport.wardName : ""}}</td>
 												<td>{{surveyReport.userSurveyId}}</td>
 												<td>{{surveyReport.adharNumber ? surveyReport.adharNumber : surveyReport.aadharCardNumber}}</td>
 												<td>{{surveyReport.userName ? surveyReport.userName : surveyReport.familyHead}}</td>
