@@ -1017,6 +1017,6 @@ mainApp
 							});
 						}
 						
-						$scope.getDistWiseStats();
+						// $scope.getDistWiseStats();
 					   
 				});

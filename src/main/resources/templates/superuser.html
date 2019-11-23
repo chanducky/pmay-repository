@@ -95,15 +95,15 @@
 								<div class="pm-suptb">
 									<table class="table-responsive">
 										<tr>
-											<th width="25%"><h5>Slum/Non-Slum</h5></th>
-											<th width="25%"><h5>Package 1</h5></th>
-											<th width="25%"><h5>Package 4</h5></th>
-											<th width="25%"><h5>G.Total</h5></th>
+											<th width="50%"><h5>Slum/Non-Slum</h5></th>
+<!-- 											<th width="25%"><h5>Package 1</h5></th>
+											<th width="25%"><h5>Package 4</h5></th> -->
+											<th width="50%"><h5>G.Total</h5></th>
 										</tr>
 										<tr ng-repeat="pkgData in superUser.pkgWiseStats">
 											<td class="text-center">{{pkgData.slumType}}</td>
-											<td class="text-center">{{pkgData.pkg1}}</td>
-											<td class="text-center">{{pkgData.pkg4}}</td>
+<!-- 											<td class="text-center">{{pkgData.pkg1}}</td>
+											<td class="text-center">{{pkgData.pkg4}}</td> -->
 											<td class="text-center">{{pkgData.pkg1+pkgData.pkg4}}</td>
 
 										</tr>
@@ -113,7 +113,7 @@
 							</div>
 							<div class="clearfix"></div>
 							
-							<div id="distwise-stats" style="width: 50%;margin-left: 25%;">
+<!-- 							<div id="distwise-stats" style="width: 50%;margin-left: 25%;">
 								<div class="pm-suptb">
 									<table class="table-responsive">
 										<tr>
@@ -121,7 +121,7 @@
 											<th width="20%"><h5>District Name</h5></th>
 											<th width="20%"><h5>Slum</h5></th>
 											<th width="20%"><h5>Non-Slum</h5></th>
-											<!-- <th>BLC</th> -->
+											<th>BLC</th>
 											<th width="20%"><h5>Total</h5></th>
 										</tr>
 										<tr ng-repeat="distData in superUser.distWiseStats">
@@ -129,14 +129,14 @@
 											<td class="text-center">{{distData.distName}}</td>
 											<td class="text-center">{{distData.slum}}</td>
 											<td class="text-center">{{distData.nonSlum}}</td>
-											<!-- <td class="text-center">{{distData.blc}}</td> -->
+											<td class="text-center">{{distData.blc}}</td>
 											<td class="text-center">{{distData.slum+distData.nonSlum}}</td>
 
 										</tr>
 									</table>
 								</div>
 								<div class="clearfix"></div>
-							</div>
+							</div> -->
 
 							<div class="mn-hmpmay">
                            <!--  <div class="rdo-pmay">
